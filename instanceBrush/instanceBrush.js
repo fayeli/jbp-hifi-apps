@@ -29,7 +29,7 @@
 // get properties from webpage thing
 
 
-
+Script.include('cloner.js')
 
 var MAPPING_NAME = "com.highfidelity.instanceBrush";
 
@@ -49,20 +49,22 @@ Brush.prototype = {
         this.createMapping();
         this.disableGrab();
         this.targetEntity = Entities.addEntity({
-            name:'Hifi-Instance-Target-Entity',
-            position:MyAvatar.position,
-            type:'Sphere',
-            dimensions:{
-                x:0.1,
-                y:0.1,
-                z:0.1
+            name: 'Hifi-Instance-Target-Entity',
+            position: MyAvatar.position,
+            type: 'Sphere',
+            dimensions: {
+                x: 0.1,
+                y: 0.1,
+                z: 0.1
             },
-            color:{
-                red:255,
-                green:0,
-                blue:255
+            color: {
+                red: 255,
+                green: 0,
+                blue: 255
             },
-            visible:true
+            collisionless: true,
+            collidesWith: '',
+            visible: true
         });
     },
 
@@ -73,67 +75,50 @@ Brush.prototype = {
         Controller.enableMapping(MAPPING_NAME);
     },
 
-
     updateTargetEntity: function(intersection) {
-            
-            print('target entity is: '+this.targetEntity)
-            print('updating target position to: '+ JSON.stringify(intersection.intersection));
-            var targetProps = Entities.getEntityProperties(this.targetEntity);
+        var targetProps = Entities.getEntityProperties(this.targetEntity);
+        var position = {
+            x: intersection.intersection.x,
+            y: intersection.intersection.y + targetProps.dimensions.y / 2,
+            z: intersection.intersection.z
+        }
+        Entities.editEntity(this.targetEntity, {
+            position: position
+        });
 
-            var position = {
-                x:intersection.intersection.x,
-                y:intersection.intersection.y + targetProps.dimensions.y/2,
-                z:intersection.intersection.z
-            }
-         //   print('target is:: ' + JSON.stringify(Entities.getEntityProperties(this.targetEntity)))
-            Entities.editEntity(this.targetEntity, {
-                position: position
-            });
 
-     
     },
 
     handleRightTrigger: function(value) {
-        print('right trigger value::' + value);
-        if(value===0){
-             var targetProps = Entities.getEntityProperties(_this.targetEntity);
-        var lastAdded = Entities.addEntity(targetProps);  
+        if (value === 0) {
+            var targetProps = Entities.getEntityProperties(_this.targetEntity);
+            _this.copy.position = targetProps.position;
+            var lastAdded = Entities.addEntity(_this.copy);
         }
-     
+
     },
 
     handleLeftTrigger: function(value) {
-        print('left trigger value:: ' + value);
 
         var leftIntersection = Entities.findRayIntersection(_this.leftPickRay, true);
 
         if (leftIntersection.intersects) {
-            print('LEFT INTERSECTION :: ');
             _this.pickInstance(leftIntersection);
         };
 
     },
 
-    paintInstance: function(position) {
-
-        if (this.targetProps !== null) {
-            this.targetProps.position = position;
-            Entities.addEntity(this.targetProps);
-        } else {
-            print('pick something first!!');
-        }
-
-    },
-
     pickInstance: function(leftIntersection) {
-        print('pick instance:: ' + leftIntersection.entityID);
-        print('target entity in pick: ' + this.targetEntity);
-        print('before edit in pick')
         Entities.deleteEntity(this.targetEntity);
-        this.targetEntity=Entities.addEntity(leftIntersection.properties);
-        print('after edit in pick')
+
+        this.copy = cloner.shallow.copy(leftIntersection.properties)
+
+        leftIntersection.properties.collisionless = 1;
+        leftIntersection.properties.collidesWith = '';
+        this.targetEntity = Entities.addEntity(leftIntersection.properties);
 
     },
+
     disableGrab: function() {
         Messages.sendLocalMessage('Hifi-Hand-Disabler', 'both');
     },
@@ -161,10 +146,9 @@ Brush.prototype = {
             green: 0,
             blue: 0
         });
-        var rightIntersection = Entities.findRayIntersection(_this.rightPickRay, true,[],[this.targetEntity]);
+        var rightIntersection = Entities.findRayIntersection(_this.rightPickRay, true, [], [this.targetEntity]);
 
         if (rightIntersection.intersects) {
-            print('RIGHT INTERSECTION :: ');
             this.updateTargetEntity(rightIntersection);
         };
     },
@@ -264,14 +248,20 @@ Brush.prototype = {
         }
     },
 
+    rotateTargetWithHand: function() {
+
+    }
+
+
+
 }
 
 function cleanup(brush) {
-    // Controller.disableMapping(MAPPING_NAME);
+    Controller.disableMapping(MAPPING_NAME);
     brush.enableGrab();
     brush.rightOverlayOff();
     brush.leftOverlayOff();
-    Entities.deleteEntity(this.targetEntity);
+    Entities.deleteEntity(_this.targetEntity);
     Script.update.disconnect(brush.update);
 }
 
@@ -282,3 +272,22 @@ Script.scriptEnding.connect(function() {
 })
 
 Script.update.connect(brush.update)
+
+
+//utilities
+
+function assign(target) {
+    for (var
+            hOP = Object.prototype.hasOwnProperty,
+            copy = function(key) {
+                if (!hOP.call(target, key)) {
+                    Object.defineProperty(
+                        target,
+                        key,
+                        Object.getOwnPropertyDescriptor(this, key)
+                    );
+                }
+            },
+            i = arguments.length; 1 < i--; Object.keys(arguments[i]).forEach(copy, arguments[i])) {}
+    return target;
+}
