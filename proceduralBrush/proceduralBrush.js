@@ -2,17 +2,92 @@
 // this brush lets you 'paint' a group entities onto a surface
 // with variation
 
+// v1
+//set of predefined instances
+// left trigger to shuffle
+// right trigger and release to place
+// prevent overlap -- could use a square instead of a circle, make it a grid, and remove tiles from being 'active' once they are filled with an entity
+
+
+// v2
+// hold right trigger and rotate to rotate
+// hold right trigger and move hand to scale
+
+// v3
+// undo / redo
+
+//v awesome 
+//learn parameters of object distributions within a given volume
+
 Script.include('cloner.js')
 
 var MAPPING_NAME = "com.highfidelity.proceduralBrush";
 var START_VARIABILITY = 0.5;
-var START_TARGET_RADIUS = 0.5;
+var START_TARGET_LENGTH = 2;
+var START_TARGET_WIDTH =2;
 var _this;
 
-
-var TEST_ENTITIES = [
+var TARGET_MODEL = ""
+var TEST_INSTANCES = [
 {
-    type:'box'
+    type:'Box',
+    color:{
+        red:255,
+        green:0,
+        blue:0
+    },
+    dimensions:{
+        x:1,
+        z:1,
+        y:1
+    },
+    collisionless:true,
+    collidesWith:''
+},
+{
+    type:'Box',
+    color:{
+        red:255,
+        green:0,
+        blue:0
+    },
+    dimensions:{
+        x:1,
+        z:1,
+        y:0.5
+    },
+    collisionless:true,
+    collidesWith:''
+},
+{
+    type:'Box',
+    color:{
+        red:255,
+        green:0,
+        blue:255
+    },
+    dimensions:{
+        x:0.5,
+        z:0.5,
+        y:1
+    },
+    collisionless:true,
+    collidesWith:''
+},
+{
+    type:'Box',
+    color:{
+        red:255,
+        green:0,
+        blue:0
+    },
+    dimensions:{
+        x:1,
+        z:1,
+        y:1
+    },
+    collisionless:true,
+    collidesWith:''
 },
 ]
 
@@ -24,13 +99,12 @@ function Brush() {
 
 Brush.prototype = {
     targetProps: null,
+    targetInstances:
     rightOverlayLine: null,
     leftOverlayLine: null,
     variabilty: null,
-    targetRadius: null,
     initialize: function() {
         this.variabilty = START_VARIABILITY;
-        this.targetRadius = START_TARGET_RADIUS;
         this.createMapping();
         this.disableGrab();
         this.targetEntity = Entities.addEntity({
@@ -97,15 +171,21 @@ Brush.prototype = {
         _this.distributeInstancesRandomlyAroundCircle();
     },
 
-    distributeInstancesRandomlyAroundCircle: function() {
-        var numberOfItems = 4;
-        var radius = this.targetRadius;
-        var angle = Math.random() * 2 * Math.PI;
-        var radiusSquared = Math.random() * radius * radius;
-        var x = Math.sqrt(radiusSquared) * Math.cos(angle);
-        var z = Math.sqrt(radiusSquared) * Math.sin(angle);
-        return [x, z];
+    distrubteInstancesRandomlyAcrossGrid:function(){
+        var gridWidth = 20;
+        var gridHeight = 20;
+        var availableTiles =[]
     },
+
+    // distributeInstancesRandomlyAroundCircle: function() {
+    //     var numberOfItems = 4;
+    //     var radius = this.targetRadius;
+    //     var angle = Math.random() * 2 * Math.PI;
+    //     var radiusSquared = Math.random() * radius * radius;
+    //     var x = Math.sqrt(radiusSquared) * Math.cos(angle);
+    //     var z = Math.sqrt(radiusSquared) * Math.sin(angle);
+    //     return [x, z];
+    // },
 
     increaseVariability: function(amount) {
         this.variabilty += amount;
@@ -115,11 +195,11 @@ Brush.prototype = {
         this.variabilty -= amount;
     },
     increaseScale: function(amount) {
-        this.variabilty += amount;
+        this.scale += amount;
 
     },
     decreaseScale: function(amount) {
-        this.variabilty -= amount;
+        this.scale -= amount;
     },
 
     pickInstance: function(leftIntersection) {
