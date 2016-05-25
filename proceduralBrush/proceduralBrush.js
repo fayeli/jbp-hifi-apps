@@ -6,7 +6,6 @@
 //set of predefined instances
 // left trigger to shuffle
 // right trigger and release to place
-// prevent overlap -- could use a square instead of a circle, make it a grid, and remove tiles from being 'active' once they are filled with an entity
 
 
 // v2
@@ -24,72 +23,67 @@ Script.include('cloner.js')
 var MAPPING_NAME = "com.highfidelity.proceduralBrush";
 var START_VARIABILITY = 0.5;
 var START_TARGET_LENGTH = 2;
-var START_TARGET_WIDTH =2;
+var START_TARGET_WIDTH = 2;
 var _this;
 
 var TARGET_MODEL = ""
-var TEST_INSTANCES = [
-{
-    type:'Box',
-    color:{
-        red:255,
-        green:0,
-        blue:0
+var TEST_INSTANCES = [{
+    type: 'Box',
+    color: {
+        red: 255,
+        green: 0,
+        blue: 0
     },
-    dimensions:{
-        x:1,
-        z:1,
-        y:1
+    dimensions: {
+        x: 1,
+        z: 1,
+        y: 1
     },
-    collisionless:true,
-    collidesWith:''
-},
-{
-    type:'Box',
-    color:{
-        red:255,
-        green:0,
-        blue:0
+    collisionless: true,
+    collidesWith: ''
+}, {
+    type: 'Box',
+    color: {
+        red: 255,
+        green: 255,
+        blue: 0
     },
-    dimensions:{
-        x:1,
-        z:1,
-        y:0.5
+    dimensions: {
+        x: 1,
+        z: 1,
+        y: 0.5
     },
-    collisionless:true,
-    collidesWith:''
-},
-{
-    type:'Box',
-    color:{
-        red:255,
-        green:0,
-        blue:255
+    collisionless: true,
+    collidesWith: ''
+}, {
+    type: 'Box',
+    color: {
+        red: 0,
+        green: 0,
+        blue: 255
     },
-    dimensions:{
-        x:0.5,
-        z:0.5,
-        y:1
+    dimensions: {
+        x: 0.5,
+        z: 0.5,
+        y: 1
     },
-    collisionless:true,
-    collidesWith:''
-},
-{
-    type:'Box',
-    color:{
-        red:255,
-        green:0,
-        blue:0
+    collisionless: true,
+    collidesWith: ''
+}, {
+    type: 'Box',
+    color: {
+        red: 0,
+        green: 255,
+        blue: 0
     },
-    dimensions:{
-        x:1,
-        z:1,
-        y:1
+    dimensions: {
+        x: 1,
+        z: 1,
+        y: 1
     },
-    collisionless:true,
-    collidesWith:''
-},
-]
+    collisionless: true,
+    collidesWith: ''
+}, ]
 
 function Brush() {
     _this = this;
@@ -99,10 +93,12 @@ function Brush() {
 
 Brush.prototype = {
     targetProps: null,
-    targetInstances:
+    targetInstances: [],
     rightOverlayLine: null,
     leftOverlayLine: null,
-    variabilty: null,
+    variabilty: 0.5,
+    gridWidth: 1,
+    gridLength: 1,
     initialize: function() {
         this.variabilty = START_VARIABILITY;
         this.createMapping();
@@ -125,6 +121,23 @@ Brush.prototype = {
             collidesWith: '',
             visible: true
         });
+    },
+
+    createTargetGrid: function() {
+        var gridProperties = {
+            type: 'Model',
+            name: 'procedural_brush_grid'
+            collisionless: true,
+            collidesWith: '',
+            visible: true,
+            modelURL: GRID_MODEL_URL,
+            dimensions: {
+                x: this.gridWidth,
+                y: 0.1,
+                z: this.gridLength
+            }
+        }
+        this.targetGrid = Entities.addEntity(gridProperties)
     },
 
     createMapping: function() {
@@ -162,19 +175,83 @@ Brush.prototype = {
         var leftIntersection = Entities.findRayIntersection(_this.leftPickRay, true);
 
         if (leftIntersection.intersects) {
-         _this.shuffleInstances();
+            _this.shuffleInstances();
         };
 
     },
 
-    shuffleInstances:function(){
-        _this.distributeInstancesRandomlyAroundCircle();
+    shuffleInstances: function() {
+        _this.distrubteInstancesRandomlyAcrossGrid();
     },
 
-    distrubteInstancesRandomlyAcrossGrid:function(){
-        var gridWidth = 20;
-        var gridHeight = 20;
-        var availableTiles =[]
+    calculateMeanSideForAllInstances: function() {
+        var total = 0;
+        this.targetInstances.forEach(function(item) {
+            var props = Entities.getEntityProperties(item);
+            var width = Entities.dimensions.x;
+            var length = Entities.dimensions.y;
+            var avgWidth = (width + length) / 2;
+            total += avg;
+        });
+        var mean = total / targetInstances.length;
+        return mean
+    },
+
+    distrubteInstancesRandomlyAcrossGrid: function(intersectionPoint) {
+        var attempts = 200;
+
+
+        var placedInstances = [];
+        var unplacedInstances = [];
+
+        //dimensions and position
+
+        this.targetInstances.forEach(function(instance) {
+            var copy = cloner.shallow.copy(instance);
+            unplacedInstances.push(copy)
+        })
+
+
+        //for each unplaced instance
+        // while there are attempts and unplaced instances
+        // pick a random point
+        // for each placed instance get distance btw random point and placed instance
+        // if distance btw point and any distance is less than 1/2 of the largest side of both instances, try again
+        unplacedInstances.forEach(function(instance, index) {
+            while (attempts > 0) {
+                var randomX = getRandomArbitrary(-this.gridWidth / 2, this.gridWidth / 2)
+                var randomZ = getRandomArbitrary(-this.gridLength / 2, this.gridLength / 2);
+                var randomPoint = {
+                    x: intersectionPoint.x + randomX,
+                    y: intersectionPoint.y,
+                    z: intersectionPoint + randomZ
+                };
+
+                instance.position = randomPoint;
+
+                var DISTANCE_THRESHOLD = 0.25;
+                if (placedInstances.length === 0) {
+                    placedInstances[0] = cloner.shallow.copy(instance)
+                }
+                
+                placedInstances.forEach(function(instance) {
+                    var distance = Vec3.distance(instance.position, randomPoint);
+                    var largestSide = Math.max(item.dimensions.x, item.dimensions.z)
+
+                    if (distance < DISTANCE_THRESHOLD) {
+                        print('TOO CLOSE, DONT PLACE')
+                    } else {
+                        print('HAS ENOUGH ROOM, PLACE')
+                        placedInstances.push(randomPoint);
+                    }
+                })
+
+                attempts--;
+            }
+
+        });
+
+
     },
 
     // distributeInstancesRandomlyAroundCircle: function() {
@@ -345,22 +422,22 @@ Brush.prototype = {
 
     },
 
-    rotateInstancesInGroup:function(amount){
-        this.targetGroup.forEach(function(instance){
+    rotateInstancesInGroup: function(amount) {
+        this.targetGroup.forEach(function(instance) {
             var props = Entities.getEntityProperties(instance);
             var rotationDegrees = Quat.safeEuler(props.rotation);
-            rotationDegrees.y=rotationDegrees.y+amount;
+            rotationDegrees.y = rotationDegrees.y + amount;
             Entities.editEntity({
-                rotation:Quat.fromPitchYawRollDegrees(rotationDegrees)
+                rotation: Quat.fromPitchYawRollDegrees(rotationDegrees)
             })
         });
     },
 
-    scaleInstancesInGroup:function(amount){
-        this.targetGroup.forEach(function(instance){
+    scaleInstancesInGroup: function(amount) {
+        this.targetGroup.forEach(function(instance) {
             var props = Entities.getEntityProperties(instance);
             Entities.editEntity({
-                dimensions:Vec3.multiply(amount,props.dimensions)
+                dimensions: Vec3.multiply(amount, props.dimensions)
             })
         });
     }
@@ -385,3 +462,8 @@ Script.scriptEnding.connect(function() {
 });
 
 Script.update.connect(brush.update);
+
+//utilities
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
