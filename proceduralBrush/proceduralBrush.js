@@ -20,7 +20,7 @@
 
 Script.include('cloner.js')
 
-var MAPPING_NAME = "com.highfidelity.proceduralBrush";
+var MAPPING_NAME = "com.highfidelity.proceduralBrush.dev."+Math.random();
 var START_VARIABILITY = 0.5;
 var START_TARGET_LENGTH = 2;
 var START_TARGET_WIDTH = 2;
@@ -231,9 +231,12 @@ Brush.prototype = {
 
                 var DISTANCE_THRESHOLD = 0.25;
                 if (placedInstances.length === 0) {
+                    //the first one goes right on
                     placedInstances[0] = cloner.shallow.copy(instance)
+                }else{
+
                 }
-                
+
                 placedInstances.forEach(function(instance) {
                     var distance = Vec3.distance(instance.position, randomPoint);
                     var largestSide = Math.max(item.dimensions.x, item.dimensions.z)
@@ -250,6 +253,8 @@ Brush.prototype = {
             }
 
         });
+
+        print('PLACED INSTANCES: ' + JSON.stringify(placedInstances));
 
 
     },
