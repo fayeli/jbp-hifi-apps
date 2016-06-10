@@ -16,9 +16,6 @@
             _this.findSimilarEntities();
             _this.attachSimilarEntities();
         },
-        continueNearGrab: function() {
-
-        },
         findSimilarEntities: function() {
             print('finding entities')
             var results = Entities.findEntities(_this.props.position, 50);
