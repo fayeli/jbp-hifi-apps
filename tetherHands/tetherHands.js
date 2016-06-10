@@ -12,16 +12,20 @@
             this.destroyTetherHands();
         },
         enterEntity: function() {
+            print('enter entity tetherHands')
             this.createTetherHands();
+            print('after entity enter tetherHands')
         },
         leaveEntity: function() {
+            print('leave entity tetherHands')
             this.destroyTetherHands();
         },
         createTetherHands: function() {
+            print('creating tether hands')
             var boxProps = {
                 type: 'Box',
                 shapeType: 'box',
-                dynamic: true,
+                dynamic: false,
                 color: {
                     red: 255,
                     green: 0,
@@ -35,27 +39,30 @@
                 }
             }
 
-            var leftHandPosition = MyAvatar.getLeftPalmPosition();
-            var rightHandPosition = MyAvatar.getRightPalmPosition();
 
             var left = MyAvatar.getJointIndex('LeftHandMiddle2');
             var right = MyAvatar.getJointIndex('RightHandMiddle2');
 
-            boxProps.position = leftHandPosition;
+            delete boxProps.localPosition;
+            delete boxProps.localRotation;
             boxProps.parentID = MyAvatar.sessionUUID;
             boxProps.parentJointIndex = left;
             this.leftBox = Entities.addEntity(boxProps);
+            print('leftBox ' + this.leftBox)
 
-            boxProps.position = rightHandPosition;
             boxProps.parentID = MyAvatar.sessionUUID;
             boxProps.parentJointIndex = right;
             this.rightBox = Entities.addEntity(boxProps);
+            print('rightBox ' + this.rightBox)
 
         },
 
         destroyTetherHands: function() {
+            print('destroyTetherHands')
             Entities.deleteEntity(this.leftBox);
             Entities.deleteEntity(this.rightBox);
         }
     }
+
+    return new TetherHands();
 })
