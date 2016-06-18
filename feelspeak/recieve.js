@@ -4,19 +4,19 @@ var loudnessFactor = 0.05;
 
 function handleMessages(channel, message, sender) {
     print('GOT MESSAGE')
-    if (sender !== MyAvatar.sessionUUID) {
-        if (channel === 'feelspeak') {
-            messagesReceivedCount++;
-            print('sendIndex/receiveCount::' + message + "/" + messagesReceivedCount);
-        }
+        // if (sender === MyAvatar.sessionUUID) {
+        //     return
+        // }
 
+    if (channel === 'feelspeak') {
+        messagesReceivedCount++;
+        print('sendIndex/receiveCount::' + message + "/" + messagesReceivedCount);
     }
 }
 
 function vibrateControllers(loudness) {
-    var strength = scale(loudness,0,100,0,1)
-
-    //strength, duration, hand
+    var strength = scale(loudness, 0, 100, 0, 1)
+        //strength, duration, hand
     Controller.triggerHapticPulse(strength, 1, 2)
 }
 
