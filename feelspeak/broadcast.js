@@ -5,7 +5,7 @@ function broadcastSoundEnergy() {
     }
 
     Messages.sendMessage('feelspeak', JSON.stringify(data))
-        print('DATA IS' + loudness);
+        // print('DATA IS' + loudness);
 }
 
 Script.update.connect(broadcastSoundEnergy);
