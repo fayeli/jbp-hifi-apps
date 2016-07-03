@@ -1,0 +1,31 @@
+{
+    "Entities": [
+        {
+            "clientOnly": 0,
+            "collidesWith": "static,dynamic,kinematic,",
+            "collisionMask": 7,
+            "collisionsWillMove": 1,
+            "created": "2016-07-03T20:40:49Z",
+            "dimensions": {
+                "x": 0.0099999997764825821,
+                "y": 0.30000001192092896,
+                "z": 0.0099999997764825821
+            },
+            "dynamic": 1,
+            "id": "{bffcfcec-7dea-4de4-b1bb-e968b0ff7078}",
+            "modelURL": "atp:/test3.fbx",
+            "name": "test3.fbx",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "queryAACube": {
+                "scale": 0.300333172082901,
+                "x": -0.1501665860414505,
+                "y": -0.1501665860414505,
+                "z": -0.1501665860414505
+            },
+            "script": "http://somescript.js",
+            "type": "Model",
+            "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
+        }
+    ],
+    "Version": 61
+}
