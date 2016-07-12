@@ -1,14 +1,24 @@
+var initialized = false;
+var secondaryInit = false;
+var center = {
+    x: 1000,
+    y: 1000,
+    z: 1000
+};
+
+
+EntityViewer.setPosition(center);
+EntityViewer.setKeyholeRadius(60000);
+var octreeQueryInterval = Script.setInterval(function() {
+    EntityViewer.queryOctree();
+}, 100);
+
 var API_ENDPOINT = 'https://ju7ebcvgv5.execute-api.us-east-1.amazonaws.com/prod/getTemporaryDomains';
 var STATION_MODEL_URL = 'http://hifi-content.s3.amazonaws.com/james/grandcentral/03_FBX_scbL_dark.FBX';
 var SPACER = 1.2;
 
 var teleporterScript = Script.resolvePath('teleporterEntity.js')
 
-var center = {
-    x: 1000,
-    y: 1000,
-    z: 1000
-};
 
 function getDomains() {
     var request = new XMLHttpRequest();
@@ -225,16 +235,40 @@ function getRotationTowardCenter(position) {
 }
 
 function clearAllStations() {
-    var results = Entities.findEntities(center, 1000);
-    results.forEach(function(result) {
-        var properties = Entities.getEntityProperties(result);
-        if (properties.hasOwnProperty('description') && properties.description.indexOf('destination:') > -1) {
-            Entities.deleteEntity(result);
-        }
-    })
+    var results = Entities.findEntities(center, 10000);
+    print('RESULTS LENGTH AT CLEAR: ' + results.length)
+    print('typeof results: ' + typeof results)
+    var i;
+    if(results.length===0){
+        print('results -- none, returning')
+        return;
+    }
+    var success = Entities.deleteEntity(results[1]);
+    print('results deleted one?' + success)
+    for (i = 0; i < results.length; i++) {
+        var s = results[i];
+        s = s.slice(1, s.length - 1);
+            var success = Entities.deleteEntity(results[i]);
+
+            // Entities.deleteEntity(results[i].toString());
+                    print('results deleted entity? '+ ": " + s)
+
+        // var success = Entities.deleteEntity(s);
+
+    }
+    // results.forEach(function(result) {
+    //                 Entities.deleteEntity(result);
+
+    //     // var properties = Entities.getEntityProperties(result);
+    //     // if (properties.hasOwnProperty('description') && properties.description.indexOf('destination:') > -1) {
+    //     //     Entities.deleteEntity(result);
+    //     // }
+    // })
+    createStations();
 };
 
 function createStations() {
+    print('results should create station')
     var domains = getDomains();
     var pointsAroundCircle = distributePointsAroundCircle(center, domains.length, SPACER * domains.length / 4, SPACER * domains.length / 4, false)
     domains.forEach(function(domain) {
@@ -253,18 +287,16 @@ function createStations() {
 
 function refresh() {
     clearAllStations();
-    Script.setTimeout(function() {
-        createStations();
-        print('after create stations')
-        //Script.stop();
-    }, 1000);
-}
 
-// Script.setInterval(function(){
-// },5000)
+}
 
 refresh();
 
-// Script.scriptEnding.connect(function() {
-//     clearAllStations();
-// })
+var refreshInterval = Script.setInterval(function() {
+    refresh();
+}, 10000)
+
+Script.scriptEnding.connect(function() {
+    Script.clearInterval(refreshInterval);
+    Script.clearInterval(octreeQueryInterval);
+})
