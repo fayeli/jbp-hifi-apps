@@ -5,7 +5,7 @@ var SPACER = 1.2;
 var teleporterScript = Script.resolvePath('teleporterEntity.js')
 
 var center = {
-    x: 1000,
+    x: 1010,
     y: 1000,
     z: 1000
 };
@@ -58,13 +58,18 @@ function createSingleOpenStation(position, parent, domain) {
         position: position,
         // type: 'Model',
         // modelURL: STATION_MODEL_URL,
-        rotation: getRotationTowardCenter(position),
+        //rotation: getRotationTowardCenter(position),
         // angularVelocity: {
         //     x: getRandomInt(0, 3),
         //     y: getRandomInt(0, 3),
         //     z: getRandomInt(0, 3)
         // },
         // angularDamping: 0,
+        rotation: Quat.angleAxis(0, {
+            x: 1,
+            y: 0,
+            z: 0
+        }),
         type: 'Box',
         dimensions: {
             x: 0.5,
@@ -101,7 +106,12 @@ function createSingleStationEntry(position, domain) {
             green: getRandomInt(0, 255),
             blue: getRandomInt(0, 255)
         },
-        rotation: getRotationTowardCenter(position),
+        // rotation: getRotationTowardCenter(position),
+        rotation: Quat.angleAxis(0, {
+            x: 1,
+            y: 0,
+            z: 0
+        }),
         visible: false,
         script: teleporterScript
     };
@@ -123,7 +133,12 @@ function createSingleClosedStation(position, domain) {
             z: 1,
         },
         position: position,
-        rotation: getRotationTowardCenter(position),
+        // rotation: getRotationTowardCenter(position),
+        rotation: Quat.angleAxis(0, {
+            x: 1,
+            y: 0,
+            z: 0
+        }),
         color: {
             red: getRandomInt(0, 255),
             green: getRandomInt(0, 255),
@@ -139,6 +154,7 @@ function createSingleClosedStation(position, domain) {
 function createTextEntity(position, parent, domain) {
     var rotation = getRotationTowardCenter(position);
 
+
     var position = {
         x: position.x,
         y: position.y,
@@ -146,7 +162,10 @@ function createTextEntity(position, parent, domain) {
         z: position.z
     };
 
-    var frontVec = Quat.getFront(rotation);
+    var parentProps = Entities.getEntityProperties(parent);
+
+
+    var frontVec = Quat.getFront(parentProps.rotation);
     var newPosition = Vec3.sum(position, Vec3.multiply(frontVec, -1));
 
     var textEntityProps = {
@@ -164,7 +183,12 @@ function createTextEntity(position, parent, domain) {
             green: 0,
             blue: 0
         },
-        rotation: rotation,
+        //faceCamera:true,
+        rotation: Quat.angleAxis(0, {
+            x: 1,
+            y: 0,
+            z: 0
+        }),
         lineHeight: 0.1,
         text: domain[1] + " at " + domain[0],
         dimensions: {
@@ -215,6 +239,29 @@ function distributePointsAroundCircle(center, numberOfPoints, radiusX, radiusY, 
     return positions;
 };
 
+var ROW_SPACER = 5;
+var COLUMN_SPACER = 5;
+
+function distributePointsOnGrid(basePosition, rotation) {
+    var positions = [];
+    var chunkedDomains = chunk(getDomains(), 4);
+    chunkedDomains.forEach(function(row, rowIndex) {
+        row.forEach(function(column, colIndex) {
+            var horizontalOffset = colIndex * COLUMN_SPACER;
+            var verticalOffset = rowIndex * ROW_SPACER
+            var rightVector = Quat.getRight(rotation);
+            var frontVector = Quat.getFront(rotation);
+            var rightDisplacement = Vec3.multiply(rightVector, horizontalOffset);
+            var frontDisplacement = Vec3.multiply(frontVector, verticalOffset);
+            var finalPosition = Vec3.sum(basePosition, rightDisplacement);
+            finalPosition = Vec3.sum(finalPosition, frontDisplacement);
+            positions.push(finalPosition)
+        })
+    });
+
+    return positions;
+};
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -234,29 +281,53 @@ function clearAllStations() {
     })
 };
 
+var ZERO = {
+    x: 0,
+    y: 0,
+    z: 0
+};
+
 function createStations() {
     var domains = getDomains();
-    var pointsAroundCircle = distributePointsAroundCircle(center, domains.length, SPACER * domains.length / 4, SPACER * domains.length / 4, false)
+    //  var pointsAroundCircle = distributePointsAroundCircle(center, domains.length, SPACER * domains.length / 4, SPACER * domains.length / 4, false);
+
+    // var rotation =Quat.lookAt(center,ZERO,Vec3.UP)
+    var rotation = Quat.angleAxis(0, {
+        x: 1,
+        y: 0,
+        z: 0
+    })
+    var pointsOnGrid = distributePointsOnGrid(center, rotation);
+    print('POINTS ON GRID: ' + JSON.stringify(pointsOnGrid));
+
     domains.forEach(function(domain) {
         if (domain[1] > 0) {
-            var position = pointsAroundCircle.shift();
+            //  var position = pointsAroundCircle.shift();
+            var position = pointsOnGrid.shift();
             var parent = createSingleStationEntry(position, domain);
             createSingleOpenStation(position, parent, domain);
             createTextEntity(position, parent, domain);
         } else {
-
-            var position = pointsAroundCircle.shift();
+            var position = pointsOnGrid.shift();
+            // var position = pointsAroundCircle.shift();
             createSingleClosedStation(position, domain)
         }
     });
 };
+
+function chunk(array, size) {
+    var result = []
+    for (var i = 0; i < array.length; i += size)
+        result.push(array.slice(i, i + size))
+    return result
+}
 
 function refresh() {
     clearAllStations();
     Script.setTimeout(function() {
         createStations();
         print('after create stations')
-        //Script.stop();
+            //Script.stop();
     }, 1000);
 }
 

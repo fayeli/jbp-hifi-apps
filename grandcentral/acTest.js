@@ -3,7 +3,7 @@ var center = {
     y: 1000,
     z: 1000
 };
-isAgent = true;
+// isAgent = true;
 EntityViewer.setPosition(center);
 EntityViewer.setKeyholeRadius(10);
 var octreeQueryInterval = Script.setInterval(function() {
