@@ -12,28 +12,34 @@
         return;
     }
 
-    var checkPlayingInterval = null;
     XylophoneKey.prototype = {
         sound: null,
         injector: null,
         collisionWithEntity: function(thisEntity, otherEntity, collision) {
+            print('collision with key')
             var soundOptions = {
-                localOnly: true,
                 position: collision.contactPoint,
-                volume: 0.5
+                volume: 1
             };
 
-            var soundData = getEntityCustomData("soundKey", thisEntity, defaultSoundData);
+            print('sound on collision' + _this.sound)
 
-            if (_this.sound !== null && _this.injector !== null && _this.injector.isPlaying !== true) {
-                _this.injector = Audio.playSound(_this.sound, soundOptions);
-
+            if (_this.sound !== null) {
+                print('should play sound at ' + JSON.stringify(_this.sound))
+                _this.injector = Audio.playSound(_this.sound, soundOptions)
+                print('AUDIO OPTIONS: ' + JSON.stringify(soundOptions));
+                print('injector after play: ' + JSON.stringify(_this.injector))
             }
         },
 
         preload: function(entityID) {
             this.entityID = entityID;
-            this.sound = SoundCache.getSound(soundData.soundURL);
+            Script.setTimeout(function() {
+                var soundData = getEntityCustomData("soundKey", entityID, defaultSoundData);
+                print('SOUND URL::' + soundData.soundURL)
+                _this.sound = SoundCache.getSound(soundData.soundURL);
+            }, 500)
+
         }
     };
 

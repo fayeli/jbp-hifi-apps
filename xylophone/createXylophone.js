@@ -19,19 +19,13 @@ var xylophoneBase;
 //load the xylpophone base model
 //make keys
 //make mallets
-var center = Vec3.sum(Vec3.sum(MyAvatar.position, {
+var baseStartPosition = Vec3.sum(Vec3.sum(MyAvatar.position, {
     x: 0,
     y: 0.5,
     z: 0
 }), Vec3.multiply(1, Quat.getFront(Camera.getOrientation())));
 
-var baseStartPosition = {
-    x: 546.10,
-    y: 495.34,
-    z: 506.50
-};
 
-var baseStartPosition = center;
 
 function createXylophoneBase() {
     var properties = {
@@ -67,7 +61,7 @@ var keyInfo = [{
     note: 'F2',
     keyLength: 0.3175,
 }, {
-    note: 'G2', 
+    note: 'G2',
     keyLength: 0.3048,
 }, {
     note: 'A2',
@@ -108,12 +102,11 @@ function createXylophoneKeys() {
                 blue: 255
             },
             restitution: 0,
-            collisionsWillMove: false,
-            gravity: {
-                x: 0,
-                y: -9.8,
-                z: 0
-            },
+            // gravity: {
+            //     x: 0,
+            //     y: -9.8,
+            //     z: 0
+            // },
             damping: 1,
             angularDamping: 1,
             userData: JSON.stringify({
@@ -149,7 +142,8 @@ function createMallets() {
             z: 0.04
         },
         restitution: 0,
-        collisionsWillMove: true,
+        dynamic: true,
+        collidesWith: 'dynamic,static,kinematic',
         position: baseStartPosition,
         shapeType: 'compound',
         compoundShapeURL: MALLET_COLLISION_HULL_URL,
@@ -164,9 +158,9 @@ function createMallets() {
     }
 
     var firstMallet = Entities.addEntity(properties);
-    // var secondMallet = Entities.addEntity(properties);
+    var secondMallet = Entities.addEntity(properties);
     mallets.push(firstMallet);
-    //  mallets.push(secondMallet);
+    mallets.push(secondMallet);
 }
 
 function cleanup() {

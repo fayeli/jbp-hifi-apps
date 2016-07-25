@@ -5,9 +5,9 @@ var SPACER = 1.2;
 var teleporterScript = Script.resolvePath('teleporterEntity.js')
 
 var center = {
-    x: 1010,
+    x: 995,
     y: 1000,
-    z: 1000
+    z: 990
 };
 
 function getDomains() {
@@ -239,8 +239,8 @@ function distributePointsAroundCircle(center, numberOfPoints, radiusX, radiusY, 
     return positions;
 };
 
-var ROW_SPACER = 5;
-var COLUMN_SPACER = 5;
+var ROW_SPACER = 3;
+var COLUMN_SPACER = 3;
 
 function distributePointsOnGrid(basePosition, rotation) {
     var positions = [];
@@ -298,7 +298,7 @@ function createStations() {
         z: 0
     })
     var pointsOnGrid = distributePointsOnGrid(center, rotation);
-    print('POINTS ON GRID: ' + JSON.stringify(pointsOnGrid));
+    // print('POINTS ON GRID: ' + JSON.stringify(pointsOnGrid));
 
     domains.forEach(function(domain) {
         if (domain[1] > 0) {
