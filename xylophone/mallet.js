@@ -15,21 +15,20 @@
             name: 'Xylophone Mallet',
             modelURL: MALLET_MODEL_URL,
             dimensions: {
-                x: 0.46,
-                y: 0.04,
-                z: 0.04
+                x: 0.56,
+                y: 0.06,
+                z: 0.06
             },
             restitution: 0,
             dynamic: true,
             collidesWith: 'dynamic,static,kinematic',
-            rotation:originalProps.rotation,
+            rotation: originalProps.rotation,
             position: originalProps.position,
             shapeType: 'compound',
             compoundShapeURL: MALLET_COLLISION_HULL_URL,
-            visible:true
+            visible: true
         }
         _this.springMallet = Entities.addEntity(props);
-        print('CREATED SPRING MALLET ' + _this.springMallet)
     }
 
     function destroySpringMallet() {
@@ -60,7 +59,17 @@
     function makeOriginalVisible() {
         Entities.editEntity(_this.entityID, {
             visible: true,
-            collisionless: false
+            collisionless: false,
+            angularVelocity:{
+                x:0,
+                y:0,
+                z:0
+            },
+            velocity:{
+                x:0,
+                y:0,
+                z:0
+            }
         });
     }
 
@@ -71,30 +80,29 @@
 
         var props = {
             targetPosition: targetProps.position,
-            linearTimeScale: 0.1,
+            linearTimeScale: 0.02,
             targetRotation: targetProps.rotation,
-            angularTimeScale: 0.1,
+            angularTimeScale: 0.02,
             tag: getTag(),
             ttl: ACTION_TTL
         };
 
         _this.actionID = Entities.addAction("spring", _this.springMallet, props);
 
-        print('ACTION ID??'+_this.actionID)
 
         return;
     }
 
     function updateSpringAction() {
-        print('updating spring action::' + _this.actionID)
+        // print('updating spring action::' + _this.actionID)
         var targetProps = Entities.getEntityProperties(_this.entityID);
         var ACTION_TTL = 10; // seconds
 
         var props = {
             targetPosition: targetProps.position,
-            linearTimeScale: 0.1,
+            linearTimeScale: 0.01,
             targetRotation: targetProps.rotation,
-            angularTimeScale: 0.1,
+            angularTimeScale: 0.01,
             tag: getTag(),
             ttl: ACTION_TTL
         };
@@ -116,7 +124,6 @@
         springAction: null,
         springMallet: null,
         preload: function(entityID) {
-            print('PRELOADING A MALLET');
             _this.entityID = entityID;
         },
         startNearGrab: function() {
