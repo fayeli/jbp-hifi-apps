@@ -3,6 +3,7 @@ var XYLOPHONE_MODEL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/
 var MALLET_MODEL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet.fbx';
 var MALLET_COLLISION_HULL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet_collision_hull.obj';
 var XYLOPHONE_KEY_SCRIPT_URL = Script.resolvePath('xylophoneKey.js');
+var MALLET_SCRIPT_URL = Script.resolvePath('mallet.js');
 
 
 
@@ -88,7 +89,7 @@ function createXylophoneKeys() {
             type: 'Box',
             shapeType: 'Box',
             name: 'Xylophone Key ' + xyloKey.note,
-            script: XYLOPHONE_KEY_SCRIPT_URL,
+            script: XYLOPHONE_KEY_SCRIPT_URL + "?" + Math.random(),
             dimensions: {
                 x: 0.1008,
                 y: 0.0454,
@@ -144,8 +145,13 @@ function createMallets() {
         restitution: 0,
         dynamic: true,
         collidesWith: 'dynamic,static,kinematic',
-        position: baseStartPosition,
+        position: {
+            x: baseStartPosition.x,
+            y: baseStartPosition.y + 0.4,
+            z: baseStartPosition.z
+        },
         shapeType: 'compound',
+        script: MALLET_SCRIPT_URL + "?" + Math.random(),
         compoundShapeURL: MALLET_COLLISION_HULL_URL,
         userData: JSON.stringify({
             resetMe: {
@@ -158,9 +164,10 @@ function createMallets() {
     }
 
     var firstMallet = Entities.addEntity(properties);
-    var secondMallet = Entities.addEntity(properties);
     mallets.push(firstMallet);
-    mallets.push(secondMallet);
+    
+    // var secondMallet = Entities.addEntity(properties);
+    // mallets.push(secondMallet);
 }
 
 function cleanup() {
