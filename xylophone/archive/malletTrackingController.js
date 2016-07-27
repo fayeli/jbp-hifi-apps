@@ -1,7 +1,7 @@
 (function() {
 
-    var MALLET_MODEL_URL = Script.resolvePath('mallet.fbx');
-    var MALLET_COLLISION_HULL_URL = Script.resolvePath('mallet_collision_hull.obj');
+    var MALLET_MODEL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet.fbx';
+    var MALLET_COLLISION_HULL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet_collision_hull.obj';
     var SPRING_MALLET_SCRIPT_URL = Script.resolvePath('springMallet.js');
 
     var _this;
@@ -14,7 +14,7 @@
         var originalProps = Entities.getEntityProperties(_this.entityID);
         var props = {
             type: 'Model',
-            name: 'Xylophone SpringMallet',
+            name: 'Xylophone Mallet',
             modelURL: MALLET_MODEL_URL,
             dimensions: {
                 x: 0.56,
@@ -30,7 +30,7 @@
             shapeType: 'compound',
             compoundShapeURL: MALLET_COLLISION_HULL_URL,
             visible: true,
-            script: SPRING_MALLET_SCRIPT_URL,
+            script: SPRING_MALLET_SCRIPT_URL + "?" + Math.random(),
             userData:JSON.stringify({
                 grabbableKey:{
                     grabbable:false
@@ -48,7 +48,7 @@
     function enterPlayingMode() {
 
         if(Entities.getEntityProperties(_this.entityID).description.indexOf('playing')>-1){
-            // print('already playing dont duplicate')
+            print('already playing dont duplicate')
             return
         }
 
@@ -104,10 +104,10 @@
         var ACTION_TTL = 10; // seconds
 
         var props = {
-            // targetPosition: getControllerLocation().position,
-            // targetRotation: getControllerLocation().rotation,
-            targetPosition: targetProps.position,
-            targetRotation: targetProps.rotation,
+            targetPosition: getControllerLocation().position,
+            targetRotation: getControllerLocation().rotation,
+            // targetPosition: targetProps.position,
+            // targetRotation: targetProps.rotation,
             linearTimeScale: 0.001,
             angularTimeScale: 0.001,
             tag: getTag(),
@@ -147,10 +147,10 @@
         var ACTION_TTL = 10; // seconds
 
         var props = {
-            // targetPosition: getControllerLocation().position,
-            // targetRotation: getControllerLocation().rotation,
-            targetPosition: targetProps.position,
-            targetRotation: targetProps.rotation,
+            targetPosition: getControllerLocation().position,
+            targetRotation: getControllerLocation().rotation,
+            // targetPosition: targetProps.position,
+            // targetRotation: targetProps.rotation,
             linearTimeScale: 0.001,
             angularTimeScale: 0.001,
             tag: getTag(),

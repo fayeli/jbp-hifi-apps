@@ -5,17 +5,19 @@
         _this = this;
     }
 
-    TV.prototype = {
+    TV.prototype = {v
+        baseURL:'https://youtube.com/embed/',
+        afterURL:'?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj&rel=0&autoplay=1',
         URLs: [
-            'https://youtu.be/u31GWn_ChAE?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
-            'https://youtu.be/2sXqRTHKzBs?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
-            'https://youtu.be/8gZV-Dn_7Ks?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
-            'https://youtu.be/bFPhaUod9SM?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
-            'https://youtu.be/by1nsM9f-QI?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
-            'https://youtu.be/NzgMjFOEEV4?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
-            'https://youtu.be/8WxNmNueccQ?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
-            'https://youtu.be/IbvdfToPLxA?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
-            'https://youtu.be/ju7x2ENy0-g?list=PLoe9GsfO1mjk7XWQp84fB8nNS3Z_zb9nj',
+            'u31GWn_ChAE',
+            '2sXqRTHKzBs',
+            '8gZV-Dn_7Ks',
+            'bFPhaUod9SM',
+            'by1nsM9f-QI',
+            'NzgMjFOEEV4',
+            '8WxNmNueccQ',
+            'IbvdfToPLxA',
+            'ju7x2ENy0-g',
         ],
         currentChannel: null,
         preload: function(entityID) {
@@ -25,7 +27,7 @@
             var props = Entities.getEntityProperties(_this.entityID);
             var children = Entities.getChildrenIDs(_this.entityID);
             Entities.editEntity(children[0],{
-                url:url
+                url:_this.baseURL+url+_this.afterURL
             })
         }
     }

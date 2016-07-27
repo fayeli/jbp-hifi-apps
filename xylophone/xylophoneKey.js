@@ -1,6 +1,8 @@
 (function() {
     Script.include("utils.js");
 
+    var BASE_PATH = 'http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/';
+
     var defaultSoundData = {
         soundURL: null
     };
@@ -19,7 +21,6 @@
         colorTimeout: null,
         activeColor: null,
         collisionWithEntity: function(thisEntity, otherEntity, collision) {
-
             if (collision.type !== 0) {
                 //we only want to play sounds on collision start
                 return
@@ -32,12 +33,13 @@
 
 
             if (_this.sound !== null) {
+
                 _this.injector = Audio.playSound(_this.sound, soundOptions)
                 _this.changeColor();
 
             } else {
                 var soundData = getEntityCustomData("soundKey", entityID, defaultSoundData);
-                _this.sound = SoundCache.getSound(soundData.soundURL);
+                _this.sound = SoundCache.getSound(BASE_PATH + soundData.soundURL);
                 _this.activeColor = soundData.color;
             }
         },
@@ -61,7 +63,6 @@
             }
             var props = Entities.getEntityProperties(_this.entityID);
             if (props.description.indexOf('changing') > -1) {
-                print('already changing colors')
                 return
             }
 
@@ -96,8 +97,7 @@
             this.entityID = entityID;
             Script.setTimeout(function() {
                 var soundData = getEntityCustomData("soundKey", entityID, defaultSoundData);
-                // print('SOUND URL::' + soundData.soundURL)
-                _this.sound = SoundCache.getSound(soundData.soundURL);
+                _this.sound = SoundCache.getSound(BASE_PATH + soundData.soundURL);
                 _this.activeColor = soundData.color;
             }, 250)
 

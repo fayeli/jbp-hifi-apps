@@ -3,7 +3,7 @@
     function SpringMallet() {
         _this = this;
     }
-    
+
     SpringMallet.prototype = {
 
         collisionWithEntity: function(thisEntity, otherEntity, collision) {
@@ -22,12 +22,8 @@
 
     function vibrateControllers(loudness, hand) {
         var strength = scale(loudness, 0, 0.35, 0, 1);
-        //strength, duration, hand
-        print('hand is:' + hand)
-        print('vibe strength is: ' + strength)
 
         var vibrated = Controller.triggerHapticPulse(strength, 8, hand);
-        print('vibrated?' + vibrated)
     }
 
     function scale(value, min1, max1, min2, max2) {

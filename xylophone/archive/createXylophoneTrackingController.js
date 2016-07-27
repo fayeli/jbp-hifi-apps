@@ -1,12 +1,13 @@
-var XYLOPHONE_MODEL_URL = Script.resolvePath('xylophone.fbx');
-var MALLET_MODEL_URL = Script.resolvePath('mallet.fbx');
-var MALLET_COLLISION_HULL_URL = Script.resolvePath('mallet_collision_hull.obj');
+var SOUND_BASE_URL = 'http://hifi-public.s3.amazonaws.com/sounds/Xylophone/';
+var XYLOPHONE_MODEL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/xylophone.fbx';
+var MALLET_MODEL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet.fbx';
+var MALLET_COLLISION_HULL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet_collision_hull.obj';
 var XYLOPHONE_KEY_SCRIPT_URL = Script.resolvePath('xylophoneKey.js');
-var MALLET_SCRIPT_URL = Script.resolvePath('mallet.js');
+var MALLET_SCRIPT_URL = Script.resolvePath('malletTrackingController.js');
 var xylophoneBase;
 var mallets = [];
 var keyEntities = [];
-var KEY_SPACING = 0.165;
+var KEY_SPACING = 0.18;
 
 var baseStartPosition = Vec3.sum(Vec3.sum(MyAvatar.position, {
     x: 0,
@@ -14,9 +15,7 @@ var baseStartPosition = Vec3.sum(Vec3.sum(MyAvatar.position, {
     z: 0
 }), Vec3.multiply(1, Quat.getFront(MyAvatar.orientation)));
 
-
-var rightVec = Quat.getRight(MyAvatar.orientation);
-baseStartPosition = Vec3.sum(baseStartPosition, Vec3.multiply(rightVec, -0.5));
+baseStartPosition.y = baseStartPosition.y;
 
 
 function createXylophoneBase() {
@@ -29,7 +28,6 @@ function createXylophoneBase() {
             z: 0.05,
         },
         visible: false,
-        rotation: MyAvatar.orientation,
         collisionless: true,
         position: {
             x: baseStartPosition.x,
@@ -91,9 +89,9 @@ function createXylophoneKeys() {
             shapeType: 'Box',
             parentID: xylophoneBase,
             name: 'Xylophone Key ' + xyloKey.note,
-            script: XYLOPHONE_KEY_SCRIPT_URL,
+            script: XYLOPHONE_KEY_SCRIPT_URL + "?" + Math.random(),
             dimensions: {
-                x: 0.1008 * 1.5,
+                x: 0.1008*1.5,
                 y: 0.0454,
                 z: xyloKey.keyLength * 2
             },
@@ -112,7 +110,7 @@ function createXylophoneKeys() {
                     grabbable: false
                 },
                 soundKey: {
-                    soundURL: xyloKey.note + ".L.wav",
+                    soundURL: SOUND_BASE_URL + xyloKey.note + ".L.wav",
                     color: xyloKey.color
                 }
             })
@@ -155,7 +153,7 @@ function createMallets() {
         },
         rotation: Quat.multiply(MyAvatar.orientation, angleAxis),
         shapeType: 'compound',
-        script: MALLET_SCRIPT_URL,
+        script: MALLET_SCRIPT_URL + "?" + Math.random(),
         compoundShapeURL: MALLET_COLLISION_HULL_URL,
         userData: JSON.stringify({
             grabbableKey: {
