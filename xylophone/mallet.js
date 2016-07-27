@@ -30,17 +30,31 @@
             shapeType: 'compound',
             compoundShapeURL: MALLET_COLLISION_HULL_URL,
             visible: true,
-            script: SPRING_MALLET_SCRIPT_URL + "?" + Math.random()
+            script: SPRING_MALLET_SCRIPT_URL + "?" + Math.random(),
+            userData:JSON.stringify({
+                grabbableKey:{
+                    grabbable:false
+                }
+            })
         }
         _this.springMallet = Entities.addEntity(props);
     }
 
     function destroySpringMallet() {
-        _this.lastSpringMalletProps = Entities.getEntityProperties(_this.springMallet);
+       
         Entities.deleteEntity(_this.springMallet);
     }
 
     function enterPlayingMode() {
+
+        if(Entities.getEntityProperties(_this.entityID).description.indexOf('playing')>-1){
+            print('already playing dont duplicate')
+            return
+        }
+
+        Entities.editEntity(_this.entityID,{
+            description:'playing'
+        });
         makeOriginalInvisible();
         createSpringMallet();
         createSpringAction();
@@ -48,10 +62,14 @@
     }
 
     function exitPlayingMode() {
+        Entities.editEntity(_this.entityID,{
+            description:''
+        });
+        _this.lastSpringMalletProps = Entities.getEntityProperties(_this.springMallet);
+        makeOriginalVisible();
         deleteSpringAction();
         destroySpringMallet();
-        makeOriginalVisible();
-
+    
     }
 
     function makeOriginalInvisible() {
