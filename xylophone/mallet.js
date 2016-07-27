@@ -32,6 +32,7 @@
     }
 
     function destroySpringMallet() {
+        _this.lastSpringMalletProps = Entities.getEntityProperties(_this.springMallet);
         Entities.deleteEntity(_this.springMallet);
     }
 
@@ -60,15 +61,17 @@
         Entities.editEntity(_this.entityID, {
             visible: true,
             collisionless: false,
-            angularVelocity:{
-                x:0,
-                y:0,
-                z:0
+            position: _this.lastSpringMalletProps.position,
+            rotation: _this.lastSpringMalletProps.rotation,
+            angularVelocity: {
+                x: 0,
+                y: 0,
+                z: 0
             },
-            velocity:{
-                x:0,
-                y:0,
-                z:0
+            velocity: {
+                x: 0,
+                y: 0,
+                z: 0
             }
         });
     }
@@ -93,16 +96,44 @@
         return;
     }
 
+    function getControllerLocation() {
+
+        var standardControllerValue = (_this.hand === 'right') ? Controller.Standard.RightHand : Controller.Standard.LeftHand;
+        // var pose = Controller.getPoseValue(standardControllerValue);
+        // var worldHandPosition = Vec3.sum(Vec3.multiplyQbyV(MyAvatar.orientation, pose.translation), MyAvatar.position);
+        // var worldHandRotation = Quat.multiply(MyAvatar.orientation, pose.rotation);
+
+
+
+        var position = Vec3.sum(Vec3.multiplyQbyV(MyAvatar.orientation, Controller.getPoseValue(standardControllerValue).translation), MyAvatar.position);
+
+        var rotation = Quat.multiply(MyAvatar.orientation, Controller.getPoseValue(standardControllerValue).rotation)
+
+        rotation = Quat.multiply(rotation, Quat.angleAxis(90, {
+            x: 0,
+            y: 0,
+            z: 1
+        }));
+
+
+        return {
+            position: position,
+            rotation: rotation
+        }
+    }
+
     function updateSpringAction() {
         // print('updating spring action::' + _this.actionID)
         var targetProps = Entities.getEntityProperties(_this.entityID);
         var ACTION_TTL = 10; // seconds
 
         var props = {
+            targetPosition: getControllerLocation().position,
+            targetRotation: getControllerLocation().rotation,
             targetPosition: targetProps.position,
-            linearTimeScale: 0.01,
             targetRotation: targetProps.rotation,
-            angularTimeScale: 0.01,
+            linearTimeScale: 0.001,
+            angularTimeScale: 0.001,
             tag: getTag(),
             ttl: ACTION_TTL
         };
@@ -123,10 +154,12 @@
     Mallet.prototype = {
         springAction: null,
         springMallet: null,
+        hand: null,
         preload: function(entityID) {
             _this.entityID = entityID;
         },
-        startNearGrab: function() {
+        startNearGrab: function(entityID, data) {
+            _this.hand = data[0]
             enterPlayingMode();
         },
         continueNearGrab: function() {

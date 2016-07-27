@@ -5,27 +5,18 @@ var MALLET_COLLISION_HULL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylo
 var XYLOPHONE_KEY_SCRIPT_URL = Script.resolvePath('xylophoneKey.js');
 var MALLET_SCRIPT_URL = Script.resolvePath('mallet.js');
 
-
-
-var keyEntities = [];
-var KEY_SPACING = {
-    x: 0.15,
-    y: 0,
-    z: 0
-};
-
-var mallets = [];
 var xylophoneBase;
+var mallets = [];
+var keyEntities = [];
+var KEY_SPACING = 0.18;
 
-//load the xylpophone base model
-//make keys
-//make mallets
 var baseStartPosition = Vec3.sum(Vec3.sum(MyAvatar.position, {
     x: 0,
-    y: 0.5,
+    y: 0,
     z: 0
-}), Vec3.multiply(1, Quat.getFront(Camera.getOrientation())));
+}), Vec3.multiply(1, Quat.getFront(MyAvatar.orientation)));
 
+baseStartPosition.y = baseStartPosition.y;
 
 
 function createXylophoneBase() {
@@ -90,7 +81,7 @@ function createXylophoneKeys() {
 
     keyInfo.forEach(function(xyloKey, index) {
         var vHat = Quat.getRight(rotation);
-        var spacer = 0.16 * index;
+        var spacer = KEY_SPACING * index;
         var multiplier = Vec3.multiply(spacer, vHat);
         var position = Vec3.sum(baseStartPosition, multiplier);
 
@@ -101,7 +92,7 @@ function createXylophoneKeys() {
             name: 'Xylophone Key ' + xyloKey.note,
             script: XYLOPHONE_KEY_SCRIPT_URL + "?" + Math.random(),
             dimensions: {
-                x: 0.1008,
+                x: 0.1008*1.5,
                 y: 0.0454,
                 z: xyloKey.keyLength * 2
             },
@@ -154,7 +145,7 @@ function createMallets() {
             z: 0.06
         },
         restitution: 0,
-        dynamic: true,
+        dynamic: false,
         collidesWith: 'dynamic,static,kinematic',
         position: {
             x: rightOffset.x,
@@ -165,6 +156,11 @@ function createMallets() {
         shapeType: 'compound',
         script: MALLET_SCRIPT_URL + "?" + Math.random(),
         compoundShapeURL: MALLET_COLLISION_HULL_URL,
+        userData: JSON.stringify({
+            grabbableKey: {
+                grabbable: true
+            }
+        })
     }
 
     var firstMallet = Entities.addEntity(properties);

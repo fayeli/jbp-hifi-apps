@@ -17,6 +17,7 @@
         sound: null,
         injector: null,
         colorTimeout: null,
+        activeColor:null,
         collisionWithEntity: function(thisEntity, otherEntity, collision) {
             if (collision.type !== 0) {
                 //we only want to play sounds on collision start
@@ -31,14 +32,12 @@
             // print('sound on collision' + _this.sound)
 
             if (_this.sound !== null) {
-                // print('should play sound at ' + JSON.stringify(_this.sound))
+            
                 _this.injector = Audio.playSound(_this.sound, soundOptions)
                 _this.changeColor();
-                // print('AUDIO OPTIONS: ' + JSON.stringify(soundOptions));
-                // print('injector after play: ' + JSON.stringify(_this.injector))
+           
             } else {
                 var soundData = getEntityCustomData("soundKey", entityID, defaultSoundData);
-                // print('SOUND URL::' + soundData.soundURL)
                 _this.sound = SoundCache.getSound(soundData.soundURL);
                 _this.activeColor = soundData.color;
             }
@@ -56,9 +55,11 @@
         },
 
         changeColor: function() {
-            print('CHANGING COLOR' + _this.activeColor)
 
-
+            if(_this.activeColor===null){
+                  var soundData = getEntityCustomData("soundKey", entityID, defaultSoundData);
+                _this.activeColor = soundData.color;
+            }
             var props = Entities.getEntityProperties(_this.entityID);
             if (props.description.indexOf('changing') > -1) {
                 print('already changing colors')
@@ -99,7 +100,7 @@
                 // print('SOUND URL::' + soundData.soundURL)
                 _this.sound = SoundCache.getSound(soundData.soundURL);
                 _this.activeColor = soundData.color;
-            }, 500)
+            }, 250)
 
         }
     };
