@@ -17,25 +17,24 @@
         sound: null,
         injector: null,
         colorTimeout: null,
-        activeColor:null,
+        activeColor: null,
         collisionWithEntity: function(thisEntity, otherEntity, collision) {
+
             if (collision.type !== 0) {
                 //we only want to play sounds on collision start
                 return
             }
-            print('collision with key' + JSON.stringify(collision))
+
             var soundOptions = {
                 position: collision.contactPoint,
                 volume: 1
             };
 
-            // print('sound on collision' + _this.sound)
 
             if (_this.sound !== null) {
-            
                 _this.injector = Audio.playSound(_this.sound, soundOptions)
                 _this.changeColor();
-           
+
             } else {
                 var soundData = getEntityCustomData("soundKey", entityID, defaultSoundData);
                 _this.sound = SoundCache.getSound(soundData.soundURL);
@@ -56,8 +55,8 @@
 
         changeColor: function() {
 
-            if(_this.activeColor===null){
-                  var soundData = getEntityCustomData("soundKey", entityID, defaultSoundData);
+            if (_this.activeColor === null) {
+                var soundData = getEntityCustomData("soundKey", entityID, defaultSoundData);
                 _this.activeColor = soundData.color;
             }
             var props = Entities.getEntityProperties(_this.entityID);

@@ -2,6 +2,8 @@
 
     var MALLET_MODEL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet.fbx';
     var MALLET_COLLISION_HULL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet_collision_hull.obj';
+    var SPRING_MALLET_SCRIPT_URL = Script.resolvePath('springMallet.js');
+
     var _this;
 
     function Mallet() {
@@ -19,6 +21,7 @@
                 y: 0.06,
                 z: 0.06
             },
+            description: _this.hand,
             restitution: 0,
             dynamic: true,
             collidesWith: 'dynamic,static,kinematic',
@@ -26,7 +29,8 @@
             position: originalProps.position,
             shapeType: 'compound',
             compoundShapeURL: MALLET_COLLISION_HULL_URL,
-            visible: true
+            visible: true,
+            script: SPRING_MALLET_SCRIPT_URL + "?" + Math.random()
         }
         _this.springMallet = Entities.addEntity(props);
     }
@@ -82,10 +86,12 @@
         var ACTION_TTL = 10; // seconds
 
         var props = {
+            // targetPosition: getControllerLocation().position,
+            // targetRotation: getControllerLocation().rotation,
             targetPosition: targetProps.position,
-            linearTimeScale: 0.02,
             targetRotation: targetProps.rotation,
-            angularTimeScale: 0.02,
+            linearTimeScale: 0.001,
+            angularTimeScale: 0.001,
             tag: getTag(),
             ttl: ACTION_TTL
         };
@@ -99,11 +105,6 @@
     function getControllerLocation() {
 
         var standardControllerValue = (_this.hand === 'right') ? Controller.Standard.RightHand : Controller.Standard.LeftHand;
-        // var pose = Controller.getPoseValue(standardControllerValue);
-        // var worldHandPosition = Vec3.sum(Vec3.multiplyQbyV(MyAvatar.orientation, pose.translation), MyAvatar.position);
-        // var worldHandRotation = Quat.multiply(MyAvatar.orientation, pose.rotation);
-
-
 
         var position = Vec3.sum(Vec3.multiplyQbyV(MyAvatar.orientation, Controller.getPoseValue(standardControllerValue).translation), MyAvatar.position);
 
@@ -128,8 +129,8 @@
         var ACTION_TTL = 10; // seconds
 
         var props = {
-            targetPosition: getControllerLocation().position,
-            targetRotation: getControllerLocation().rotation,
+            // targetPosition: getControllerLocation().position,
+            // targetRotation: getControllerLocation().rotation,
             targetPosition: targetProps.position,
             targetRotation: targetProps.rotation,
             linearTimeScale: 0.001,
@@ -151,12 +152,14 @@
         return "mallet-" + MyAvatar.sessionUUID;
     }
 
+
     Mallet.prototype = {
         springAction: null,
         springMallet: null,
         hand: null,
         preload: function(entityID) {
             _this.entityID = entityID;
+
         },
         startNearGrab: function(entityID, data) {
             _this.hand = data[0]
@@ -169,6 +172,8 @@
             exitPlayingMode();
         }
     };
+
+
 
     return new Mallet();
 });

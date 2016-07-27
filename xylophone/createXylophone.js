@@ -4,7 +4,6 @@ var MALLET_MODEL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mal
 var MALLET_COLLISION_HULL_URL = 'http://hifi-public.s3.amazonaws.com/models/xylophone/mallet_collision_hull.obj';
 var XYLOPHONE_KEY_SCRIPT_URL = Script.resolvePath('xylophoneKey.js');
 var MALLET_SCRIPT_URL = Script.resolvePath('mallet.js');
-
 var xylophoneBase;
 var mallets = [];
 var keyEntities = [];
