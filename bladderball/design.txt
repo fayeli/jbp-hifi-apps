@@ -1,0 +1,7 @@
+3 teams
+
+each w/ stands where poitns increase if the ball rests there
+
+ball gives nearby HMD users basher hands to push it with
+
+2d users at fixed points with ability to throw in 'obstacles'
