@@ -1,0 +1,105 @@
+{
+    "Entities": [
+        {
+            "clientOnly": 0,
+            "collisionless": 1,
+            "created": "2016-07-29T21:36:09Z",
+            "description":"hifi-record-turntable",
+            "dimensions": {
+                "x": 0.63140487670898438,
+                "y": 0.026930892840027809,
+                "z": 0.63140487670898438
+            },
+            "id": "{dad6dc4f-7433-4b0b-9927-cc2d9711c1c6}",
+            "ignoreForCollisions": 1,
+            "modelURL": "http://hifi-content.s3.amazonaws.com/james/turntable/turntable_disc.fbx",
+            "name": "hifi-record-turntable",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{3ff4569c-fbc8-4a79-9514-80f83c0bb7d4}",
+            "position": {
+                "x": 0.073442071676254272,
+                "y": 0.022118454799056053,
+                "z": -0.0027361810207366943
+            },
+            "queryAACube": {
+                "scale": 95.290390014648438,
+                "x": 55.850467681884766,
+                "y": 52.422130584716797,
+                "z": 56.857982635498047
+            },
+            "rotation": {
+                "w": 0.98138427734375,
+                "x": -1.4974844816606492e-05,
+                "y": -1.5467810953850858e-05,
+                "z": -1.4975071280787233e-05
+            },
+            "type": "Model"
+        },
+        {
+            "clientOnly": 0,
+            "collisionless": 1,
+            "created": "2016-07-29T21:36:09Z",
+            "description":"hifi-record-needle",
+            "dimensions": {
+                "x": 0.10019072890281677,
+                "y": 0.11335104703903198,
+                "z": 0.67381894588470459
+            },
+            "id": "{e6eebabc-c3dc-42e9-a908-435462f5017d}",
+            "ignoreForCollisions": 1,
+            "modelURL": "http://hifi-content.s3.amazonaws.com/james/turntable/turntable_needle.fbx",
+            "name": "hifi-record-needle",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{3ff4569c-fbc8-4a79-9514-80f83c0bb7d4}",
+            "position": {
+                "x": -0.33837658166885376,
+                "y": 0.0571746826171875,
+                "z": -0.026529207825660706
+            },
+            "queryAACube": {
+                "scale": 55.247440338134766,
+                "x": 83.772079467773438,
+                "y": 75.111419677734375,
+                "z": 65.0201416015625
+            },
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "type": "Model"
+        },
+        {
+            "clientOnly": 0,
+            "collisionless": 1,
+            "created": "2016-07-29T21:36:09Z",
+            "dimensions": {
+                "x": 0.86434257030487061,
+                "y": 0.14976122975349426,
+                "z": 0.71758580207824707
+            },
+            "id": "{3ff4569c-fbc8-4a79-9514-80f83c0bb7d4}",
+            "ignoreForCollisions": 1,
+            "modelURL": "http://hifi-content.s3.amazonaws.com/james/turntable/turntable_base.fbx",
+            "name": "hifi-record-base",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "queryAACube": {
+                "scale": 1.1333339214324951,
+                "x": -0.56666696071624756,
+                "y": -0.56666696071624756,
+                "z": -0.56666696071624756
+            },
+            "rotation": {
+                "w": -0.462058424949646,
+                "x": -1.52587890625e-05,
+                "y": 0.88683915138244629,
+                "z": -1.52587890625e-05
+            },
+            "script": "file:///c:/Users/james/Desktop/high_fidelity/jstuff/turntable/turntable.js",
+            "shapeType": "static-mesh",
+            "type": "Model"
+        }
+    ],
+    "Version": 62
+}

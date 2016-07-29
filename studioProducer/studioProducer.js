@@ -155,7 +155,7 @@ function switchCameraToEntity(entityID) {
 
 function findAllProducerEntities() {
     var producers = [];
-    var results = Entities.findEntities(getBasePosition(), 100);
+    var results = Entities.findEntities(basePosition, 1000);
     results.forEach(function(result) {
         var properties = Entities.getEntityProperties(result);
         if (properties.hasOwnProperty('userData')) {
@@ -180,10 +180,6 @@ function switchToOriginalMode() {
     cleanupTargets(producer.targets);
     cleanupCameras(producer.cameras);
     producer.activeCamera = 0;
-}
-
-function getBasePosition() {
-    var front = Quat.getFront(MyAvatar.orientation);
 }
 
 function makeProducerEntitiesVisible() {

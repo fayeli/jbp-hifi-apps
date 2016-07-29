@@ -1,0 +1,226 @@
+{
+    "Entities": [
+        {
+            "clientOnly": 0,
+            "collisionsWillMove": 1,
+            "color": {
+                "blue": 74,
+                "green": 240,
+                "red": 2
+            },
+            "created": "2016-07-29T21:51:27Z",
+            "description": "hifi-record-disc:http://hifi-content.s3.amazonaws.com/james/turntable/holdinthebag.wav",
+            "dimensions": {
+                "x": 0.39046183228492737,
+                "y": 0.58066761493682861,
+                "z": 0.054484814405441284
+            },
+            "dynamic": 1,
+            "id": "{c8f13cf6-b3d5-4867-afcc-f92588e5a4ce}",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "position": {
+                "x": 0.54160308837890625,
+                "y": 0.449951171875,
+                "z": 0.4542999267578125
+            },
+            "queryAACube": {
+                "scale": 0.70185750722885132,
+                "x": 0.19067433476448059,
+                "y": 0.099022418260574341,
+                "z": 0.10337117314338684
+            },
+            "rotation": {
+                "w": 0.41335225105285645,
+                "x": -0.13804852962493896,
+                "y": 0.42583414912223816,
+                "z": 0.79293620586395264
+            },
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{}"
+        },
+        {
+            "angularDamping": 0.30000001192092896,
+            "clientOnly": 0,
+            "collisionless": 1,
+            "created": "2016-07-29T21:40:31Z",
+            "description": "hifi-record-turntable",
+            "dimensions": {
+                "x": 0.63140487670898438,
+                "y": 0.026930892840027809,
+                "z": 0.63140487670898438
+            },
+            "id": "{9d14613e-7841-45ac-bf83-78bade7ae086}",
+            "ignoreForCollisions": 1,
+            "modelURL": "http://hifi-content.s3.amazonaws.com/james/turntable/turntable_disc.fbx",
+            "name": "hifi-record-turntable-disc",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{46398cb5-76f2-4663-988c-531b6ebfad70}",
+            "position": {
+                "x": 0.073442071676254272,
+                "y": 0.022118454799056053,
+                "z": -0.0027361810207366943
+            },
+            "queryAACube": {
+                "scale": 95.290390014648438,
+                "x": 55.850467681884766,
+                "y": 52.422130584716797,
+                "z": 56.857982635498047
+            },
+            "rotation": {
+                "w": 0.91449874639511108,
+                "x": -0.00010290738282492384,
+                "y": -0.4045887291431427,
+                "z": 3.2446361728943884e-05
+            },
+            "type": "Model"
+        },
+        {
+            "clientOnly": 0,
+            "collisionless": 1,
+            "created": "2016-07-29T21:40:31Z",
+            "description": "hifi-record-needle",
+            "dimensions": {
+                "x": 0.10019072890281677,
+                "y": 0.11335104703903198,
+                "z": 0.67381894588470459
+            },
+            "id": "{989a300a-a7c8-4814-8b73-ed79ae2fd72a}",
+            "ignoreForCollisions": 1,
+            "modelURL": "http://hifi-content.s3.amazonaws.com/james/turntable/turntable_needle.fbx",
+            "name": "hifi-record-needle",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{46398cb5-76f2-4663-988c-531b6ebfad70}",
+            "position": {
+                "x": -0.33837658166885376,
+                "y": 0.0571746826171875,
+                "z": -0.026529207825660706
+            },
+            "queryAACube": {
+                "scale": 55.247440338134766,
+                "x": 83.772079467773438,
+                "y": 75.111419677734375,
+                "z": 65.0201416015625
+            },
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "type": "Model"
+        },
+        {
+            "clientOnly": 0,
+            "collisionsWillMove": 1,
+            "color": {
+                "blue": 0,
+                "green": 0,
+                "red": 255
+            },
+            "created": "2016-07-29T23:14:27Z",
+            "description": "hifi-record-disc:http://hifi-content.s3.amazonaws.com/james/turntable/sexgodmissy_converted.wav",
+            "dimensions": {
+                "x": 0.39046183228492737,
+                "y": 0.58066761493682861,
+                "z": 0.054484814405441284
+            },
+            "dynamic": 1,
+            "id": "{d5496332-6f06-404e-8f6b-041b41ed1b2f}",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "position": {
+                "x": 1.2457351684570312,
+                "y": 0.42462158203125,
+                "z": 0
+            },
+            "queryAACube": {
+                "scale": 0.70185750722885132,
+                "x": 0.8948063850402832,
+                "y": 0.073692828416824341,
+                "z": -0.35092875361442566
+            },
+            "rotation": {
+                "w": -0.027054719626903534,
+                "x": 0.819835364818573,
+                "y": -0.52758967876434326,
+                "z": -0.22087809443473816
+            },
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{}"
+        },
+        {
+            "clientOnly": 0,
+            "created": "2016-07-29T21:40:31Z",
+            "dimensions": {
+                "x": 0.86434257030487061,
+                "y": 0.14976122975349426,
+                "z": 0.71758580207824707
+            },
+            "id": "{46398cb5-76f2-4663-988c-531b6ebfad70}",
+            "modelURL": "http://hifi-content.s3.amazonaws.com/james/turntable/turntable_base.fbx",
+            "name": "hifi-record-base",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "position": {
+                "x": 0.781341552734375,
+                "y": 0,
+                "z": 0.4893646240234375
+            },
+            "queryAACube": {
+                "scale": 1.1333339214324951,
+                "x": 0.21467459201812744,
+                "y": -0.56666696071624756,
+                "z": -0.077302336692810059
+            },
+            "rotation": {
+                "w": -0.48937207460403442,
+                "x": -0.026749074459075928,
+                "y": 0.87158012390136719,
+                "z": -0.011978328227996826
+            },
+            "script": "http://hifi-content.s3.amazonaws.com/james/turntable/turntable.js",
+            "shapeType": "static-mesh",
+            "type": "Model"
+        },
+        {
+            "clientOnly": 0,
+            "collisionsWillMove": 1,
+            "color": {
+                "blue": 140,
+                "green": 41,
+                "red": 140
+            },
+            "created": "2016-07-29T23:16:39Z",
+            "description": "hifi-record-disc:http://hifi-content.s3.amazonaws.com/james/turntable/rowdyfriends.wav",
+            "dimensions": {
+                "x": 0.39046183228492737,
+                "y": 0.58066761493682861,
+                "z": 0.054484814405441284
+            },
+            "dynamic": 1,
+            "id": "{fc368ca9-0c04-436a-9049-975eaf988c38}",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "position": {
+                "x": 0,
+                "y": 0.4021759033203125,
+                "z": 1.0502166748046875
+            },
+            "queryAACube": {
+                "scale": 0.70185750722885132,
+                "x": -0.35092875361442566,
+                "y": 0.051247149705886841,
+                "z": 0.69928789138793945
+            },
+            "rotation": {
+                "w": 0.58199185132980347,
+                "x": -0.76717472076416016,
+                "y": -0.22386415302753448,
+                "z": -0.1503770500421524
+            },
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{}"
+        }
+    ],
+    "Version": 62
+}
