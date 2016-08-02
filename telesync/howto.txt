@@ -1,0 +1,6 @@
+how to telesync:
+
+1. find movie with matching .srt subtitle file.
+2. run converter
+3. upload subtitle data
+4. upload images

@@ -1,0 +1,16 @@
+http://readyplayerone.wikia.com/wiki/Flicksync
+
+When an OASIS avatar begins a Flicksync, they will become a specific character, normally the main or titular character, in the movie. When the avatar speaks, they will speak in the voice of the specific character, move around the character in place of their own avatar, and see, hear, and feel anything that character would see, hear, and feel in the movie. In cases where the movie largely revolves around this character's exploits and story, the avatar will remain as this character for the duration of the movie. Scenes in which the character is not present will move the avatar to a third-person view of the movie, as if they were legitimately watching it. For movies that follow multiple characters or have several equally important protagonists, the avatar will take the place of whichever character has the most dialogue from scene to scene.
+
+If an avatar successfully recites 7 lines of dialogue in a row, they will be rewarded with a Cue Card. If the avatar doesn't know what they need to say or do in a given scene, they can shrug their shoulders and the line and any necessary physical action will be superimposed on their screen for them to perform. Failing to recite or perform 3 lines of dialogue in a row will result in the ejection of the avatar from the game.
+
+While a Flicksync is in progress, an avatar cannot access their OASIS inventory or the Internet, so as to prevent avatars from looking up scenes from a movie when they are stuck. 2 repeated attempts to cheat will eject an avatar from the Flicksync.
+
+https://play.google.com/store/apps/details?id=appinventor.ai_unlimitedmagic123.FLICKSYNCH_v30
+
+Flicksync: Knights Who Say Ni offers futuristic game play to Android phone users. It allows players to use their voice to control the game by reciting lines of dialogue from the Knights Who Say Ni scene from the film Monty Python and The Holy Grail. The app uses the speech recognition component of Android phones to check how well Monty Python enthusiasts really know their stuff.
+The app plays a scene from the movie and you supply the next line of dialogue. If you get it exactly right you get a bonus, otherwise you get a score based on the percentage of words you recite correctly. Cue Cards are available to help and you can earn more as your accuracy improves.
+
+In the bestselling novel READY PLAYER ONE, the main character plays the same kind of game in a virtual recreation of the scene. You don’t have to wait for the future to try it out now. Players can compete to get the best global high score.
+
+
