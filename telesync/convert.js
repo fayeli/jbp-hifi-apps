@@ -9,8 +9,24 @@ var parser = require('subtitles-parser');
 var srt = fs.readFileSync(SUBTITLE_FILE, 'utf8');
 
 var data = parser.fromSrt(srt);
-
 convertTimestamps(data);
+
+var currentSubtitle = 0;
+var maxSubtitles = data.length;
+
+function writeDataToJSON() {
+    var jsonfile = require('jsonfile')
+
+    var file = 'newhopeSubtitles.json'
+
+    jsonfile.writeFile(file, data, {
+        spaces: 2
+    }, function(err) {
+        console.error(err)
+    })
+
+};
+
 
 function convertTimestamps(data) {
     data.forEach(function(item) {
@@ -19,20 +35,18 @@ function convertTimestamps(data) {
     })
 }
 
+function clearCommand() {
+    command = new ffmpeg();
+    command.input(MOVIE_FILE);
+    command.noAudio();
+    command.on('error', function(err) {
+            console.log('An error occurred: ' + err.message);
+        })
+        .on('end', function() {
+            console.log('Processing finished !');
+            processNextSnapshot();
+        })
 
-function clearCommand(){
-command = new ffmpeg();
-command.input(MOVIE_FILE);
-command.noAudio();
-
-command.on('error', function(err) {
-        console.log('An error occurred: ' + err.message);
-    })
-    .on('end', function() {
-        console.log('Processing finished !');
-        processNextSnapshot();
-    })
-  
 }
 
 function takeSnapshotAtTime(time) {
@@ -41,10 +55,6 @@ function takeSnapshotAtTime(time) {
         .frames(1)
         .run()
 }
-
-
-var currentSubtitle = 0;
-var maxSubtitles = data.length;
 
 function processNextSnapshot() {
     if (currentSubtitle >= maxSubtitles) {
@@ -57,7 +67,9 @@ function processNextSnapshot() {
     currentSubtitle++;
 }
 
-clearCommand();
-command.output('testrun2/subtitle_0.png');
-takeSnapshotAtTime(data[0].startTime);
-currentSubtitle++
+function startConvertingTelesync() {
+    clearCommand();
+    command.output('testrun2/subtitle_0.png');
+    takeSnapshotAtTime(data[0].startTime);
+    currentSubtitle++
+}
