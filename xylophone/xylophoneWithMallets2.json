@@ -127,7 +127,7 @@
                 "z": -83.033485412597656
             },
             "restitution": 0,
-            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.jss",
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
             "shape": "Cube",
             "type": "Box",
             "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"C3.L.wav\",\"color\":[25,0,32]}}"
