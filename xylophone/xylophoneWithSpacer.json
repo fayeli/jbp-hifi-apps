@@ -1,0 +1,441 @@
+{
+    "Entities": [
+        {
+            "clientOnly": 0,
+            "collidesWith": "static,dynamic,kinematic,",
+            "collisionMask": 7,
+            "compoundShapeURL": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/mallet_collision_hull.obj",
+            "created": "2016-08-03T21:56:02Z",
+            "dimensions": {
+                "x": 0.56000000238418579,
+                "y": 0.059999998658895493,
+                "z": 0.059999998658895493
+            },
+            "id": "{92e970af-e03e-41f0-9378-d3351b7945bd}",
+            "modelURL": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/mallet.fbx",
+            "name": "Xylophone Mallet",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0.34995001554489136,
+                "y": 0.45001220703125,
+                "z": -3.2559037208557129e-05
+            },
+            "queryAACube": {
+                "scale": 1.6991763114929199,
+                "x": 1100.8629150390625,
+                "y": 460.3841552734375,
+                "z": -77.813827514648438
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 0.70708787441253662,
+                "x": -1.52587890625e-05,
+                "y": 0.70708787441253662,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/mallet.js",
+            "shapeType": "compound",
+            "type": "Model",
+            "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
+        },
+        {
+            "angularDamping": 1,
+            "clientOnly": 0,
+            "created": "2016-08-03T21:56:02Z",
+            "damping": 1,
+            "dimensions": {
+                "x": 0.15119999647140503,
+                "y": 0.045400001108646393,
+                "z": 0.66039997339248657
+            },
+            "id": "{a36cd6e4-3564-4278-851c-726f81a99538}",
+            "name": "Xylophone Key E2",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0.32995837926864624,
+                "y": 0.25,
+                "z": -2.6375055313110352e-05
+            },
+            "queryAACube": {
+                "scale": 2.0370216369628906,
+                "x": 1100.7296142578125,
+                "y": 460.01824951171875,
+                "z": -77.964256286621094
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"E2.L.wav\",\"color\":[255,218,33]}}"
+        },
+        {
+            "angularDamping": 1,
+            "clientOnly": 0,
+            "created": "2016-08-03T21:56:02Z",
+            "damping": 1,
+            "dimensions": {
+                "x": 0.15119999647140503,
+                "y": 0.045400001108646393,
+                "z": 0.55879998207092285
+            },
+            "id": "{be44e7fb-6947-46c2-a8c9-0b4bb3f35088}",
+            "name": "Xylophone Key B2",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0.98997795581817627,
+                "y": 0.25,
+                "z": -1.3470649719238281e-05
+            },
+            "queryAACube": {
+                "scale": 1.742016077041626,
+                "x": 1100.3206787109375,
+                "y": 460.16580200195312,
+                "z": -77.46160888671875
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"B2.L.wav\",\"color\":[51,0,68]}}"
+        },
+        {
+            "clientOnly": 0,
+            "collidesWith": "static,dynamic,kinematic,",
+            "collisionMask": 7,
+            "compoundShapeURL": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/mallet_collision_hull.obj",
+            "created": "2016-08-03T21:56:02Z",
+            "dimensions": {
+                "x": 0.56000000238418579,
+                "y": 0.059999998658895493,
+                "z": 0.059999998658895493
+            },
+            "id": "{3923229d-945e-4983-89f9-3fc8c42a64dc}",
+            "modelURL": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/mallet.fbx",
+            "name": "Xylophone Mallet",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0.69990003108978271,
+                "y": 0.45001220703125,
+                "z": -6.5118074417114258e-05
+            },
+            "queryAACube": {
+                "scale": 1.6991763114929199,
+                "x": 1100.56787109375,
+                "y": 460.3841552734375,
+                "z": -77.62548828125
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 0.70708787441253662,
+                "x": -1.52587890625e-05,
+                "y": 0.70708787441253662,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/mallet.js",
+            "shapeType": "compound",
+            "type": "Model",
+            "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
+        },
+        {
+            "angularDamping": 1,
+            "clientOnly": 0,
+            "created": "2016-08-03T21:56:02Z",
+            "damping": 1,
+            "dimensions": {
+                "x": 0.15119999647140503,
+                "y": 0.045400001108646393,
+                "z": 0.71119999885559082
+            },
+            "id": "{a9e06694-5a4e-48e8-aed7-08ba4d64693e}",
+            "name": "Xylophone Key C2",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0,
+                "y": 0.25,
+                "z": 0
+            },
+            "queryAACube": {
+                "scale": 2.1855325698852539,
+                "x": 1100.933349609375,
+                "y": 459.94400024414062,
+                "z": -78.216087341308594
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"C2.L.wav\",\"color\":[209,0,0]}}"
+        },
+        {
+            "angularDamping": 1,
+            "clientOnly": 0,
+            "created": "2016-08-03T21:56:02Z",
+            "damping": 1,
+            "dimensions": {
+                "x": 0.15119999647140503,
+                "y": 0.045400001108646393,
+                "z": 0.68580001592636108
+            },
+            "id": "{70c42f0a-e3b7-4f0e-929d-4d10e3065f2c}",
+            "name": "Xylophone Key D2",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0.16497918963432312,
+                "y": 0.25,
+                "z": -1.3187527656555176e-05
+            },
+            "queryAACube": {
+                "scale": 2.1112079620361328,
+                "x": 1100.8314208984375,
+                "y": 459.98117065429688,
+                "z": -78.090133666992188
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"D2.L.wav\",\"color\":[255,102,34]}}"
+        },
+        {
+            "angularDamping": 1,
+            "clientOnly": 0,
+            "created": "2016-08-03T21:56:02Z",
+            "damping": 1,
+            "dimensions": {
+                "x": 0.15119999647140503,
+                "y": 0.045400001108646393,
+                "z": 0.53339999914169312
+            },
+            "id": "{fa1cbb86-5df8-4860-9adf-765ab38c005d}",
+            "name": "Xylophone Key C3",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 1.1549570560455322,
+                "y": 0.25,
+                "z": -2.6702880859375e-05
+            },
+            "queryAACube": {
+                "scale": 1.668815016746521,
+                "x": 1100.21826171875,
+                "y": 460.202392578125,
+                "z": -77.336219787597656
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"C3.L.wav\",\"color\":[25,0,32]}}"
+        },
+        {
+            "angularDamping": 1,
+            "clientOnly": 0,
+            "created": "2016-08-03T21:56:02Z",
+            "damping": 1,
+            "dimensions": {
+                "x": 0.15119999647140503,
+                "y": 0.045400001108646393,
+                "z": 0.58420002460479736
+            },
+            "id": "{fe259bd6-ff0a-4293-8378-5c30f0a34fa4}",
+            "name": "Xylophone Key A2",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0.82499873638153076,
+                "y": 0.25,
+                "z": -2.6822090148925781e-07
+            },
+            "queryAACube": {
+                "scale": 1.8154642581939697,
+                "x": 1100.4229736328125,
+                "y": 460.1290283203125,
+                "z": -77.587112426757812
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"A2.L.wav\",\"color\":[34,0,102]}}"
+        },
+        {
+            "angularDamping": 1,
+            "clientOnly": 0,
+            "created": "2016-08-03T21:56:02Z",
+            "damping": 1,
+            "dimensions": {
+                "x": 0.15119999647140503,
+                "y": 0.045400001108646393,
+                "z": 0.63499999046325684
+            },
+            "id": "{07d1bde0-ed4a-44e8-94f4-785cabe5b2ad}",
+            "name": "Xylophone Key F2",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0.49504035711288452,
+                "y": 0.25,
+                "z": 2.6106834411621094e-05
+            },
+            "queryAACube": {
+                "scale": 1.9629896879196167,
+                "x": 1100.62744140625,
+                "y": 460.05526733398438,
+                "z": -77.838447570800781
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"F2.L.wav\",\"color\":[51,221,0]}}"
+        },
+        {
+            "angularDamping": 1,
+            "clientOnly": 0,
+            "created": "2016-08-03T21:56:02Z",
+            "damping": 1,
+            "dimensions": {
+                "x": 0.15119999647140503,
+                "y": 0.045400001108646393,
+                "z": 0.6096000075340271
+            },
+            "id": "{96109342-c9c7-4a71-9e28-be98ceed2911}",
+            "name": "Xylophone Key G2",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "parentID": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "position": {
+                "x": 0.6600196361541748,
+                "y": 0.25,
+                "z": 1.2934207916259766e-05
+            },
+            "queryAACube": {
+                "scale": 1.8891302347183228,
+                "x": 1100.525146484375,
+                "y": 460.09222412109375,
+                "z": -77.712738037109375
+            },
+            "restitution": 0,
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "script": "http://mpassets.highfidelity.com/1f08bb51-d5cf-45f5-bf83-5bd77a19150c-v1/xylophoneKey.js",
+            "shape": "Cube",
+            "type": "Box",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false},\"soundKey\":{\"soundURL\":\"G2.L.wav\",\"color\":[17,51,204]}}"
+        },
+        {
+            "clientOnly": 0,
+            "collisionless": 1,
+            "color": {
+                "blue": 0,
+                "green": 0,
+                "red": 255
+            },
+            "created": "2016-08-03T21:56:02Z",
+            "dimensions": {
+                "x": 0.019999999552965164,
+                "y": 0.019999999552965164,
+                "z": 0.019999999552965164
+            },
+            "id": "{be14fc59-3f43-4ac6-bfa2-4d863ceace64}",
+            "ignoreForCollisions": 1,
+            "name": "xylophone spacer",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "position": {
+                "x": 0,
+                "y": 0.766143798828125,
+                "z": 0
+            },
+            "queryAACube": {
+                "scale": 0.034641016274690628,
+                "x": -0.017320508137345314,
+                "y": 0.74882328510284424,
+                "z": -0.017320508137345314
+            },
+            "shape": "Cube",
+            "type": "Box",
+            "visible": 0
+        },
+        {
+            "clientOnly": 0,
+            "collisionless": 1,
+            "created": "2016-08-03T21:56:02Z",
+            "dimensions": {
+                "x": 0.05000000074505806,
+                "y": 0.05000000074505806,
+                "z": 0.05000000074505806
+            },
+            "id": "{9a99d3c5-a3cc-4643-9e0d-e212cf4ace6d}",
+            "ignoreForCollisions": 1,
+            "name": "Xylophone Base",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "queryAACube": {
+                "scale": 0.086602538824081421,
+                "x": -0.04330126941204071,
+                "y": -0.04330126941204071,
+                "z": -0.04330126941204071
+            },
+            "rotation": {
+                "w": 0.27922487258911133,
+                "x": 0.024399161338806152,
+                "y": -0.95626765489578247,
+                "z": 0.083604216575622559
+            },
+            "shape": "Cube",
+            "type": "Box",
+            "visible": 0
+        }
+    ],
+    "Version": 62
+}

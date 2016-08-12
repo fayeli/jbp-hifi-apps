@@ -1,0 +1,80 @@
+Game Table
+--------------
+
+Overall principles for v1 -
+No enforced 'rules'
+No 'turns'
+Should be fully physical
+**What level of mouse compatibility for each game? that is a direct impact on level of effort**
+
+Table
+1) Entity spawner
+    - Creates x number of a given entity
+    - Can either pile (ordered/random) or spread evenly (ordered/random), or create at specific grid locations
+2) Mat
+    - Changable picture
+    - Resizable square grid
+    - Snap to grid
+3) Seat Spawner
+    - Makes a new chair if one is needed
+4) Celebrator  [stretch]
+    - Particle system above table
+    - Triggered by... (?)
+
+Table buttons
+- Reset Game
+- Next Game [game name]
+- New Chair
+
+
+Difficulty: Low 
+(issues: physics will need tuning for things settling.  puzzle may need snapping. )
+Puzzles
+Dominoes
+
+
+Difficulty: Medium 
+(issues: how to reach in and move a piece without messing up all the other ones.  dice will need something to keep them on the table and 'shake' from a distance w/o flying away)
+Chess
+Checkers
+Dice
+
+Difficulty: High
+(issues: seeing other peoples cards.  i need 3d model overlays to be able to be children. mechanic to select cards)
+Deck of cards + Betting Chips
+
+
+Assets
+---------------
+
+Overall:
+1 FBX Table
+1 FBX x 3 buttons
+
+Puzzles - 
+6 designs & 6 pictures = 36 possible puzzles
+For each puzzle
+1 FBX with smooth picture surface
+1 FBX with slices showing on picture surface
+1 FBX for each separate slice
+
+Dominoes -
+28 FBX 'bones'
+a set of 28 'bones' w/ dots on one side and a design on the other
+http://www.domino-play.com/SetDSixes.gif
+Board art image
+
+Chess-
+Already have all models
+Board art image
+
+Checkers-
+2 FBX pieces - 1 black 1 red
+Board art image
+
+Dice - 
+1 FBX die (x various colors)
+
+Cards-
+52 FBX one for each card.
+1 "Blank" FBX that only shows the back of the card.
