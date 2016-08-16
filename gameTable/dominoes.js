@@ -1,4 +1,5 @@
 {   
+    gameName:'dominoes',
     matURL:'',
     spawnStyle: 'pile',
     howMany:'28',

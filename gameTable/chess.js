@@ -1,4 +1,5 @@
 {
+    gameName:'chess',
     matURL:'',
     spawnStyle: 'arranged',
     snapToGrid:true,

@@ -1,4 +1,5 @@
 {   
+    gameName:'dice',
     matURL:'',
     spawnStyle: 'pile',
     howMany:'5',

@@ -1,4 +1,5 @@
 {   
+    gameName:'checkers',
     matURL:'',
     spawnStyle: 'arranged',
     snapToGrid:true,
