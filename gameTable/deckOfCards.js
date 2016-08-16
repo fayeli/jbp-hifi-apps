@@ -11,16 +11,19 @@
         },
         collisionWithEntity: function(me, other, collision) {
             if (collision.type !== 0) {
-                return
+                return;
             }
+
             var otherProps = Entities.getEntityProperties(other);
-            if (otherProps.description.indexOf('hifi:gameTable:playingCard') > -1) {
+            if (otherProps.description.indexOf('hifi:gameTable:game:playingCards') > -1) {
                 var split = description.split(":");
-                _this.addCardToDeck(split[3]);
+                _this.addCardToDeck(split[4]);
+                Entities.deleteEntity(other);
             }
         },
-        addCardToDeck(cardString) {
-
+        addCardToDeck(storedData) {
+            var card = new Card(storedData.substr(1, storedData.length), storedData[0]);
+            _this.currentStack.addCard(card);
         },
         startNearGrab: function() {
             _this.enterDealerMode();
