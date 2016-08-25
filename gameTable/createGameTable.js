@@ -2,9 +2,21 @@ var TABLE_MODEL_URL = Script.resolvePath('assets/models');
 
 var table, entitySpawner, mat, seatSpawner;
 
-var entitySpawnerOffset = [0,1,0];
-var matOffset = [0,0,0];
-var seatSpawnerOffset = [1,0,1];
+var entitySpawnerOffset = {
+    forward: 0,
+    vertical: 1,
+    right: 0
+}
+var matOffset = {
+    forward: 0,
+    vertical: 0.5,
+    right: 0
+}
+var seatSpawnerOffset = {
+    forward: 1,
+    vertical: 0,
+    right: 1
+}
 
 function getOffsetFromTable(forward, vertical, right) {
     var props = Entities.getEntityProperties(table);
@@ -28,9 +40,10 @@ function getOffsetFromTable(forward, vertical, right) {
 function createTable() {
     var props = {
         type: 'Model',
-        description:'hifi:gameTable:table',
+        description: 'hifi:gameTable:table',
         modelURL: TABLE_MODEL_URL,
         shapeType: 'static',
+        position: TABLE_START_POSITION
     };
 
     table = Entities.addEntity(props);
@@ -40,7 +53,7 @@ function createEntitySpawner() {
     var props = {
         type: 'Box',
         collisionless: true,
-        description:'hifi:gameTable:entitySpawner',
+        description: 'hifi:gameTable:entitySpawner',
         color: {
             red: 0,
             green: 255,
@@ -51,7 +64,8 @@ function createEntitySpawner() {
             y: 0.25,
             z: 0.25
         },
-        parentID: table
+        parentID: table,
+        position: getOffsetFromTable(entitySpawnerOffset.forward, entitySpawnerOffset.vertical, entitySpawnerOffset.right)
     };
 
     entitySpawner = Entities.addEntity(props);
@@ -60,7 +74,7 @@ function createEntitySpawner() {
 function createMat() {
     var props = {
         type: 'Box',
-        description:'hifi:gameTable:mat',
+        description: 'hifi:gameTable:mat',
         collisionless: true,
         color: {
             red: 0,
@@ -72,7 +86,8 @@ function createMat() {
             y: 0.25,
             z: 0.25
         },
-        parentID: table
+        parentID: table,
+        position: getOffsetFromTable(matOffset.forward, matOffset.vertical, matOffset.right)
     };
 
     mat = Entities.addEntity(props);
@@ -81,7 +96,7 @@ function createMat() {
 function createSeatSpawner() {
     var props = {
         type: 'Box',
-        description:'hifi:gameTable:seatSpawner',
+        description: 'hifi:gameTable:seatSpawner',
         collisionless: true,
         color: {
             red: 255,
@@ -93,7 +108,8 @@ function createSeatSpawner() {
             y: 0.25,
             z: 0.25
         },
-        parentID: table
+        parentID: table,
+        position: getOffsetFromTable(seatSpawnerOffset.forward, seatSpawnerOffset.vertical, seatSpawnerOffset.right)
     };
 
     seatSpawner = Entities.addEntity(props);
