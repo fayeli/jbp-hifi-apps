@@ -1,0 +1,35 @@
+Game Table
+
+
+1) Asset Spawner
+    -Creates entities
+    -Supports positional spawning (chess,checkers)
+2) Mat
+    -Subdivided square grid
+    -Changable picture for the top
+    -Supports snap to grid
+3) Overhead Spawner
+    -Creates short-lived collisionless entities for celebrations
+
+Buttons
+1) Reset Current Game
+2) Next Game [Game Name]
+3) New Chair
+
+
+
+Difficulty: Low
+Dominoes
+Puzzle
+
+
+Difficulty: Medium
+Checkers
+Chess
+
+Difficulty: Difficult
+Poker
+
+
+
+**need to be able to highlight the thing that _would_ be grabbed if you were to grab**

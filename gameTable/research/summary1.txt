@@ -1,0 +1,20 @@
+Game Table
+
+
+1) Asset Spawner
+    -Creates entities
+    -Supports positional spawning (chess,checkers)
+2) Mat
+    -Subdivided grid
+    -Changable picture for the top
+
+Buttons
+1) Reset Current Game
+2) Next Game [Game Name]
+2) New Chair
+
+
+
+
+
+
