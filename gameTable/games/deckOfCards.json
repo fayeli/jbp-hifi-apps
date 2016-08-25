@@ -1,0 +1,7 @@
+{   
+    "gameName":"deckOfCards",
+    "matURL":"",
+    "spawnStyle": "script",
+    //array of objects.  one object per player (i.e. dif color pieces)
+    "url": []
+}

@@ -1,0 +1,8 @@
+{   
+    "gameName":"dominoes",
+    "matURL":"",
+    "spawnStyle": "pile",
+    "howMany":"28",
+    //array of objects.  
+    "pieces": [""]
+}

@@ -21,6 +21,7 @@
                 _this.setCurrentGame(_this.gamesList[0]);
                 _this.setCurrentUserData(userData);
             };
+            _this.resetGame();
         },
         resetGame: function() {
             _this.cleanupGameEntities();
@@ -36,9 +37,6 @@
             _this.spawnEntitiesForGame();
         },
         cleanupGameEntities: function() {
-
-        },
-        startGame: function() {
 
         },
         setCurrentGamesList: function() {
