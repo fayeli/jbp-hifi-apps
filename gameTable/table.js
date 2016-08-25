@@ -23,9 +23,19 @@
             };
         },
         resetGame: function() {
-
+            _this.cleanupGameEntities();
+            _this.spawnEntitiesForGame();
         },
         nextGame: function() {
+            _this.currentGameIndex++;
+            if (_this.currentGameIndex > _this.gamesList.length) {
+                _this.currentGameIndex = 0;
+            };,
+            _this.cleanupGameEntities();
+            _this.setCurrentGame();
+            _this.spawnEntitiesForGame();
+        },
+        cleanupGameEntities: function() {
 
         },
         startGame: function() {
@@ -37,10 +47,10 @@
             _this.gamesList = userData.gamesList;
             _this.setCurrentUserData(userData);
         },
-        setCurrentGame: function(game) {
+        setCurrentGame: function() {
             var userData = _this.getCurrentUserData();
-            userData.currentGame = game;
-            _this.currentGame = game;
+            userData.currentGame = _this.gamesList[_this.currentGameIndex];
+            _this.currentGame = serData.currentGame;
             _this.setCurrentUserData(userData);
         },
         setCurrentUserData: function(data) {
@@ -77,13 +87,9 @@
                 })
             })
         },
-        spawnNewSeat: function() {
-            var seatSpawner = _this.getEntityFromGroup('gameTable', 'seatSpawner');
-            Entities.callEntityMethod(seatSpawner, 'createSeat');
-        },
         spawnEntitiesForGame: function() {
             var seatSpawner = _this.getEntityFromGroup('gameTable', 'entitySpawner');
-            Entities.callEntityMethod(seatSpawner, 'spawnEntities');
+            Entities.callEntityMethod(seatSpawner, 'spawnEntities', [JSON.stringify(_this.currentGame)]);
         }
     }
 
