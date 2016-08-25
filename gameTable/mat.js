@@ -5,5 +5,5 @@
         _this = this;
     };
     Mat.prototype = {}
-    return new Mat()
+    return new Mat();
 });
