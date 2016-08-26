@@ -1,18 +1,22 @@
 var TABLE_MODEL_URL = Script.resolvePath('assets/models/table/table.fbx');
 var MODEL_URL = "http://hifi-production.s3.amazonaws.com/tutorials/pictureFrame/finalFrame.fbx";
 var MAT_STARTING_PICTURE = '';
+
 var table, entitySpawner, mat, seatSpawner;
 var nextGameButton, resetGameButton, newSeatButton;
+
 var entitySpawnerOffset = {
     forward: 0,
     vertical: 1,
     right: 0
 };
+
 var matOffset = {
     forward: 0,
     vertical: 0.5,
     right: 0
 };
+
 var seatSpawnerOffset = {
     forward: 1,
     vertical: 0,
@@ -24,17 +28,18 @@ var nextGameButtonOffset = {
     vertical: 0,
     right: 0.5
 };
+
 var resetGameButtonOffset = {
     forward: 0.5,
     vertical: 0,
     right: 0.65
 };
+
 var newSeatButtonOffset = {
     forward: 0.5,
     vertical: 0,
     right: 0.5
 };
-
 
 function getOffsetFromTable(forward, vertical, right) {
     var props = Entities.getEntityProperties(table);

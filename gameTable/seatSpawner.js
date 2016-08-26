@@ -123,13 +123,22 @@
             });
 
 
+            created.push(chair);
+            created.push(triggerVolume);
+
+        };
+
+        function cleanup() {
+            created.forEach(function(obj) {
+                Entities.deleteEntity(obj);
+            })
         };
 
         create();
 
         this.cleanup = cleanup;
 
-    }
+    };
 
     function SeatSpawner() {
         _this = this;

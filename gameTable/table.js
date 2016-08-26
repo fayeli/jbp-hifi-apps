@@ -5,15 +5,16 @@
 
     function GameTable() {
         _this = this;
-    }
+    };
 
     GameTable.prototype = {
+        matCorner: null,
         preload: function(entityID) {
             _this.entityID = entityID;
             Script.setTimeout(function() {
                 _this.setCurrentGamesList();
                 _this.setInitialGameIfNone();
-            }, INITIAL_DELAY)
+            }, INITIAL_DELAY);
         },
         setInitialGameIfNone: function() {
             var userData = _this.getCurrentUserData();
@@ -52,8 +53,10 @@
             _this.setCurrentUserData(userData);
         },
         setCurrentUserData: function(data) {
-            Entities.editEntity(_this.editEntity, {
-                userData: data
+            var userData = getCurrentUserData();
+            userData.gameTableData = data;
+            Entities.editEntity(_this.entityID, {
+                userData: userData
             })
         },
         getCurrentUserData: function() {
@@ -74,7 +77,7 @@
                 var itemProps = Entities.getEntityProperties(item);
                 var descriptionSplit = itemProps.description.split(":");
                 if (descriptionSplit[1] === groupName && descriptionSplit[2] === entityName) {
-                    return item
+                    return item;
                 }
             });
         },
@@ -86,9 +89,11 @@
             })
         },
         spawnEntitiesForGame: function() {
-            var seatSpawner = _this.getEntityFromGroup('gameTable', 'entitySpawner');
-            Entities.callEntityMethod(seatSpawner, 'spawnEntities', [JSON.stringify(_this.currentGame)]);
-        }
+            var entitySpawner = _this.getEntityFromGroup('gameTable', 'entitySpawner');
+            var props = Entities.getEntityProperties(_this.entityID);
+            Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGame), _this.matCorner,props.rotation,props.dimensions.z]);
+        },
+
     }
 
     function getGamesList() {
