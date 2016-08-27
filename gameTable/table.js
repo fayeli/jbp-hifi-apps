@@ -91,7 +91,7 @@
         spawnEntitiesForGame: function() {
             var entitySpawner = _this.getEntityFromGroup('gameTable', 'entitySpawner');
             var props = Entities.getEntityProperties(_this.entityID);
-            Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGame), _this.matCorner,props.rotation,props.dimensions.z]);
+            Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGame), _this.matCorner, props.rotation, props.dimensions.z]);
         },
 
     }

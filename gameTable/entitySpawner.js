@@ -1,6 +1,8 @@
 (function() {
     var _this;
 
+    //listens for a release message from entities with the snap to grid script
+    //checks for the nearest snap point and sends a message back to the entity
     function PastedItem(url, spawnLocation, spawnRotation) {
         print('CREATE PastedItem FROM SPAWNER');
         var created = [];
@@ -58,7 +60,8 @@
         },
         spawnByPile: function() {
             _this.game.pieces.forEach(function(piece) {
-
+                var spawnLocation;
+                var newPiece = new PastedItem(piece, spawnLocation);
             })
         },
         spawnByScript: function() {
@@ -71,27 +74,65 @@
             var tiles = [];
             var rightVector = Quat.getRight(_this.tableRotation);
             var forwardVector = Quat.getFront(_this.tableRotation);
+            var previousTilePosition = _this.matCorner;
             var tileSize = _this.tableSideSize / _this.game.startingArrangement.length;
             _this.game.startingArrangement.forEach(function(row, rowIndex) {
-                //multiply forward times the rowIndex
                 var forwardAmount = rowIndex * tileSize;
                 row.forEach(function(singleTile, tileIndex) {
                     var rightAmount = tileIndex * tileSize;
-                    //multiply right times the  tileIndex
+                    var tile = {
+                        right: Vec3.multiply(rightVector, rightAmount),
+                        forward: Vec3.multiply(forwardVector, forwardAmount),
+                        halfForward: Vec3.multiply(forwardVector, forwardAmount - (0.5 * tileSize)),
+                        halfRight: Vec3.multiply(rightVector, rightAmount - (0.5 * tileSize)),
+                        rowIndex: rowIndex,
+                        tileIndex: tileIndex,
+                    }
+
+                    tile.rightPosition = Vec3.sum(previousTilePosition, tile.right);
+                    tile.position = Vec3.sum(tile.rightPosition, tile.forward);
+
+                    //to put in the middle -- get midpoint between each tile for right
+                    //add 1/2 tile width to the fwd
+                    tile.middle = Vec3.sum(previousTilePosition, tile.halfRight);
+                    tile.middle = Vec3.sum(tile.middle, tile.halfForward);
+
+                    tiles.push(tile);
+                    _this.createAnchorEntityAtPoint(tile.middle);
+                    previousTilePosition = tile.position;
                 });
             });
-            //to put in the middle -- get midpoint between each tile for right
-            //add 1/2 tile width to the fwd
-        },
-        getMidpoint: function(p1, p2) {
 
         },
+
+        findMidpoint: function(start, end) {
+            var xy = Vec3.sum(start, end);
+            var midpoint = Vec3.multiply(0.5, xy);
+            return midpoint
+        },
+
+        createAnchorEntityAtPoint: function(position) {
+            var properties = {
+                type: 'Zone',
+                description: 'hifi:gameTable:anchor',
+                dimensions: {
+                    x: 0.1,
+                    y: 0.1,
+                    z: 0.1
+                },
+                parentID: Entities.getEntityProperties(_this.entityID).id,
+                position: position,
+                userData: 'free'
+            }
+            var anchor = Entities.addEntity(properties);
+        },
+
         setCurrentUserData: function(data) {
             var userData = getCurrentUserData();
             userData.gameTableData = data;
             Entities.editEntity(_this.entityID, {
                 userData: userData
-            })
+            });
         },
         getCurrentUserData: function() {
             var props = Entities.getEntityProperties(_this.entityID);
