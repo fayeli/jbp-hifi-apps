@@ -36,7 +36,7 @@
         matCorner: null,
         tableRotation: null,
         preload: function(id) {
-            _this.entityID = id
+            _this.entityID = id;
         },
         createSingleEntity: function() {
             var item = new PastedItem();
@@ -57,6 +57,8 @@
             if (this.game.spawnStyle === "single") {
                 _this.spawnBySingle();
             }
+
+
         },
         spawnByPile: function() {
             _this.game.pieces.forEach(function(piece) {
@@ -68,7 +70,7 @@
 
         },
         spawnByArranged: function() {
-
+            // make sure to set userData.gameTable.attachedTo appropriately
         },
         calculateTiles: function() {
             var tiles = [];
@@ -122,7 +124,7 @@
                 },
                 parentID: Entities.getEntityProperties(_this.entityID).id,
                 position: position,
-                userData: 'free'
+                userData: 'available'
             }
             var anchor = Entities.addEntity(properties);
         },

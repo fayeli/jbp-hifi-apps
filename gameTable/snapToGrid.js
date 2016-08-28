@@ -13,9 +13,9 @@
         },
         startGrab: function() {
             var userData = _this.getCurrentUserData();
-            if (userData.gameTable.hasOwnProperty('attachedTo')) {
+            if (userData.gameTable.hasOwnProperty('attachedTo') && userData.gameTable.attachedTo !== null) {
                 Entities.editEntity(userData.gameTable.attachedTo, {
-                    userData: 'free'
+                    userData: 'available'
                 });
             }
         },
@@ -29,7 +29,7 @@
                 var props = Entities.getEntityProperties(item);
                 if (props.userData === 'occupied') {
                     //don't put it on the stack
-                } else if (props.userData === 'free') {
+                } else if (props.userData === 'available') {
                     availableAnchors.push(props.position);
                 }
             });
@@ -49,6 +49,9 @@
             });
 
             if (shortestDistance > DONT_SNAP_WHEN_FARTHER_THAN_THIS) {
+                _this.setCurrentUserData({
+                    attachedTo: null
+                })
                 return;
             } else {
                 if (nearestAnchor !== null) {
@@ -59,6 +62,11 @@
                     Entities.editEntity(nearestAnchor, {
                         userData: 'occupied'
                     });
+                } else {
+                    //there is no nearest anchor.  perhaps they are all occupied.
+                    _this.setCurrentUserData({
+                        attachedTo: null
+                    })
                 }
             }
 
