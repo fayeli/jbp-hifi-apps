@@ -1,6 +1,6 @@
 {
     "gameName":"chess",
-    "matURL":"",
+    "matURL":"http://mymatURL.jpg",
     "spawnStyle": "arranged",
     "snapToGrid":true,
     "startingArrangement": [
@@ -13,20 +13,19 @@
         ["2:rook", "2:knight", "2:bishop", "2:queen", "2:king", "2:bishop", "2:knight", "2:rook"],
         ["2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn"],
     ],
-    //array of objects.  one object per player (i.e. dif color pieces)
     "pieces": [{
-        "king": "",
-        "queen": "",
-        "rook": "",
-        "bishop": "",
-        "knight": "",
-        "pawn": ""
+        "king": "king_white.json",
+        "queen": "queen_white.json",
+        "rook": "rook_white.json",
+        "bishop": "bishop_white.json",
+        "knight": "knight_white.json",
+        "pawn": "pawn_white.json"
     }, {
-        "king": "",
-        "queen": "",
-        "rook": "",
-        "bishop": "",
-        "knight": "",
-        "pawn": ""
+        "king": "king_black.json",
+        "queen": "queen_black.json",
+        "rook": "rook_black.json",
+        "bishop": "bishop_black.json",
+        "knight": "knight_black.json",
+        "pawn": "pawn_black.json"
     }]
 }

@@ -2,6 +2,5 @@
     "gameName":"deckOfCards",
     "matURL":"",
     "spawnStyle": "pile",
-    //url to its json for the entity.
     "url": []
 }

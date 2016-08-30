@@ -3,6 +3,5 @@
     "matURL":"",
     "spawnStyle": "pile",
     "howMany":"5",
-    //array of objects.  
     "pieces": [""]
 }

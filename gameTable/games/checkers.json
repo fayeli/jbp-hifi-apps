@@ -13,10 +13,9 @@
         ["2:checker", "empty", "2:checker", "empty", "2:checker", "empty", "2:checker", "empty"],
 
     ],
-    //array of objects.  one object per player (i.e. dif color pieces)
     "pieces": [{
-        "checker": ""
+        "checker": "blackChecker.json"
     }, {
-        "checker": ""
+        "checker": "redChecker.json"
     }]
 }
