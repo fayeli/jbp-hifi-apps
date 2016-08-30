@@ -25,14 +25,16 @@
             _this.resetGame();
         },
         resetGame: function() {
+            print('RESET GAME on gameTable')
             _this.cleanupGameEntities();
             _this.spawnEntitiesForGame();
         },
         nextGame: function() {
+            print('NEXT GAME on gameTable')
             _this.currentGameIndex++;
             if (_this.currentGameIndex > _this.gamesList.length) {
                 _this.currentGameIndex = 0;
-            };,
+            }
             _this.cleanupGameEntities();
             _this.setCurrentGame();
             _this.spawnEntitiesForGame();
@@ -57,7 +59,7 @@
             userData.gameTableData = data;
             Entities.editEntity(_this.entityID, {
                 userData: userData
-            })
+            });
         },
         getCurrentUserData: function() {
             var props = Entities.getEntityProperties(_this.entityID);

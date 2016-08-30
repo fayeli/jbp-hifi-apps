@@ -1,6 +1,10 @@
-var TABLE_MODEL_URL = Script.resolvePath('assets/models/table/table.fbx');
+var TABLE_MODEL_URL = Script.resolvePath('assets/table/table.fbx');
 var MODEL_URL = "http://hifi-production.s3.amazonaws.com/tutorials/pictureFrame/finalFrame.fbx";
-var MAT_STARTING_PICTURE = '';
+
+var TABLE_START_POSITION
+
+var front = Quat.getFront(MyAvatar.orientation);
+var TABLE_START_POSITION = Vec3.sum(MyAvatar.position, front);
 
 var table, entitySpawner, mat, seatSpawner;
 var nextGameButton, resetGameButton, newSeatButton;
@@ -13,32 +17,32 @@ var entitySpawnerOffset = {
 
 var matOffset = {
     forward: 0,
-    vertical: 0.5,
+    vertical: 0.469,
     right: 0
 };
 
 var seatSpawnerOffset = {
-    forward: 1,
-    vertical: 0,
+    forward: -1,
+    vertical: 1,
     right: 1
 };
 
 var nextGameButtonOffset = {
-    forward: 0.5,
-    vertical: 0,
-    right: 0.5
+    forward: 0.7,
+    vertical: 0.45,
+    right: -0.7
 };
 
 var resetGameButtonOffset = {
-    forward: 0.5,
-    vertical: 0,
-    right: 0.65
+    forward: 0.7,
+    vertical: 0.45,
+    right: -0.9
 };
 
 var newSeatButtonOffset = {
-    forward: 0.5,
-    vertical: 0,
-    right: 0.5
+    forward: 0.7,
+    vertical: 0.45,
+    right: -1.1
 };
 
 function getOffsetFromTable(forward, vertical, right) {
@@ -63,9 +67,16 @@ function getOffsetFromTable(forward, vertical, right) {
 function createTable() {
     var props = {
         type: 'Model',
+        name: 'GameTable Table',
         description: 'hifi:gameTable:table',
         modelURL: TABLE_MODEL_URL,
         shapeType: 'static',
+        dimensions: {
+            x: 1.255,
+            y: 1.0121,
+            z: 1.255
+        },
+        script: Script.resolvePath('table.js'),
         position: TABLE_START_POSITION
     };
 
@@ -75,6 +86,7 @@ function createTable() {
 function createEntitySpawner() {
     var props = {
         type: 'Box',
+        name: 'GameTable Entity Spawner',
         collisionless: true,
         description: 'hifi:gameTable:entitySpawner',
         color: {
@@ -96,8 +108,11 @@ function createEntitySpawner() {
 
 
 function createMat() {
+    // var MAT_STARTING_PICTURE = "";
     var props = {
         type: 'Model',
+        modelURL: MODEL_URL,
+        name: 'GameTable Mat',
         description: 'hifi:gameTable:mat',
         collisionless: true,
         color: {
@@ -106,16 +121,16 @@ function createMat() {
             blue: 255
         },
         dimensions: {
-            x: 1.2,
-            y: 0.9,
+            x: 1.045,
+            y: 1.045,
             z: 0.075
         },
-        textures: JSON.stringify({
-            Picture: MAT_STARTING_PICTURE
-        }),
+        rotation: Quat.fromPitchYawRollDegrees(90, 0, 0),
+        // textures: JSON.stringify({
+        //     Picture: MAT_STARTING_PICTURE
+        // }),
         parentID: table,
         script: Script.resolvePath('mat.js'),
-
         position: getOffsetFromTable(matOffset.forward, matOffset.vertical, matOffset.right)
     };
 
@@ -125,6 +140,7 @@ function createMat() {
 function createSeatSpawner() {
     var props = {
         type: 'Box',
+        name: 'GameTable Seat Spawner',
         description: 'hifi:gameTable:seatSpawner',
         collisionless: true,
         color: {
@@ -138,7 +154,6 @@ function createSeatSpawner() {
             z: 0.25
         },
         parentID: table,
-        ,
         script: Script.resolvePath('seatSpawner.js'),
         position: getOffsetFromTable(seatSpawnerOffset.forward, seatSpawnerOffset.vertical, seatSpawnerOffset.right)
     };
@@ -149,20 +164,20 @@ function createSeatSpawner() {
 function createNextGameButton() {
     var props = {
         type: 'Box',
+        name: 'GameTable Next Button',
         description: 'hifi:gameTable:nextGameButton',
         collisionless: true,
         color: {
-            red: 255,
-            green: 255,
-            blue: 0
+            red: 0,
+            green: 0,
+            blue: 255
         },
         dimensions: {
-            x: 0.25,
-            y: 0.25,
-            z: 0.25
+            x: 0.1,
+            y: 0.1,
+            z: 0.1
         },
         parentID: table,
-        ,
         script: Script.resolvePath('nextGameButton.js'),
         position: getOffsetFromTable(nextGameButtonOffset.forward, nextGameButtonOffset.vertical, nextGameButtonOffset.right)
     };
@@ -173,20 +188,20 @@ function createNextGameButton() {
 function createResetGameButton() {
     var props = {
         type: 'Box',
+        name: 'GameTable Reset Button',
         description: 'hifi:gameTable:resetGameButton',
         collisionless: true,
         color: {
             red: 255,
-            green: 255,
+            green: 0,
             blue: 0
         },
         dimensions: {
-            x: 0.25,
-            y: 0.25,
-            z: 0.25
+            x: 0.1,
+            y: 0.1,
+            z: 0.1
         },
         parentID: table,
-        ,
         script: Script.resolvePath('resetGameButton.js'),
         position: getOffsetFromTable(resetGameButtonOffset.forward, resetGameButtonOffset.vertical, resetGameButtonOffset.right)
     };
@@ -197,26 +212,36 @@ function createResetGameButton() {
 function createNewSeatButton() {
     var props = {
         type: 'Box',
+        name: 'GameTable New Seat Button',
         description: 'hifi:gameTable:newSeatButton',
         collisionless: true,
         color: {
             red: 255,
-            green: 255,
-            blue: 0
+            green: 0,
+            blue: 255
         },
         dimensions: {
-            x: 0.25,
-            y: 0.25,
-            z: 0.25
+            x: 0.1,
+            y: 0.1,
+            z: 0.1
         },
         parentID: table,
-        ,
         script: Script.resolvePath('newSeatButton.js'),
         position: getOffsetFromTable(newSeatButtonOffset.forward, newSeatButtonOffset.vertical, newSeatButtonOffset.right)
     };
 
     newSeatButton = Entities.addEntity(props);
 };
+
+function makeTable() {
+    createTable();
+    createMat();
+    createResetGameButton();
+    createNextGameButton();
+    createNewSeatButton();
+    createSeatSpawner();
+    createEntitySpawner();
+}
 
 function cleanup() {
     Entities.deleteEntity(table);
@@ -229,3 +254,5 @@ function cleanup() {
 };
 
 Script.scriptEnding.connect(cleanup);
+
+makeTable();

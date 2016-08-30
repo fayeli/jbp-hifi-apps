@@ -1,5 +1,5 @@
 (function() {
-    var _this
+    var _this;
 
     function ResetGameButton() {
         _this = this;
@@ -16,16 +16,20 @@
                 var itemProps = Entities.getEntityProperties(item);
                 var descriptionSplit = itemProps.description.split(":");
                 if (descriptionSplit[1] === groupName && descriptionSplit[2] === entityName) {
-                    return item
+                    found =  item
                 }
             });
+            return found;
         },
-        onClick: function() {},
+        clickDownOnEntity: function() {
+             _this.resetGame();
+        },
         startNearTrigger: function() {},
         startFarTrigger: function() {},
         resetGame: function() {
-            var seatSpawner = _this.getEntityFromGroup('gameTable', 'table');
-            Entities.callEntityMethod(seatSpawner, 'resetGame');
+            print('reset game button calling resetGame');
+            var table = _this.getEntityFromGroup('gameTable', 'table');
+            Entities.callEntityMethod(table, 'resetGame');
         }
     };
     return new ResetGameButton();

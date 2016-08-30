@@ -12,20 +12,27 @@
             var props = Entities.getEntityProperties(_this.entityID);
             var results = Entities.findEntities(props.position, 7.5);
             var found;
+            print('results? ' + results.length)
             results.forEach(function(item) {
                 var itemProps = Entities.getEntityProperties(item);
                 var descriptionSplit = itemProps.description.split(":");
                 if (descriptionSplit[1] === groupName && descriptionSplit[2] === entityName) {
-                    return item
+                    found= item
                 }
             });
+            return found
         },
-        onClick: function() {},
+        clickDownOnEntity: function() {
+            _this.nextGame();
+        },
         startNearTrigger: function() {},
         startFarTrigger: function() {},
         nextGame: function() {
-            var seatSpawner = _this.getEntityFromGroup('gameTable', 'table');
-            Entities.callEntityMethod(seatSpawner, 'nextGame');
+            print('next game button calling nextGame')
+            var table = _this.getEntityFromGroup('gameTable', 'table');
+            print('has table?' + table)
+            var tableString =table.substr(1,table.length-2)
+            Entities.callEntityMethod(tableString, 'nextGame');
         }
     };
     return new NextGameButton();

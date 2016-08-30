@@ -16,15 +16,20 @@
                 var itemProps = Entities.getEntityProperties(item);
                 var descriptionSplit = itemProps.description.split(":");
                 if (descriptionSplit[1] === groupName && descriptionSplit[2] === entityName) {
-                    return item
+                    found= item
                 }
             });
+            return found;
         },
-        onClick: function() {},
+        clickDownOnEntity: function() {
+             _this.spawnNewSeat();
+        },
         startNearTrigger: function() {},
         startFarTrigger: function() {},
         spawnNewSeat: function() {
+            print('seatSpawner calling spawn new seat')
             var seatSpawner = _this.getEntityFromGroup('gameTable', 'seatSpawner');
+            print('seatSpawner found: ' + seatSpawner);
             Entities.callEntityMethod(seatSpawner, 'createSeat');
         },
     };
