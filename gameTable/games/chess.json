@@ -11,7 +11,7 @@
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["2:rook", "2:knight", "2:bishop", "2:queen", "2:king", "2:bishop", "2:knight", "2:rook"],
-        ["2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn"],
+        ["2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn"]
     ],
     "pieces": [{
         "king": "king_white.json",

@@ -10,8 +10,7 @@
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["empty", "2:checker", "empty", "2:checker", "empty", "2:checker", "empty", "2:checker"],
-        ["2:checker", "empty", "2:checker", "empty", "2:checker", "empty", "2:checker", "empty"],
-
+        ["2:checker", "empty", "2:checker", "empty", "2:checker", "empty", "2:checker", "empty"]
     ],
     "pieces": [{
         "checker": "blackChecker.json"
