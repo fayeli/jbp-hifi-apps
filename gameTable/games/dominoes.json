@@ -1,7 +1,8 @@
 {   
     "gameName":"dominoes",
-    "matURL":"",
+    "matURL":"http://lorempixel.com/800/800",
     "spawnStyle": "pile",
     "howMany":"28",
-    "pieces": [""]
+    "identicalPieces":"false",
+    "pieces": ["domino.json"]
 }

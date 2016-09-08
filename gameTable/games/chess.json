@@ -1,8 +1,8 @@
 {
-    "gameName":"chess",
-    "matURL":"http://mymatURL.jpg",
+    "gameName": "chess",
+    "matURL": "http://mymatURL.jpg",
     "spawnStyle": "arranged",
-    "snapToGrid":true,
+    "snapToGrid": true,
     "startingArrangement": [
         ["1:rook", "1:knight", "1:bishop", "1:queen", "1:king", "1:bishop", "1:knight", "1:rook"],
         ["1:pawn", "1:pawn", "1:pawn", "1:pawn", "1:pawn", "1:pawn", "1:pawn", "1:pawn"],
@@ -10,22 +10,22 @@
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-        ["2:rook", "2:knight", "2:bishop", "2:queen", "2:king", "2:bishop", "2:knight", "2:rook"],
         ["2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn"]
+        ["2:rook", "2:knight", "2:bishop", "2:queen", "2:king", "2:bishop", "2:knight", "2:rook"],
     ],
     "pieces": [{
-        "king": "king_white.json",
-        "queen": "queen_white.json",
-        "rook": "rook_white.json",
-        "bishop": "bishop_white.json",
-        "knight": "knight_white.json",
-        "pawn": "pawn_white.json"
+        "king": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/king_white.json",
+        "queen": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/queen_white.json",
+        "rook": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/rook_white.json",
+        "bishop": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/bishop_white.json",
+        "knight": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/knight_white.json",
+        "pawn": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/pawn_white.json"
     }, {
-        "king": "king_black.json",
-        "queen": "queen_black.json",
-        "rook": "rook_black.json",
-        "bishop": "bishop_black.json",
-        "knight": "knight_black.json",
-        "pawn": "pawn_black.json"
+        "king": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/king_black.json",
+        "queen": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/queen_black.json",
+        "rook": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/rook_black.json",
+        "bishop": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/bishop_black.json",
+        "knight": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/knight_black.json",
+        "pawn": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/pawn_black.json"
     }]
 }

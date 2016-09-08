@@ -9,8 +9,12 @@
 
         function create() {
             var success = Clipboard.importEntities(url);
+            var dimensions = Clipboard.getContentsDimensions();
+            //we want the bottom of any piece to actually be on the board, so we add half of the height of the piece to the location when we paste it,
+            spawnLocation.y += 0.5 * dimensions.y;
             if (success === true) {
-                created = Clipboard.pasteEntities(spawnLocation)
+                created = Clipboard.pasteEntities(spawnLocation);
+                this.created = created;
                 print('created ' + created);
             }
         };
@@ -35,15 +39,19 @@
     EntitySpawner.prototype = {
         matCorner: null,
         tableRotation: null,
+        items: [],
         preload: function(id) {
             _this.entityID = id;
         },
         createSingleEntity: function() {
+            print('creating a single entity')
             var item = new PastedItem();
             _this.items.push(item);
         },
         spawnEntities: function(id, params) {
-            params = JSON.parse(params);
+            prit('spawn entities called!!')
+            this.items = [];
+            print('and it has params: ' + params.length)
             _this.game = params[0];
             _this.matCorner = params[1];
             _this.tableRotation = params[2];
@@ -54,23 +62,23 @@
             if (this.game.spawnStyle === "arranged") {
                 _this.spawnByArranged();
             }
-            if (this.game.spawnStyle === "single") {
-                _this.spawnBySingle();
-            }
-
 
         },
         spawnByPile: function() {
+            print('should spawn by pile')
             _this.game.pieces.forEach(function(piece) {
                 var spawnLocation;
                 var newPiece = new PastedItem(piece, spawnLocation);
             })
         },
-        spawnByScript: function() {
-
-        },
         spawnByArranged: function() {
             // make sure to set userData.gameTable.attachedTo appropriately
+            _this.calculateTiles();
+            print('about to spawn an arrangement')
+            _this.tiles.forEach(function(tile) {
+                _this.createSingleEntity(tile.url, tile.center);
+            });
+
         },
         calculateTiles: function() {
             var tiles = [];
@@ -89,6 +97,7 @@
                         halfRight: Vec3.multiply(rightVector, rightAmount - (0.5 * tileSize)),
                         rowIndex: rowIndex,
                         tileIndex: tileIndex,
+                        url: singleTile
                     }
 
                     tile.rightPosition = Vec3.sum(previousTilePosition, tile.right);
@@ -104,6 +113,8 @@
                     previousTilePosition = tile.position;
                 });
             });
+            
+            this.tiles = tiles;
 
         },
 
@@ -118,9 +129,9 @@
                 type: 'Zone',
                 description: 'hifi:gameTable:anchor',
                 dimensions: {
-                    x: 0.1,
-                    y: 0.1,
-                    z: 0.1
+                    x: 0.075,
+                    y: 0.075,
+                    z: 0.075
                 },
                 parentID: Entities.getEntityProperties(_this.entityID).id,
                 position: position,

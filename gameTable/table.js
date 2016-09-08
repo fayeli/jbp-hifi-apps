@@ -1,5 +1,6 @@
 (function() {
-    var GAMES_LIST_ENDPOINT = 'https://api.myjson.com/bins/2p22c';
+    //var GAMES_LIST_ENDPOINT = 'https://api.myjson.com/bins/2p22c';
+    var GAMES_LIST_ENDPOINT ="https://api.myjson.com/bins/36zz4";
     var _this;
     var INITIAL_DELAY = 3000;
 
@@ -48,7 +49,7 @@
             _this.spawnEntitiesForGame();
         },
         cleanupGameEntities: function() {
-
+            print('shoudl cleanup game entities')
         },
         setCurrentGamesList: function() {
             var gamesList = getGamesList();
@@ -57,9 +58,11 @@
             _this.setInitialGameIfNone();
         },
         setCurrentGame: function() {
-            print('games list in set current game' + _this.gamesList);
+            print('index in set current game: ' + _this.currentGameIndex);
+            print('games list in set current game' + JSON.stringify(_this.gamesList));
+            print('game at index' + _this.gamesList[_this.currentGameIndex])
             _this.currentGame = _this.gamesList[_this.currentGameIndex].gameName;
-
+            _this.currentGameFull = _this.gamesList[_this.currentGameIndex];
             _this.setCurrentUserData({
                 currentGame: _this.currentGame
             });
@@ -105,9 +108,10 @@
             })
         },
         spawnEntitiesForGame: function() {
+            print('should spawn entities for game')
             var entitySpawner = _this.getEntityFromGroup('gameTable', 'entitySpawner');
             var props = Entities.getEntityProperties(_this.entityID);
-            Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGame), _this.matCorner, props.rotation, props.dimensions.z]);
+            Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGameFull), _this.matCorner, props.rotation, props.dimensions.z]);
         },
 
     }
@@ -118,7 +122,7 @@
         request.send();
 
         var response = JSON.parse(request.responseText);
-        print('got gamesList' + response.length);
+        print('got gamesList' + request.responseText);
         return response;
     };
 

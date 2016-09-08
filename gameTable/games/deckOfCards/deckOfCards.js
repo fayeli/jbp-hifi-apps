@@ -2,8 +2,8 @@
     var _this
 
     var PLAYING_CARD_SCRIPT_URL = 'playingCard.js';
-    var PLAYING_CARD_MODEL_URL = 'playing_card.fbx';
-    var PLAYING_CARD_BACK_IMAGE_URL = "back.jpg";
+    var PLAYING_CARD_MODEL_URL = 'http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/playing_card.fbx';
+    var PLAYING_CARD_BACK_IMAGE_URL = "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/back.jpg";
     var PLAYING_CARD_DIMENSIONS = {
         x: 1,
         y: 1,
