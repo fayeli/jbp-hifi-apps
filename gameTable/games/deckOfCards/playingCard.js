@@ -2,9 +2,9 @@
 
     var _this;
 
-    var CARD_MODEL_URL = "playing_card.fbx";
-    var CARD_BACK_IMAGE_URL = "back.jpg";
-    var CARD_IMAGE_BASE_URL = "playingcard_old-";
+    var CARD_MODEL_URL = 'http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/playing_card.fbx';
+    var CARD_BACK_IMAGE_URL = "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/images/back.jpg";
+    var CARD_IMAGE_BASE_URL = "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/images/playingcard_old-";
 
     function PlayingCard() {
         _this = this;
@@ -26,8 +26,8 @@
             _this.cardOverlay = Overlays.addOverlay("Model", {
                 url: CARD_MODEL_URL,
                 textures: JSON.stringify({
-                    front: CARD_IMAGE_BASE_URL + _this.getCard() + ".jpg",
-                    back: CARD_BACK_IMAGE_URL,
+                    file1: CARD_IMAGE_BASE_URL + _this.getCard() + ".jpg",
+                    file2: CARD_BACK_IMAGE_URL,
                 }),
                 position: myProps.position,
                 rotation: myProps.rotation,
@@ -49,6 +49,7 @@
             Entities.editEntity(_this.entityID, {
                 userData: userData
             });
+        },
         },
         getCurrentUserData: function() {
             var props = Entities.getEntityProperties(_this.entityID);

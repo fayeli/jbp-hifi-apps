@@ -1,14 +1,27 @@
 (function() {
     var _this
-
+    var MAPPING_NAME = "hifi-gametable-cards-dev-" + Math.random();
     var PLAYING_CARD_SCRIPT_URL = 'playingCard.js';
     var PLAYING_CARD_MODEL_URL = 'http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/playing_card.fbx';
     var PLAYING_CARD_BACK_IMAGE_URL = "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/back.jpg";
     var PLAYING_CARD_DIMENSIONS = {
-        x: 1,
-        y: 1,
-        z: 1
+        x: 0.2621,
+        y: 0.1,
+        z: 0.4533
     };
+
+
+    var COLORS_CAN_PLACE = {
+        red: 0,
+        green: 255,
+        blue: 0
+    }
+
+    var COLORS_CANNOT_PLACE = {
+        red: 255,
+        green: 0,
+        blue: 0
+    }
 
     var SETUP_DELAY = 2000;
     var NEARBY_CARDS_RANGE = 5;
@@ -25,23 +38,55 @@
         offHand: null,
         updateConnected: null,
         preload: function(entityID) {
+            print('jbp preload deck of cards')
             _this.entityID = entityID;
         },
-
+        createMapping: function() {
+            var mapping = Controller.newMapping(MAPPING_NAME);
+            mapping.from([Controller.Standard.RTClick]).peek().to(function(val){
+                _this.handleTrigger(val,'right')
+            });
+            mapping.from([Controller.Standard.LTClick]).peek().to(function(val){
+                _this.handleTrigger(val,'left')
+            });
+            Controller.enableMapping(MAPPING_NAME);
+        },
+        destroyMapping: function() {
+            Controller.disableMapping(MAPPING_NAME)
+        },
+        handleTrigger: function(val,hand) {
+            if(val!==1){
+                return;
+            }
+            print('jbp trigger pulled at val:' + val+":"+hand)
+            print('jbp at time hand was:'+_this.currentHand)
+            if(_this.currentHand===hand){
+                print('jbp should ignore its the same hand')
+            }
+            else{
+                print('jbp should make a new thing its the off hand')
+                _this.createPlayingCard();
+            }
+        },
         checkIfAlreadyHasCards: function() {
+            print('jbp checking if already has cards')
             var cards = _this.getCardsFromUserData();
             if (cards === false) {
+                print('jbp should make new deck')
+                _this.makeNewDeck();
                 //should make a deck the first time
                 return
             } else {
-                //someone already started a game with this deck
-                _this.currentCards = cards;
+                print('jbp already has deck' + cards)
+                    //someone already started a game with this deck
+                _this.makeNewDeck();
+                _this.currentStack._import(cards)
             }
         },
 
         resetDeck: function() {
-
-            //finds and delete any nearby cards
+            print('jbp resetting deck')
+                //finds and delete any nearby cards
             var myProps = Entities.getEntityProperties(_this.entityID);
             var results = Entities.findEntities(myProps.position, NEARBY_CARDS_RANGE);
             results.forEach(function(item) {
@@ -55,11 +100,12 @@
         },
 
         makeNewDeck: function() {
-            //make a stack and shuffle it up.
+            print('jbp make new deck')
+                //make a stack and shuffle it up.
             var stack = new Stack();
-            stack.makeDeck();
+            stack.makeDeck(1);
             stack.shuffle(100);
-            _this.currentCards = stack;
+            _this.currentStack = stack;
         },
 
         collisionWithEntity: function(me, other, collision) {
@@ -83,19 +129,27 @@
         },
 
         startNearGrab: function(id, paramsArray) {
+            print('jbp deck started near grab')
             _this.checkIfAlreadyHasCards();
             _this.enterDealerMode(paramsArray[0]);
         },
+        startEquip: function(id, params) {
+            this.startNearGrab(id, params);
+        },
 
         continueNearGrab: function() {
-            scaleHandDistanceToCardIndex();
+            // print('jbp continue near grab')
+            // scaleHandDistanceToCardIndex();
         },
 
         releaseGrab: function() {
+            print('jbp release grab')
             _this.exitDealerMode();
         },
 
         enterDealerMode: function(hand) {
+            _this.createMapping();
+            print('jbp enter dealer mode:' + hand)
             var offHand;
             if (hand === "left") {
                 offHand = "right";
@@ -105,41 +159,46 @@
             }
             _this.currentHand = hand;
             _this.offHand = offHand;
-            Messages.sendLocalMessages('Hifi-Hand-Disabler', _this.offHand);
+            Messages.sendLocalMessage('Hifi-Hand-Disabler', _this.offHand);
             Script.update.connect(_this.updateRays);
-            _this.updateConnected === true;
+            _this.updateConnected = true;
         },
 
         updateRays: function() {
             if (_this.currentHand === 'left') {
-                _this.leftRay();
+                _this.rightRay();
             }
             if (_this.currentHand === 'right') {
-                _this.rightRay();
+                _this.leftRay();
             }
         },
 
         exitDealerMode: function() {
+            _this.destroyMapping();
             //turn grab on 
             //save the cards
             //delete the overlay beam
             if (_this.updateConnected === true) {
                 Script.update.disconnect(_this.updateRays);
             }
+            Messages.sendLocalMessage('Hifi-Hand-Disabler', 'none');
+            _this.deleteCardTargetOverlay()
             _this.turnOffOverlayBeams();
             _this.storeCards();
         },
 
         storeCards: function() {
+            var cards = _this.currentStack._export();
+            print('deckof cards:' + cards)
             Entities.editEntity(_this.entityID, {
                 userData: JSON.stringify({
-                    cards: _this.currentStack.export()
-                });
+                    cards: cards
+                })
             })
         },
 
         restoreCards: function() {
-            _this.currentCards = _this.getCardsFromUserData();
+            _this.currentStack = _this.getCardsFromUserData();
 
         },
 
@@ -148,10 +207,19 @@
             var data;
             try {
                 data = JSON.parse(props.userData);
-                return data.cards;
+                print('jbp has cards in userdata' + props.userData)
+
             } catch (e) {
+                print('jbp error parsing userdata')
                 return false;
             }
+            if (data.hasOwnProperty('cards')) {
+                print('jbp returning data.cards')
+                return data.cards;
+            } else {
+                return false
+            }
+
         },
 
         rightRay: function() {
@@ -277,6 +345,7 @@
 
         rightOverlayOff: function() {
             if (this.rightOverlayLine !== null) {
+                print('jbp inside right off')
                 Overlays.deleteOverlay(this.rightOverlayLine);
                 this.rightOverlayLine = null;
             }
@@ -284,6 +353,7 @@
 
         leftOverlayOff: function() {
             if (this.leftOverlayLine !== null) {
+                print('jbp inside left off')
                 Overlays.deleteOverlay(this.leftOverlayLine);
                 this.leftOverlayLine = null;
             }
@@ -295,6 +365,7 @@
         },
 
         rightOverlayOff: function() {
+            print('jbp right overlay off')
             if (this.rightOverlayLine !== null) {
                 Overlays.deleteOverlay(this.rightOverlayLine);
                 this.rightOverlayLine = null;
@@ -302,34 +373,34 @@
         },
 
         leftOverlayOff: function() {
+            print('jbp left overlay off')
             if (this.leftOverlayLine !== null) {
                 Overlays.deleteOverlay(this.leftOverlayLine);
                 this.leftOverlayLine = null;
             }
         },
 
-        createTargetOverlay: function(position) {
-            var myProps = Entities.getEntityProperties(_this.entityID);
+        createTargetOverlay: function() {
 
-            var rotation = Quat.lookAt(intersection.intersection, MyAvatar.position, Vec3.UP);
-            var euler = Quat.safeEulerAngles(rotation);
-            var towardUs = Quat.fromPitchYawRollDegrees(0, euler.y, 0);
-
-            _this.targetOverlay = Overlays.addOverlay("Model", {
+            print('jbp should create target overlay')
+            if (_this.targetOverlay !== null) {
+                return;
+            }
+            var targetOverlayProps = {
                 url: PLAYING_CARD_MODEL_URL,
-                textures: JSON.stringify({
-                    front: PLAYING_CARD_BACK_IMAGE_URL,
-                    back: PLAYING_CARD_BACK_IMAGE_URL,
-                }),
-                position: position,
-                rotation: towardUs,
                 dimensions: PLAYING_CARD_DIMENSIONS,
-                visible: true,
-                drawInFront: true,
-            });
+                position: MyAvatar.position,
+                visible: true
+            };
+
+
+            _this.targetOverlay = Overlays.addOverlay("model", targetOverlayProps);
+
+            print('jbp created target overlay: ' + _this.targetOverlay)
         },
 
         updateTargetOverlay: function(intersection) {
+            // print('jbp should update target overlay: ' + _this.targetOverlay)
             _this.intersection = intersection;
 
             var rotation = Quat.lookAt(intersection.intersection, MyAvatar.position, Vec3.UP);
@@ -340,10 +411,11 @@
                 z: intersection.intersection.z
             };
 
-            this.tooClose = isTooCloseToTeleport(position);
-            var towardUs = Quat.fromPitchYawRollDegrees(0, euler.y, 0);
+            _this.shiftedIntersectionPosition = position;
 
-            Overlays.editOverlay(this.targetOverlay, {
+            var towardUs = Quat.fromPitchYawRollDegrees(0, euler.y, 0);
+            // print('jbp should update target overlay to ' + JSON.stringify(position))
+            Overlays.editOverlay(_this.targetOverlay, {
                 position: position,
                 rotation: towardUs
             });
@@ -352,17 +424,30 @@
 
         deleteCardTargetOverlay: function() {
             Overlays.deleteOverlay(_this.targetOverlay);
+            _this.targetOverlay = null;
+        },
+        handleEndOfDeck:function(){
+            print('jbp at the end of the deck, no more.')
         },
 
-        createPlayingCard: function(position, value) {
-
+        createPlayingCard: function() {
+            print('jbp should create playing card')
+            if(_this.currentStack.cards.length>0){
+                var card = _this.currentStack.draw(1);
+            }
+            else{
+                _this.handleEndOfDeck();
+                return;
+            }
+            
+            print('jbp drew card: '+ card)
             var properties = {
                 type: 'Model',
                 description: 'hifi:gameTable:game:playingCards',
                 dimensions: PLAYING_CARD_DIMENSIONS,
                 modelURL: PLAYING_CARD_MODEL_URL,
                 script: PLAYING_CARD_SCRIPT_URL,
-                position: position,
+                position: _this.shiftedIntersectionPosition,
                 dynamic: true,
                 gravity: {
                     x: 0,
@@ -374,10 +459,11 @@
                         grabbable: true
                     },
                     playingCards: {
-                        card: value
+                        card: card
                     }
                 }
             }
+            Entities.addEntity(properties);
         }
 
     }
@@ -391,24 +477,8 @@
         this.suit = suit;
     }
 
-    function Stack() {
-
-        // Create an empty array of cards.
-
-        this.cards = new Array();
-
-        this.makeDeck = stackMakeDeck;
-        this.shuffle = stackShuffle;
-        this.deal = stackDeal;
-        this.draw = stackDraw;
-        this.addCard = stackAddCard;
-        this.combine = stackCombine;
-        this.cardCount = stackCardCount;
-        this.export = stackExportCards;
-        this.import = stackImportCards;
-    }
-
     function stackImportCards(exportedCards) {
+        print('jbp importing ' + exportedCards)
         var cards = JSON.parse(exportedCards);
         this.cards = [];
         var cardArray = this.cards;
@@ -443,7 +513,7 @@
 
         // Set array of cards.
 
-        this.cards = new Array(n * m);
+        this.cards = new Array();
 
         // Fill the array with 'n' packs of cards.
 
@@ -501,6 +571,24 @@
         this.cards = this.cards.concat(stack.cards);
         stack.cards = new Array();
     }
+
+    function Stack() {
+
+        // Create an empty array of cards.
+
+        this.cards = new Array();
+
+        this.makeDeck = stackMakeDeck;
+        this.shuffle = stackShuffle;
+        this.deal = stackDeal;
+        this.draw = stackDraw;
+        this.addCard = stackAddCard;
+        this.combine = stackCombine;
+        this.cardCount = stackCardCount;
+        this._export = stackExportCards;
+        this._import = stackImportCards;
+    }
+
 
     return new DeckOfCards();
 });
