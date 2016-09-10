@@ -1,7 +1,7 @@
 (function() {
     var _this
     var MAPPING_NAME = "hifi-gametable-cards-dev-" + Math.random();
-    var PLAYING_CARD_SCRIPT_URL = 'playingCard.js';
+    var PLAYING_CARD_SCRIPT_URL = Script.resolvePath('playingCard.js');
     var PLAYING_CARD_MODEL_URL = 'http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/playing_card.fbx';
     var PLAYING_CARD_BACK_IMAGE_URL = "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/back.jpg";
     var PLAYING_CARD_DIMENSIONS = {
@@ -43,27 +43,26 @@
         },
         createMapping: function() {
             var mapping = Controller.newMapping(MAPPING_NAME);
-            mapping.from([Controller.Standard.RTClick]).peek().to(function(val){
-                _this.handleTrigger(val,'right')
+            mapping.from([Controller.Standard.RTClick]).peek().to(function(val) {
+                _this.handleTrigger(val, 'right')
             });
-            mapping.from([Controller.Standard.LTClick]).peek().to(function(val){
-                _this.handleTrigger(val,'left')
+            mapping.from([Controller.Standard.LTClick]).peek().to(function(val) {
+                _this.handleTrigger(val, 'left')
             });
             Controller.enableMapping(MAPPING_NAME);
         },
         destroyMapping: function() {
             Controller.disableMapping(MAPPING_NAME)
         },
-        handleTrigger: function(val,hand) {
-            if(val!==1){
+        handleTrigger: function(val, hand) {
+            if (val !== 1) {
                 return;
             }
-            print('jbp trigger pulled at val:' + val+":"+hand)
-            print('jbp at time hand was:'+_this.currentHand)
-            if(_this.currentHand===hand){
+            print('jbp trigger pulled at val:' + val + ":" + hand)
+            print('jbp at time hand was:' + _this.currentHand)
+            if (_this.currentHand === hand) {
                 print('jbp should ignore its the same hand')
-            }
-            else{
+            } else {
                 print('jbp should make a new thing its the off hand')
                 _this.createPlayingCard();
             }
@@ -114,18 +113,20 @@
                 //its not the start, so exit early.
                 return;
             }
-
             var otherProps = Entities.getEntityProperties(other);
-            if (otherProps.userData.hasOwnProperty('playingCards') && otherProps.userData.playingCards.hasOwnProperty('card')) {
-                var value = otherProps.userData.playingCards.card.value;
-                _this.addCardToDeck(value);
+            var userData;
+            try {
+                JSON.parse(otherProps.userData)
+            } catch (e) {
+                return
+            }
+            if (userData.hasOwnProperty('playingCards') && userData.playingCards.hasOwnProperty('card')) {
+                print('collided with a playing card!!!')
+
+                _this.currentStack.addCard(userData.playingCards.card);
+
                 Entities.deleteEntity(other);
             }
-        },
-
-        addCardToDeck: function(storedData) {
-            var card = new Card(storedData.substr(1, storedData.length), storedData[0]);
-            _this.currentStack.addCard(card);
         },
 
         startNearGrab: function(id, paramsArray) {
@@ -426,21 +427,20 @@
             Overlays.deleteOverlay(_this.targetOverlay);
             _this.targetOverlay = null;
         },
-        handleEndOfDeck:function(){
+        handleEndOfDeck: function() {
             print('jbp at the end of the deck, no more.')
         },
 
         createPlayingCard: function() {
             print('jbp should create playing card')
-            if(_this.currentStack.cards.length>0){
+            if (_this.currentStack.cards.length > 0) {
                 var card = _this.currentStack.draw(1);
-            }
-            else{
+            } else {
                 _this.handleEndOfDeck();
                 return;
             }
-            
-            print('jbp drew card: '+ card)
+
+            print('jbp drew card: ' + card)
             var properties = {
                 type: 'Model',
                 description: 'hifi:gameTable:game:playingCards',
@@ -448,20 +448,25 @@
                 modelURL: PLAYING_CARD_MODEL_URL,
                 script: PLAYING_CARD_SCRIPT_URL,
                 position: _this.shiftedIntersectionPosition,
+                shapeType: "box",
                 dynamic: true,
                 gravity: {
                     x: 0,
                     y: -9.8,
                     z: 0
                 },
-                userData: {
+                textures: JSON.stringify({
+                    file1: PLAYING_CARD_BACK_IMAGE_URL,
+                    file2: PLAYING_CARD_BACK_IMAGE_URL,
+                }),
+                userData: JSON.stringify({
                     grabbableKey: {
                         grabbable: true
                     },
                     playingCards: {
                         card: card
                     }
-                }
+                })
             }
             Entities.addEntity(properties);
         }

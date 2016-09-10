@@ -14,6 +14,9 @@
         preload: function(id) {
             _this.entityID = id;
         },
+        startDistanceGrab:function(){
+             _this.attachCardOverlay();
+        },
         startNearGrab: function() {
             _this.attachCardOverlay();
         },
@@ -21,23 +24,38 @@
             _this.detachCardOverlay();
         },
         attachCardOverlay: function() {
+            print('jbp should attach card overlay')
             var myProps = Entities.getEntityProperties(_this.entityID);
-
-            _this.cardOverlay = Overlays.addOverlay("Model", {
+            var cardFront = CARD_IMAGE_BASE_URL + _this.getCard().suit + this.getCard().rank + ".jpg";
+            print('card front is:' + cardFront);
+            var frontVec = Quat.getUp(myProps.rotation);
+            var forward = Vec3.sum(myProps.position, Vec3.multiply(0.0009, frontVec));
+            _this.cardOverlay = Overlays.addOverlay("model", {
                 url: CARD_MODEL_URL,
-                textures: JSON.stringify({
-                    file1: CARD_IMAGE_BASE_URL + _this.getCard() + ".jpg",
-                    file2: CARD_BACK_IMAGE_URL,
-                }),
-                position: myProps.position,
+                position: forward,
                 rotation: myProps.rotation,
                 dimensions: myProps.dimensions,
                 visible: true,
                 drawInFront: true,
                 parentID: myProps.id
             });
+            print('jbp did attach card overlay:' + _this.cardOverlay)
+
+            Script.setTimeout(function() {
+                var success = Overlays.editOverlay(_this.cardOverlay, {
+                    textures: {
+                        "file1": cardFront,
+                        "file2": CARD_BACK_IMAGE_URL,
+                    },
+                })
+                print('jbp success on edit? ' + success)
+            }, 1)
+
+
         },
         detachCardOverlay: function() {
+            print('jbp should detach card overlay')
+
             Overlays.deleteOverlay(_this.cardOverlay);
         },
         getCard: function() {
@@ -49,7 +67,6 @@
             Entities.editEntity(_this.entityID, {
                 userData: userData
             });
-        },
         },
         getCurrentUserData: function() {
             var props = Entities.getEntityProperties(_this.entityID);
