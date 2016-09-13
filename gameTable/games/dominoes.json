@@ -1,8 +1,8 @@
-{   
-    "gameName":"dominoes",
-    "matURL":"http://lorempixel.com/800/800",
+{
+    "gameName": "dominoes",
+    "matURL": "http://lorempixel.com/800/800",
     "spawnStyle": "pile",
-    "howMany":"28",
-    "identicalPieces":"false",
-    "pieces": ["domino.json"]
+    "howMany": 28,
+    "identicalPieces": true,
+    "pieces": ["http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/dominoes/domino.json"]
 }

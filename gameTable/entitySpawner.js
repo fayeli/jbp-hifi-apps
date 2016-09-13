@@ -1,5 +1,15 @@
 (function() {
+    var PILE_DELAY = 150;
     var _this;
+
+    function pausecomp(millis) {
+        var date = new Date();
+        var curDate = null;
+        do {
+            curDate = new Date();
+        }
+        while (curDate - date < millis);
+    }
 
     //listens for a release message from entities with the snap to grid script
     //checks for the nearest snap point and sends a message back to the entity
@@ -17,13 +27,13 @@
                 this.created = created;
                 print('created ' + created);
             }
-        };
+        }
 
         function cleanup() {
             created.forEach(function(obj) {
                 Entities.deleteEntity(obj);
             })
-        };
+        }
 
         create();
 
@@ -41,46 +51,70 @@
         tableRotation: null,
         items: [],
         preload: function(id) {
+            print('JBP preload entity spawner')
             _this.entityID = id;
         },
-        createSingleEntity: function() {
-            print('creating a single entity')
-            var item = new PastedItem();
+        createSingleEntity: function(url, spawnLocation) {
+            // print('creating a single entity: ' + url)
+            // print('creating a single entity at : ' + JSON.stringify(spawnLocation))
+            var item = new PastedItem(url, spawnLocation);
             _this.items.push(item);
         },
         spawnEntities: function(id, params) {
-            prit('spawn entities called!!')
+            print('spawn entities called!!')
             this.items = [];
             print('and it has params: ' + params.length)
-            _this.game = params[0];
+            _this.game = JSON.parse(params[0]);
             _this.matCorner = params[1];
-            _this.tableRotation = params[2];
-            _this.tableSideSize = params[3];
+            _this.tableRotation = JSON.parse(params[2]);
+            _this.tableSideSize = JSON.parse(params[3]);
             if (this.game.spawnStyle === "pile") {
                 _this.spawnByPile();
             }
-            if (this.game.spawnStyle === "arranged") {
+            else if (this.game.spawnStyle === "arranged") {
                 _this.spawnByArranged();
             }
 
         },
         spawnByPile: function() {
             print('should spawn by pile')
-            _this.game.pieces.forEach(function(piece) {
-                var spawnLocation;
-                var newPiece = new PastedItem(piece, spawnLocation);
-            })
+            var props = Entities.getEntityProperties(_this.entityID);
+
+            var i;
+            for (i = 0; i < _this.game.howMany; i++) {
+                print('spawning entity from pile:: ' + i)
+                var spawnLocation = {
+                    x: props.position.x,
+                    y: props.position.y - 0.25,
+                    z: props.position.z,
+                };
+                var url;
+                if (_this.game.identicalPieces === false) {
+                    url = _this.game.pieces[i];
+                } else {
+                    url = _this.game.pieces[0];
+                }
+
+                _this.createSingleEntity(url, spawnLocation);
+
+            }
+
         },
         spawnByArranged: function() {
-            // make sure to set userData.gameTable.attachedTo appropriately
+            print('should spawn by arranged')
+                // make sure to set userData.gameTable.attachedTo appropriately
             _this.calculateTiles();
             print('about to spawn an arrangement')
             _this.tiles.forEach(function(tile) {
-                _this.createSingleEntity(tile.url, tile.center);
+                print('tile url' + tile.url)
+                print('tile middle:' + tile.middle)
+                _this.createSingleEntity(tile.url, tile.middle);
             });
 
         },
         calculateTiles: function() {
+            print('calculating tiles')
+            print('jbp has table rotation: ' + JSON.stringify(_this.tableRotation))
             var tiles = [];
             var rightVector = Quat.getRight(_this.tableRotation);
             var forwardVector = Quat.getFront(_this.tableRotation);
@@ -113,9 +147,9 @@
                     previousTilePosition = tile.position;
                 });
             });
-            
-            this.tiles = tiles;
 
+            this.tiles = tiles;
+            print('tiles are: ' + JSON.stringify(this.tiles))
         },
 
         findMidpoint: function(start, end) {

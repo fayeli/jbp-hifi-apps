@@ -4,7 +4,7 @@ var MODEL_URL = "http://hifi-production.s3.amazonaws.com/tutorials/pictureFrame/
 var TABLE_START_POSITION
 
 var front = Quat.getFront(MyAvatar.orientation);
-var TABLE_START_POSITION = Vec3.sum(MyAvatar.position, front);
+var TABLE_START_POSITION = Vec3.sum(MyAvatar.position, Vec3.multiply(2,front));
 
 var table, entitySpawner, mat, seatSpawner;
 var nextGameButton, resetGameButton, newSeatButton;
@@ -17,7 +17,7 @@ var entitySpawnerOffset = {
 
 var matOffset = {
     forward: 0,
-    vertical: 0.469,
+    vertical: 0.519,
     right: 0
 };
 
@@ -70,11 +70,27 @@ function createTable() {
         name: 'GameTable Table',
         description: 'hifi:gameTable:table',
         modelURL: TABLE_MODEL_URL,
-        shapeType: 'static',
+        collidesWith: 'static,dynamic,myAvatar,otherAvatar',
+        shapeType: 'simple-compound',
+        dynamic: true,
+        velocity:{
+            x:0,
+            y:-0.1,
+            z:0
+        },
+        gravity:{
+            x:0,
+            y:-11,
+            z:0
+        },
+        density:9999,
+        restitution:0,
+        damping:0,
+        angularDamping:0,
         dimensions: {
-            x: 1.255,
-            y: 1.0121,
-            z: 1.255
+            x: 1.355,
+            y: 1.1121,
+            z: 1.355
         },
         script: Script.resolvePath('table.js'),
         position: TABLE_START_POSITION
@@ -100,6 +116,7 @@ function createEntitySpawner() {
             z: 0.25
         },
         parentID: table,
+        script: Script.resolvePath('entitySpawner.js'),
         position: getOffsetFromTable(entitySpawnerOffset.forward, entitySpawnerOffset.vertical, entitySpawnerOffset.right)
     };
 

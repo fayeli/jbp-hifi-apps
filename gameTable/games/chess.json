@@ -1,6 +1,6 @@
 {
     "gameName": "chess",
-    "matURL": "http://mymatURL.jpg",
+    "matURL": "http://lorempixel.com/800/800",
     "spawnStyle": "arranged",
     "snapToGrid": true,
     "startingArrangement": [
@@ -10,8 +10,8 @@
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-        ["2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn"]
-        ["2:rook", "2:knight", "2:bishop", "2:queen", "2:king", "2:bishop", "2:knight", "2:rook"],
+        ["2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn", "2:pawn"],
+        ["2:rook", "2:knight", "2:bishop", "2:queen", "2:king", "2:bishop", "2:knight", "2:rook"]
     ],
     "pieces": [{
         "king": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/chess/king_white.json",

@@ -1,7 +1,8 @@
-{   
-    "gameName":"dice",
-    "matURL":"",
+{
+    "gameName": "dice",
+    "matURL": "http://lorempixel.com/800/800",
     "spawnStyle": "pile",
-    "howMany":"5",
-    "pieces": [""]
+    "howMany": 5,
+    "identicalPieces": true,
+    "pieces": ["http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/dice/dice.json"]
 }

@@ -1,6 +1,8 @@
-{   
-    "gameName":"deckOfCards",
-    "matURL":"",
+{
+    "gameName": "deckOfCards",
+    "matURL": "http://lorempixel.com/800/800",
+    "identicalPieces": true,
+    "howMany": 1,
     "spawnStyle": "pile",
-    "url": []
+    "pieces": ["http://hifi-content.s3.amazonaws.com/james/gametable-dev/deckOfCards/deckOfCards.json"]
 }

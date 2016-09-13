@@ -122,10 +122,10 @@
                 })
             });
 
-
+            create();
             created.push(chair);
             created.push(triggerVolume);
-
+            print('chair spawner created: ' + JSON.stringify(created))
         };
 
         function cleanup() {
@@ -134,7 +134,7 @@
             })
         };
 
-        create();
+       
 
         this.cleanup = cleanup;
 
@@ -150,7 +150,7 @@
         },
         createSeat: function() {
             print('create seat function called');
-            var props = Entities.getEntityProperties(_this.seat);
+            var props = Entities.getEntityProperties(_this.entityID);
             var seat = new Seat(props.position);
         },
 
