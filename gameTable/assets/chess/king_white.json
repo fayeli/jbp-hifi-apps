@@ -8,6 +8,18 @@
             "y": 0.19834233820438385,
             "z": 0.071454532444477081
         },
+        "velocity": {
+            "x": 0,
+            "y": -0.10,
+            "z": 0
+        },
+        "shapeType": "box",
+        "dynamic": "true",
+        "gravity": {
+            "x": 0,
+            "y": -9.8,
+            "z": 0
+        },
         "id": "{f5d50ec3-f72a-4ba4-906c-afaa417405c5}",
         "marketplaceID": "31987a70-7a69-4ba8-b022-80f1d2320c93",
         "modelURL": "https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/King.fbx",
@@ -29,7 +41,7 @@
             "y": 0.22488787770271301,
             "z": -3.822671715170145e-06
         },
-        "script": "https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/chessPiece.js",
+        "script": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/snapToGrid.js",
         "type": "Model",
         "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
     }],

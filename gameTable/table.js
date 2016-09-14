@@ -1,7 +1,8 @@
 (function() {
-    var GAMES_LIST_ENDPOINT = "https://api.myjson.com/bins/3evuu";
+    var GAMES_LIST_ENDPOINT = "https://api.myjson.com/bins/557re";
+
     var _this;
-    var INITIAL_DELAY = 200;
+    var INITIAL_DELAY = 2000;
 
     function GameTable() {
         _this = this;
@@ -16,13 +17,39 @@
                 _this.setCurrentGamesList();
             }, INITIAL_DELAY);
         },
+        collisionWithEntity: function(me, other, collision) {
+            //stick the table to the ground
+            if (collision.type !== 1) {
+                return;
+            }
+            var myProps = Entities.getEntityProperties(_this.entityID, ["rotation", "position"]);
+            var eulerRotation = Quat.safeEulerAngles(myProps.rotation);
+            eulerRotation.x = 0;
+            eulerRotation.z = 0;
+            var newRotation = Quat.fromVec3Degrees(eulerRotation);
+
+            //we zero out the velocity and angular velocity so the cow doesn't change position or spin
+            Entities.editEntity(_this.entityID, {
+                rotation: newRotation,
+                velocity: {
+                    x: 0,
+                    y: 0,
+                    z: 0
+                },
+                angularVelocity: {
+                    x: 0,
+                    y: 0,
+                    z: 0
+                }
+            });
+        },
         setInitialGameIfNone: function() {
             var userData = _this.getCurrentUserData();
 
             if (userData.hasOwnProperty('gameTable') !== true || userData.gameTable.hasOwnProperty('currentGame') !== true) {
                 print('userdata has no gametable or no currentgame')
                 _this.setCurrentGame();
-               _this.cleanupGameEntities();
+                _this.cleanupGameEntities();
                 _this.resetGame();
                 print('i set the game and reset the game')
             } else {
@@ -38,12 +65,11 @@
         nextGame: function() {
             print('NEXT GAME on gameTable')
             _this.currentGameIndex++;
-            if (_this.currentGameIndex >= _this.gamesList.length-1) {
+            if (_this.currentGameIndex >= _this.gamesList.length) {
                 _this.currentGameIndex = 0;
             }
             _this.cleanupGameEntities();
-            _this.setCurrentGame();
-            _this.spawnEntitiesForGame();
+
         },
         cleanupGameEntities: function() {
             print('should cleanup game entities')
@@ -60,6 +86,8 @@
             found.forEach(function(foundItem) {
                 Entities.deleteEntity(foundItem)
             })
+            _this.setCurrentGame();
+            _this.spawnEntitiesForGame();
         },
         setCurrentGamesList: function() {
             var gamesList = getGamesList();
@@ -114,13 +142,6 @@
             print('result returned ought to be: ' + result)
             return result
         },
-        changeMatPicture: function(url) {
-            Entities.editEntity(_this.getEntityFromGroup('gameTable', 'mat'), {
-                textures: JSON.stringify({
-                    picture: url
-                })
-            })
-        },
         spawnEntitiesForGame: function() {
             print('should spawn entities for game')
             var entitySpawner = _this.getEntityFromGroup('gameTable', 'entitySpawner');
@@ -128,14 +149,8 @@
             var props = Entities.getEntityProperties(_this.entityID);
             var mat = _this.getEntityFromGroup('gameTable', 'mat')
 
-            var matProps = Entities.getEntityProperties(mat);
 
-            var matCorner = {
-                x: matProps.position.x - (0.5 * matProps.dimensions.x),
-                y: matProps.position.y,
-                z: matProps.position.z - (0.5 * matProps.dimensions.z)
-            }
-            Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGameFull), JSON.stringify(matCorner), JSON.stringify(props.rotation), JSON.stringify(props.dimensions)]);
+            Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGameFull), mat, _this.entityID]);
         },
 
     }

@@ -8,6 +8,18 @@
             "y": 0.16649121046066284,
             "z": 0.071454532444477081
         },
+        "velocity": {
+            "x": 0,
+            "y": -0.10,
+            "z": 0
+        },
+        "shapeType": "box",
+        "dynamic": "true",
+        "gravity": {
+            "x": 0,
+            "y": -9.8,
+            "z": 0
+        },
         "id": "{d3768890-a7d2-473f-81a9-b1ff409b62c5}",
         "marketplaceID": "31987a70-7a69-4ba8-b022-80f1d2320c93",
         "modelURL": "https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/Queen.fbx",
@@ -29,7 +41,7 @@
             "y": 0.22488787770271301,
             "z": -3.822671715170145e-06
         },
-        "script": "https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/chessPiece.js",
+        "script": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/snapToGrid.js",
         "type": "Model",
         "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
     }],

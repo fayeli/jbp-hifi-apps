@@ -1,6 +1,6 @@
 {   
     "gameName":"checkers",
-    "matURL":"",
+    "matURL":"http://lorempixel.com/800/800",
     "spawnStyle": "arranged",
     "snapToGrid":true,
     "startingArrangement": [
@@ -9,12 +9,13 @@
         ["1:checker", "empty", "1:checker", "empty", "1:checker", "empty", "1:checker", "empty"],
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+         ["2:checker", "empty", "2:checker", "empty", "2:checker", "empty", "1:checker", "empty"],
         ["empty", "2:checker", "empty", "2:checker", "empty", "2:checker", "empty", "2:checker"],
         ["2:checker", "empty", "2:checker", "empty", "2:checker", "empty", "2:checker", "empty"]
     ],
     "pieces": [{
-        "checker": "blackChecker.json"
+        "checker": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/checkers/blackChecker.json"
     }, {
-        "checker": "redChecker.json"
+        "checker": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/checkers/redChecker.json"
     }]
 }

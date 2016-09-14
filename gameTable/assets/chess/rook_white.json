@@ -8,6 +8,18 @@
             "y": 0.10833222419023514,
             "z": 0.065329268574714661
         },
+        "velocity": {
+            "x": 0,
+            "y": -0.10,
+            "z": 0
+        },
+        "shapeType": "box",
+        "dynamic": "true",
+        "gravity": {
+            "x": 0,
+            "y": -9.8,
+            "z": 0
+        },
         "id": "{db3ee0bd-214f-4ed0-bd4f-7d2e964028cf}",
         "marketplaceID": "31987a70-7a69-4ba8-b022-80f1d2320c93",
         "modelURL": "https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/Rook.fbx",
@@ -29,7 +41,7 @@
             "y": 0.22488787770271301,
             "z": -3.822671715170145e-06
         },
-        "script": "https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/chessPiece.js",
+        "script": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/snapToGrid.js",
         "type": "Model",
         "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
     }],

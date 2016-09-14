@@ -8,6 +8,18 @@
             "y": 0.13834938406944275,
             "z": 0.06596171110868454
         },
+        "velocity": {
+            "x": 0,
+            "y": -0.10,
+            "z": 0
+        },
+        "shapeType": "box",
+        "dynamic": "true",
+        "gravity": {
+            "x": 0,
+            "y": -9.8,
+            "z": 0
+        },
         "id": "{1762eec3-ee76-4393-a480-29ef13520dd0}",
         "marketplaceID": "31987a70-7a69-4ba8-b022-80f1d2320c93",
         "modelURL": "https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/Bishop.fbx",
@@ -29,7 +41,7 @@
             "y": 0.97436141967773438,
             "z": -3.822671715170145e-06
         },
-        "script": "https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/chessPiece.js",
+        "script": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/snapToGrid.js",
         "textures": "{ \"Map #12\": \"https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/board_cherry.jpg\"}",
         "type": "Model",
         "userData": "{\"grabbableKey\":{\"grabbable\":true}}"

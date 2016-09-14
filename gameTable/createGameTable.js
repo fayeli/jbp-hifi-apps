@@ -4,7 +4,7 @@ var MODEL_URL = "http://hifi-production.s3.amazonaws.com/tutorials/pictureFrame/
 var TABLE_START_POSITION
 
 var front = Quat.getFront(MyAvatar.orientation);
-var TABLE_START_POSITION = Vec3.sum(MyAvatar.position, Vec3.multiply(2,front));
+var TABLE_START_POSITION = Vec3.sum(MyAvatar.position, Vec3.multiply(2, front));
 
 var table, entitySpawner, mat, seatSpawner;
 var nextGameButton, resetGameButton, newSeatButton;
@@ -73,27 +73,32 @@ function createTable() {
         collidesWith: 'static,dynamic,myAvatar,otherAvatar',
         shapeType: 'simple-compound',
         dynamic: true,
-        velocity:{
-            x:0,
-            y:-0.1,
-            z:0
+        velocity: {
+            x: 0,
+            y: -0.1,
+            z: 0
         },
-        gravity:{
-            x:0,
-            y:-11,
-            z:0
+        gravity: {
+            x: 0,
+            y: -9,
+            z: 0
         },
-        density:9999,
-        restitution:0,
-        damping:0,
-        angularDamping:0,
+        density: 9999,
+        restitution: 0,
+        damping: 0,
+        angularDamping: 0,
         dimensions: {
             x: 1.355,
             y: 1.1121,
             z: 1.355
         },
         script: Script.resolvePath('table.js'),
-        position: TABLE_START_POSITION
+        position: TABLE_START_POSITION,
+        userData: JSON.stringify({
+            grabbableKey: {
+                grabbable: false
+            }
+        })
     };
 
     table = Entities.addEntity(props);
@@ -148,7 +153,12 @@ function createMat() {
         // }),
         parentID: table,
         script: Script.resolvePath('mat.js'),
-        position: getOffsetFromTable(matOffset.forward, matOffset.vertical, matOffset.right)
+        position: getOffsetFromTable(matOffset.forward, matOffset.vertical, matOffset.right),
+        userData: JSON.stringify({
+            grabbableKey: {
+                grabbable: false
+            }
+        })
     };
 
     mat = Entities.addEntity(props);

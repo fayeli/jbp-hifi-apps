@@ -1,15 +1,5 @@
 (function() {
-    var PILE_DELAY = 150;
     var _this;
-
-    function pausecomp(millis) {
-        var date = new Date();
-        var curDate = null;
-        do {
-            curDate = new Date();
-        }
-        while (curDate - date < millis);
-    }
 
     //listens for a release message from entities with the snap to grid script
     //checks for the nearest snap point and sends a message back to the entity
@@ -41,6 +31,44 @@
 
     }
 
+    function Tile(rowIndex, columnIndex) {
+        var side = _this.tableSideSize / _this.game.startingArrangement.length;
+        var rightVector = Quat.getRight(_this.tableRotation);
+        var forwardVector = Quat.getFront(_this.tableRotation);
+
+
+        var rightAmount = rowIndex * side;
+        rightAmount += (0.5 * side);
+        var forwardAmount = columnIndex * side;
+        forwardAmount += (0.5 * side);
+        this.startingPosition = _this.matCorner;
+        var howFarRight = Vec3.multiply(rightAmount, rightVector);
+
+        this.howFarRight = howFarRight;
+
+        var howFarForward = Vec3.multiply(forwardAmount, forwardVector);
+        this.howFarForward = howFarForward;
+        var workingPosition = Vec3.sum(this.startingPosition, howFarRight);
+        workingPosition = Vec3.sum(workingPosition, howFarForward);
+
+        this.middle = workingPosition;
+
+        var splitURL = _this.game.startingArrangement[rowIndex][columnIndex].split(":");
+        print('jbp game has pieces:: ' + _this.game.pieces)
+        if (splitURL[0] === '1') {
+            this.url = _this.game.pieces[0][splitURL[1]]
+        }
+        if (splitURL[0] === '2') {
+            this.url = _this.game.pieces[1][splitURL[1]]
+        }
+        if (splitURL[0] === 'empty') {
+            this.url = 'empty';
+        }
+
+        print('jbp made a tile: ' + JSON.stringify(this))
+
+    }
+
 
     function EntitySpawner() {
         _this = this;
@@ -50,6 +78,7 @@
         matCorner: null,
         tableRotation: null,
         items: [],
+        toCleanup: [],
         preload: function(id) {
             print('JBP preload entity spawner')
             _this.entityID = id;
@@ -60,18 +89,28 @@
             var item = new PastedItem(url, spawnLocation);
             _this.items.push(item);
         },
+        changeMatPicture: function(mat) {
+            Entities.editEntity(mat, {
+                textures: JSON.stringify({
+                    Picture: _this.game.matURL
+                })
+            })
+        },
         spawnEntities: function(id, params) {
             print('spawn entities called!!')
             this.items = [];
+            var dimensions = Entities.getEntityProperties(params[1]).dimensions;
             print('and it has params: ' + params.length)
             _this.game = JSON.parse(params[0]);
-            _this.matCorner = params[1];
-            _this.tableRotation = JSON.parse(params[2]);
-            _this.tableSideSize = JSON.parse(params[3]);
+            _this.matCorner = Entities.getEntityProperties(params[1]).position;
+            _this.matCorner.x -= dimensions.x * 0.5;
+            _this.matCorner.z += dimensions.x * 0.5;
+            _this.matRotation = Entities.getEntityProperties(params[1]).rotation;
+            _this.tableSideSize = dimensions.x;
+            _this.changeMatPicture(params[1]);
             if (this.game.spawnStyle === "pile") {
                 _this.spawnByPile();
-            }
-            else if (this.game.spawnStyle === "arranged") {
+            } else if (this.game.spawnStyle === "arranged") {
                 _this.spawnByArranged();
             }
 
@@ -103,53 +142,47 @@
         spawnByArranged: function() {
             print('should spawn by arranged')
                 // make sure to set userData.gameTable.attachedTo appropriately
-            _this.calculateTiles();
-            print('about to spawn an arrangement')
-            _this.tiles.forEach(function(tile) {
-                print('tile url' + tile.url)
-                print('tile middle:' + tile.middle)
-                _this.createSingleEntity(tile.url, tile.middle);
-            });
+            _this.setupGrid();
 
         },
-        calculateTiles: function() {
-            print('calculating tiles')
-            print('jbp has table rotation: ' + JSON.stringify(_this.tableRotation))
-            var tiles = [];
-            var rightVector = Quat.getRight(_this.tableRotation);
-            var forwardVector = Quat.getFront(_this.tableRotation);
-            var previousTilePosition = _this.matCorner;
-            var tileSize = _this.tableSideSize / _this.game.startingArrangement.length;
-            _this.game.startingArrangement.forEach(function(row, rowIndex) {
-                var forwardAmount = rowIndex * tileSize;
-                row.forEach(function(singleTile, tileIndex) {
-                    var rightAmount = tileIndex * tileSize;
-                    var tile = {
-                        right: Vec3.multiply(rightVector, rightAmount),
-                        forward: Vec3.multiply(forwardVector, forwardAmount),
-                        halfForward: Vec3.multiply(forwardVector, forwardAmount - (0.5 * tileSize)),
-                        halfRight: Vec3.multiply(rightVector, rightAmount - (0.5 * tileSize)),
-                        rowIndex: rowIndex,
-                        tileIndex: tileIndex,
-                        url: singleTile
-                    }
 
-                    tile.rightPosition = Vec3.sum(previousTilePosition, tile.right);
-                    tile.position = Vec3.sum(tile.rightPosition, tile.forward);
+        createDebugEntity: function(position) {
+            return Entities.addEntity({
+                type: 'Sphere',
+                position: {
+                    x: position.x,
+                    y: position.y += 0.1,
+                    z: position.z
+                },
+                color: {
+                    red: 0,
+                    green: 0,
+                    blue: 255
+                },
+                dimensions: {
+                    x: 0.1,
+                    y: 0.1,
+                    z: 0.1
+                },
+                collisionless: true
+            })
+        },
 
-                    //to put in the middle -- get midpoint between each tile for right
-                    //add 1/2 tile width to the fwd
-                    tile.middle = Vec3.sum(previousTilePosition, tile.halfRight);
-                    tile.middle = Vec3.sum(tile.middle, tile.halfForward);
+        setupGrid: function() {
+            _this.tiles = [];
+            var i;
+            var j;
 
-                    tiles.push(tile);
-                    _this.createAnchorEntityAtPoint(tile.middle);
-                    previousTilePosition = tile.position;
-                });
-            });
+            for (i = 0; i < _this.game.startingArrangement.length; i++) {
+                for (j = 0; j < _this.game.startingArrangement[i].length; j++) {
+                    print('jbp there is a tile at:: ' + i + "::" + j)
+                    var tile = new Tile(i, j);
+                    _this.createSingleEntity(tile.url, tile.middle)
+                        // _this.toCleanup.push(_this.createDebugEntity(tile.middle))
 
-            this.tiles = tiles;
-            print('tiles are: ' + JSON.stringify(this.tiles))
+                    _this.tiles.push(tile);
+                }
+            }
         },
 
         findMidpoint: function(start, end) {
@@ -196,6 +229,11 @@
                 item.cleanup();
             })
         },
+        unload: function() {
+            _this.toCleanup.forEach(function(item) {
+                Entities.deleteEntity(item);
+            })
+        }
     }
     return new EntitySpawner();
 });
