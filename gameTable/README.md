@@ -4,11 +4,12 @@ Game Table Documentation
 Ready to play?  Try out our new gaming table, with five games to choose from:  checkers, chess, dominoes, dice, and a deck of cards!  Add your own game!
 
 The gaming table is designed with the following principles:
-1 - Gets its list of games from a remote location, and so can be updated without requiring a new download by users.
-2 - New games can be defined in a simple JSON data structure.
-3 - Games are made for using hand controllers.  Pieces are physical as much as possible.
-4 - Simple controls:  reset game, next game, and new seat buttons.
-5 - No 'rules' are enforced.  It's up to players to respect each other.  
+
+1. Gets its list of games from a remote location, and so can be updated without requiring a new download by users.
+2. New games can be defined in a simple JSON data structure.
+3. Games are made for using hand controllers.  Pieces are physical as much as possible.
+4. Simple controls:  reset game, next game, and new seat buttons.
+5. No 'rules' are enforced.  It's up to players to respect each other.  
 
 
 ADDING GAMES
@@ -41,8 +42,10 @@ TESTING
 Change the GAMES_LIST_ENDPOINT variable in table.js to point at your array of game .json files on a local or remote server.
 
 
-CODE
+PUBLISHING
 =============
-https://github.com/imgntn/jbp-hifi-apps/tree/master/gameTable
+- As a script: just add createGameTable.js to the marketplace.
+
+- As an item: runcreateGameTable.js and select everything, export it to json.  Go through the usual marketplace uploading and prep sequence.
 
 

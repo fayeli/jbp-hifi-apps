@@ -16,15 +16,17 @@
                 var itemProps = Entities.getEntityProperties(item);
                 var descriptionSplit = itemProps.description.split(":");
                 if (descriptionSplit[1] === groupName && descriptionSplit[2] === entityName) {
-                    found =  item
+                    found = item
                 }
             });
             return found;
         },
         clickDownOnEntity: function() {
-             _this.resetGame();
+            _this.resetGame();
         },
-        startNearTrigger: function() {},
+        startNearTrigger: function() {
+            _this.spawnNewSeat();
+        },
         startFarTrigger: function() {},
         resetGame: function() {
             print('reset game button calling resetGame');

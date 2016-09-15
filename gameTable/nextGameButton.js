@@ -17,7 +17,7 @@
                 var itemProps = Entities.getEntityProperties(item);
                 var descriptionSplit = itemProps.description.split(":");
                 if (descriptionSplit[1] === groupName && descriptionSplit[2] === entityName) {
-                    found= item
+                    found = item
                 }
             });
             return found
@@ -25,13 +25,15 @@
         clickDownOnEntity: function() {
             _this.nextGame();
         },
-        startNearTrigger: function() {},
+        startNearTrigger: function() {
+            _this.spawnNewSeat();
+        },
         startFarTrigger: function() {},
         nextGame: function() {
             print('next game button calling nextGame')
             var table = _this.getEntityFromGroup('gameTable', 'table');
             print('has table?' + table)
-            var tableString =table.substr(1,table.length-2)
+            var tableString = table.substr(1, table.length - 2)
             Entities.callEntityMethod(tableString, 'nextGame');
         }
     };

@@ -34,7 +34,7 @@ var nextGameButtonOffset = {
 };
 
 var resetGameButtonOffset = {
-    forward:0.2,
+    forward: 0.2,
     vertical: 0.45,
     right: -0.7
 };
@@ -107,7 +107,7 @@ function createTable() {
 function createEntitySpawner() {
     var props = {
         type: 'Zone',
-        visible:false,
+        visible: false,
         name: 'GameTable Entity Spawner',
         collisionless: true,
         description: 'hifi:gameTable:entitySpawner',
@@ -209,7 +209,12 @@ function createNextGameButton() {
         },
         parentID: table,
         script: Script.resolvePath('nextGameButton.js'),
-        position: getOffsetFromTable(nextGameButtonOffset.forward, nextGameButtonOffset.vertical, nextGameButtonOffset.right)
+        position: getOffsetFromTable(nextGameButtonOffset.forward, nextGameButtonOffset.vertical, nextGameButtonOffset.right),
+        userData: JSON.stringify({
+            grabbableKey: {
+                wantsTrigger: true
+            }
+        })
     };
 
     nextGameButton = Entities.addEntity(props);
@@ -233,7 +238,12 @@ function createResetGameButton() {
         },
         parentID: table,
         script: Script.resolvePath('resetGameButton.js'),
-        position: getOffsetFromTable(resetGameButtonOffset.forward, resetGameButtonOffset.vertical, resetGameButtonOffset.right)
+        position: getOffsetFromTable(resetGameButtonOffset.forward, resetGameButtonOffset.vertical, resetGameButtonOffset.right),
+        userData: JSON.stringify({
+            grabbableKey: {
+                wantsTrigger: true
+            }
+        })
     };
 
     resetGameButton = Entities.addEntity(props);
@@ -257,7 +267,12 @@ function createNewSeatButton() {
         },
         parentID: table,
         script: Script.resolvePath('newSeatButton.js'),
-        position: getOffsetFromTable(newSeatButtonOffset.forward, newSeatButtonOffset.vertical, newSeatButtonOffset.right)
+        position: getOffsetFromTable(newSeatButtonOffset.forward, newSeatButtonOffset.vertical, newSeatButtonOffset.right),
+        userData: JSON.stringify({
+            grabbableKey: {
+                wantsTrigger: true
+            }
+        })
     };
 
     newSeatButton = Entities.addEntity(props);
