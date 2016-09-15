@@ -21,19 +21,19 @@ For 'arranged' style games, the table divides its surface into tiles based on ho
 JSON GAME PARAMETERS
 =============
 (BOTH STYLES)
-@gameName - string - what the game is called.  i.e. 'checkers'
-@matURL - string - url of picture to put on the table.  i.e. 'http://mywebsite/chekers.jpg'
-@spawnStyle - string - either 'pile' or 'arranged'.
+- @gameName - string - what the game is called.  i.e. 'checkers'
+- @matURL - string - url of picture to put on the table.  i.e. 'http://mywebsite/chekers.jpg'
+- @spawnStyle - string - either 'pile' or 'arranged'.
 
 (ARRANGED STYLE)
-@snapToGrid - boolean - should pieces snap to tiles
-@startingArrangement - 2d array - 'playerNumber:pieceName' - i.e. "1:rook" or "2:queen"
-@pieces - array of object mappings - one object mapping per player -'{pieceName:JSONurl}' - i.e. [{"king": "http://mywebsite/chess/king_black.json"},{"king": "http://mywebsite/chess/king_white.json"}]
+- @snapToGrid - boolean - should pieces snap to tiles
+- @startingArrangement - 2d array - 'playerNumber:pieceName' - i.e. "1:rook" or "2:queen"
+- @pieces - array of object mappings - one object mapping per player -'{pieceName:JSONurl}' - i.e. [{"king": "http://mywebsite/chess/king_black.json"},{"king": "http://mywebsite/chess/king_white.json"}]
 
 (PILE STYLE)
-@identicalPieces - boolean - whether or not the pieces are identical.  if true, only the first piece is used and repeatedly spawned.
-@howMany - number - the amount of pieces to creates
-@pieces - array of strings - i.e ["http://mywebsite/domino.json"]
+- @identicalPieces - boolean - whether or not the pieces are identical.  if true, only the first piece is used and repeatedly spawned.
+- @howMany - number - the amount of pieces to creates
+- @pieces - array of strings - i.e ["http://mywebsite/domino.json"]
 
 
 TESTING
