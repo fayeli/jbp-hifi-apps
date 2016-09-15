@@ -6,20 +6,7 @@
         var created = [];
 
         function create() {
-            //
-            // Created by Triplelexx on 16/05/26
-            // Copyright 2016 High Fidelity, Inc.
-            //
-            // Creates an entity that can be sat upon
-            //
-            // Sitting animations adapted by Triplelexx from version obtained from Mixamo
-            // Links provided to copies of original animations created by High Fidelity, Inc
-            // This is due to issues requiring use of overrideRoleAnimation to chain animations and not knowing a better way
-            // to reference them cross-platform.
-            //
-            // Distributed under the Apache License, Version 2.0.
-            // See the accompanying file LICENSE or http://www.apache.org/licenses/LICENSE-2.0.html
-
+            print('CREATE - inside of create')
             var BASE_PATH = "http://mpassets.highfidelity.com/875bcd3b-7b7d-45a1-a429-c0c6eefad95d-v1/";
             var CHAIR_SCRIPT_URL = BASE_PATH + "chair.js?v=1";
             var COLLIDER_SCRIPT_URL = BASE_PATH + "chairCollider.js?v=1";
@@ -62,7 +49,12 @@
                     y: 0.0,
                     z: 0.5
                 },
-                dynamic: false,
+                dynamic: true,
+                velocity:{
+                    x:0,
+                    y:-0.1,
+                    z:0
+                },
                 lifetime: -1,
                 collisionsWillMove: false,
                 friction: 1.0,
@@ -122,7 +114,7 @@
                 })
             });
 
-            create();
+
             created.push(chair);
             created.push(triggerVolume);
             print('chair spawner created: ' + JSON.stringify(created))
@@ -134,7 +126,7 @@
             })
         };
 
-       
+        create();
 
         this.cleanup = cleanup;
 
