@@ -2,23 +2,22 @@
     "Entities": [{
         "acceleration": {
             "x": 0,
-            "y": -10,
+            "y": -0.10,
             "z": 0
         },
         "clientOnly": 0,
         "collisionsWillMove": 1,
         "created": "2016-09-13T22:01:47Z",
-        "description": "hifi:gameTable:piece:checker",
+        "description": "hifi:gameTable:piece:checkers",
         "dimensions": {
             "x": 0.08,
             "y": 0.014,
             "z": 0.08
         },
-        "velocity": {
-            "x": 0,
-            "y": -0.10,
-            "z": 0
-        },
+        "damping": 1,
+        "angularDamping": 0.9,
+        "restitution": 0,
+        "friction": 2,
         "dynamic": 1,
         "gravity": {
             "x": 0,
@@ -36,10 +35,10 @@
             "z": -0.034452568739652634
         },
         "rotation": {
-            "w": 0.22428974509239197,
-            "x": -0.0034588498529046774,
-            "y": 0.78566431999206543,
-            "z": -0.57655328512191772
+            "w": 0.61089491844177246,
+            "x": -1.52587890625e-05,
+            "y": 0.79168379306793213,
+            "z": -1.52587890625e-05
         },
         "script": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/snapToGrid.js",
         "shapeType": "box",

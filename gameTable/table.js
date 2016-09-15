@@ -1,8 +1,8 @@
 (function() {
-    var GAMES_LIST_ENDPOINT = "https://api.myjson.com/bins/557re";
+    var GAMES_LIST_ENDPOINT = "https://api.myjson.com/bins/2606y";
 
     var _this;
-    var INITIAL_DELAY = 2000;
+    var INITIAL_DELAY = 1000;
 
     function GameTable() {
         _this = this;
@@ -11,6 +11,7 @@
     GameTable.prototype = {
         matCorner: null,
         currentGameIndex: 0,
+        count:0,
         preload: function(entityID) {
             _this.entityID = entityID;
             Script.setTimeout(function() {
@@ -50,7 +51,6 @@
                 print('userdata has no gametable or no currentgame')
                 _this.setCurrentGame();
                 _this.cleanupGameEntities();
-                _this.resetGame();
                 print('i set the game and reset the game')
             } else {
                 print('already has game')
@@ -58,32 +58,34 @@
 
         },
         resetGame: function() {
-            print('RESET GAME on gameTable')
+            print('jbp RESET GAME on gameTable')
             _this.cleanupGameEntities();
-            _this.spawnEntitiesForGame();
         },
         nextGame: function() {
-            print('NEXT GAME on gameTable')
+            print('jbp NEXT GAME on gameTable')
             _this.currentGameIndex++;
             if (_this.currentGameIndex >= _this.gamesList.length) {
                 _this.currentGameIndex = 0;
             }
             _this.cleanupGameEntities();
+ 
 
         },
         cleanupGameEntities: function() {
-            print('should cleanup game entities')
+            var matchedPiece ="hifi:gameTable:piece:" + _this.currentGame;
+            print('jbp should cleanup game entities for:: ' + _this.currentGame)
             var props = Entities.getEntityProperties(_this.entityID);
             var results = Entities.findEntities(props.position, 10);
             var found = [];
             results.forEach(function(item) {
                 var itemProps = Entities.getEntityProperties(item)
-                if (itemProps.description === "hifi:gameTable:piece:" + _this.currentGame) {
+                if (itemProps.description === matchedPiece ) {
                     found.push(item);
+                    print('found a matching piece, pushing')
                 }
-
             })
             found.forEach(function(foundItem) {
+                print('deleting matching piece')
                 Entities.deleteEntity(foundItem)
             })
             _this.setCurrentGame();
@@ -143,7 +145,7 @@
             return result
         },
         spawnEntitiesForGame: function() {
-            print('should spawn entities for game')
+            print('jbp should spawn entities for game.  count: '+this.count)
             var entitySpawner = _this.getEntityFromGroup('gameTable', 'entitySpawner');
 
             var props = Entities.getEntityProperties(_this.entityID);
@@ -151,6 +153,8 @@
 
 
             Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGameFull), mat, _this.entityID]);
+            this.count++;
+             return
         },
 
     }

@@ -114,7 +114,7 @@
                 return;
             }
             var otherProps = Entities.getEntityProperties(other);
-            var userData;
+            var userData={};
             try {
                 JSON.parse(otherProps.userData)
             } catch (e) {

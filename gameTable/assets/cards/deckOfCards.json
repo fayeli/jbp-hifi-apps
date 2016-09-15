@@ -17,9 +17,11 @@
         },
         "velocity": {
             "x": 0,
-            "y": -0.10,
+            "y": -0.9,
             "z": 0
         },
+        "friction":1,
+        "restitution":0,
         "id": "{36bdb632-06be-4d13-b9be-e620ebec6422}",
         "modelURL": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/deckOfCards/playing_card.fbx",
         "name": "Deck of Cards",

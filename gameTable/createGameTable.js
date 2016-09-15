@@ -17,7 +17,7 @@ var entitySpawnerOffset = {
 
 var matOffset = {
     forward: 0,
-    vertical: 0.519,
+    vertical: 0.545,
     right: 0
 };
 
@@ -67,11 +67,10 @@ function getOffsetFromTable(forward, vertical, right) {
 function createTable() {
     var props = {
         type: 'Model',
-        name: 'GameTable Table',
+        name: 'GameTable Table 1',
         description: 'hifi:gameTable:table',
         modelURL: TABLE_MODEL_URL,
-        collidesWith: 'static,dynamic,myAvatar,otherAvatar',
-        shapeType: 'simple-compound',
+        shapeType: 'box',
         dynamic: true,
         velocity: {
             x: 0,
@@ -83,10 +82,11 @@ function createTable() {
             y: -9,
             z: 0
         },
-        density: 9999,
+        density: 2000,
         restitution: 0,
         damping: 0,
         angularDamping: 0,
+        friction: 1,
         dimensions: {
             x: 1.355,
             y: 1.1121,
@@ -106,7 +106,8 @@ function createTable() {
 
 function createEntitySpawner() {
     var props = {
-        type: 'Box',
+        type: 'Zone',
+        visible:false,
         name: 'GameTable Entity Spawner',
         collisionless: true,
         description: 'hifi:gameTable:entitySpawner',
@@ -142,10 +143,12 @@ function createMat() {
             green: 0,
             blue: 255
         },
+        restitution: 0,
+        friction: 1,
         dimensions: {
             x: 1.045,
             y: 1.045,
-            z: 0.075
+            z: 0.025
         },
         rotation: Quat.fromPitchYawRollDegrees(90, 0, 0),
         // textures: JSON.stringify({
@@ -263,11 +266,12 @@ function createNewSeatButton() {
 function makeTable() {
     createTable();
     createMat();
+    createEntitySpawner();
     createResetGameButton();
     createNextGameButton();
     createNewSeatButton();
     createSeatSpawner();
-    createEntitySpawner();
+
 }
 
 function cleanup() {

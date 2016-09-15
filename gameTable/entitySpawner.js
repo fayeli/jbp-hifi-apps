@@ -11,7 +11,7 @@
             var success = Clipboard.importEntities(url);
             var dimensions = Clipboard.getContentsDimensions();
             //we want the bottom of any piece to actually be on the board, so we add half of the height of the piece to the location when we paste it,
-            spawnLocation.y += 0.5 * dimensions.y;
+            spawnLocation.y += (0.5*dimensions.y);
             if (success === true) {
                 created = Clipboard.pasteEntities(spawnLocation);
                 this.created = created;
@@ -54,7 +54,6 @@
         this.middle = workingPosition;
 
         var splitURL = _this.game.startingArrangement[rowIndex][columnIndex].split(":");
-        print('jbp game has pieces:: ' + _this.game.pieces)
         if (splitURL[0] === '1') {
             this.url = _this.game.pieces[0][splitURL[1]]
         }
@@ -65,7 +64,7 @@
             this.url = 'empty';
         }
 
-        print('jbp made a tile: ' + JSON.stringify(this))
+        //print('jbp made a tile: ' + JSON.stringify(this))
 
     }
 
@@ -90,6 +89,7 @@
             _this.items.push(item);
         },
         changeMatPicture: function(mat) {
+            print('changing mat: ' + _this.game.matURL)
             Entities.editEntity(mat, {
                 textures: JSON.stringify({
                     Picture: _this.game.matURL
@@ -175,7 +175,7 @@
 
             for (i = 0; i < _this.game.startingArrangement.length; i++) {
                 for (j = 0; j < _this.game.startingArrangement[i].length; j++) {
-                    print('jbp there is a tile at:: ' + i + "::" + j)
+                    // print('jbp there is a tile at:: ' + i + "::" + j)
                     var tile = new Tile(i, j);
                     _this.createSingleEntity(tile.url, tile.middle)
                         // _this.toCleanup.push(_this.createDebugEntity(tile.middle))

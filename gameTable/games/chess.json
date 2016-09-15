@@ -1,6 +1,6 @@
 {
     "gameName": "chess",
-    "matURL": "http://lorempixel.com/800/800",
+    "matURL": "http://brettedwards.com/wp-content/uploads/2011/12/chess1.jpg",
     "spawnStyle": "arranged",
     "snapToGrid": true,
     "startingArrangement": [
