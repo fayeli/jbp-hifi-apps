@@ -36,7 +36,8 @@
             "z": -1.52587890625e-05
         },
         "shapeType": "box",
-        "type": "Model"
+        "type": "Model",
+        "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
     }],
     "Version": 64
 }

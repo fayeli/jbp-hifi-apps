@@ -29,9 +29,10 @@
             eulerRotation.z = 0;
             var newRotation = Quat.fromVec3Degrees(eulerRotation);
 
-            //we zero out the velocity and angular velocity so the cow doesn't change position or spin
+            //we zero out the velocity and angular velocity so the table doesn't change position or spin
             Entities.editEntity(_this.entityID, {
                 rotation: newRotation,
+                dynamic:false,
                 velocity: {
                     x: 0,
                     y: 0,

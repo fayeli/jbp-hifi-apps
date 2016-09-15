@@ -1,7 +1,7 @@
 var TABLE_MODEL_URL = Script.resolvePath('assets/table/table.fbx');
 var MODEL_URL = "http://hifi-production.s3.amazonaws.com/tutorials/pictureFrame/finalFrame.fbx";
 
-var TABLE_START_POSITION
+var TABLE_START_POSITION;
 
 var front = Quat.getFront(MyAvatar.orientation);
 var TABLE_START_POSITION = Vec3.sum(MyAvatar.position, Vec3.multiply(2, front));
