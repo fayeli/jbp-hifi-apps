@@ -18,7 +18,8 @@ There are two spawning styles for games, depending on the type of game you're ma
 
 For 'arranged' style games, the table divides its surface into tiles based on how many rows are in the arrangement.   Currently, the boards must be square (i.e. 8x8 or 10x10).  Then it goes through the starting arrangement and pastes the JSON for each piece at the appropriate location. A player number in front of the piece name in the game definition helps pick the right color piece for games where player pieces are similar.  Releasing a held piece with 'snapToGrid' on will result in that piece snapping to the nearest available tile.
 
-JSON parameters.
+JSON GAME PARAMETERS
+=============
 (BOTH STYLES)
 @gameName - string - what the game is called.  i.e. 'checkers'
 @matURL - string - url of picture to put on the table.  i.e. 'http://mywebsite/chekers.jpg'
@@ -35,36 +36,13 @@ JSON parameters.
 @pieces - array of strings - i.e ["http://mywebsite/domino.json"]
 
 
-To test: 
+TESTING
+=============
 Change the GAMES_LIST_ENDPOINT variable in table.js to point at your array of game .json files on a local or remote server.
 
 
-Code:
+CODE
+=============
 https://github.com/imgntn/jbp-hifi-apps/tree/master/gameTable
-
-Folder structure:
-
-/assets
-    /cards
-    /checkers
-    /chess
-    /dice
-    /dominoes
-    /table
-/games    (JSON descriptions)
-    /checkers
-    /chess
-    /deckOfCards
-    /dice
-    /dominoes
-createGameTable.js
-entitySpawner.js
-mat.js
-newSeatButton.js
-nextGameButton.js
-resetGameButton.js
-seatSpawner.js
-snapToGrid.js
-table.js
 
 

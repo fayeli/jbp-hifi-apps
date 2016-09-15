@@ -72,7 +72,7 @@
                         z: 0.0
                     },
                     grabbableKey: {
-                        grabbable: false
+                        grabbable: true
                     }
                 })
             });

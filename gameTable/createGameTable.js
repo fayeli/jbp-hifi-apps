@@ -28,21 +28,21 @@ var seatSpawnerOffset = {
 };
 
 var nextGameButtonOffset = {
-    forward: 0.7,
+    forward: 0,
     vertical: 0.45,
     right: -0.7
 };
 
 var resetGameButtonOffset = {
-    forward: 0.7,
+    forward:0.2,
     vertical: 0.45,
-    right: -0.9
+    right: -0.7
 };
 
 var newSeatButtonOffset = {
-    forward: 0.7,
+    forward: -0.2,
     vertical: 0.45,
-    right: -1.1
+    right: -0.7
 };
 
 function getOffsetFromTable(forward, vertical, right) {
