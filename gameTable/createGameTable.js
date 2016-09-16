@@ -131,7 +131,7 @@ function createEntitySpawner() {
 
 
 function createMat() {
-    // var MAT_STARTING_PICTURE = "";
+
     var props = {
         type: 'Model',
         modelURL: MODEL_URL,
@@ -151,9 +151,9 @@ function createMat() {
             z: 0.025
         },
         rotation: Quat.fromPitchYawRollDegrees(90, 0, 0),
-        // textures: JSON.stringify({
-        //     Picture: MAT_STARTING_PICTURE
-        // }),
+        textures: JSON.stringify({
+            Picture: "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/mats/Table-default.jpg"
+        }),
         parentID: table,
         script: Script.resolvePath('mat.js'),
         position: getOffsetFromTable(matOffset.forward, matOffset.vertical, matOffset.right),
@@ -169,7 +169,8 @@ function createMat() {
 
 function createSeatSpawner() {
     var props = {
-        type: 'Box',
+        type: 'Zone',
+        visible: false,
         name: 'GameTable Seat Spawner',
         description: 'hifi:gameTable:seatSpawner',
         collisionless: true,
@@ -193,7 +194,8 @@ function createSeatSpawner() {
 
 function createNextGameButton() {
     var props = {
-        type: 'Box',
+        type: 'Model',
+        modelURL: 'http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/buttons/button-next.fbx',
         name: 'GameTable Next Button',
         description: 'hifi:gameTable:nextGameButton',
         collisionless: true,
@@ -203,10 +205,15 @@ function createNextGameButton() {
             blue: 255
         },
         dimensions: {
-            x: 0.1,
-            y: 0.1,
-            z: 0.1
+            x: 0.0625,
+            y: 0.1250,
+            z: 0.1250
         },
+        rotation: Quat.angleAxis(180, {
+            x: 0,
+            y: 1,
+            z: 0
+        }),
         parentID: table,
         script: Script.resolvePath('nextGameButton.js'),
         position: getOffsetFromTable(nextGameButtonOffset.forward, nextGameButtonOffset.vertical, nextGameButtonOffset.right),
@@ -222,7 +229,8 @@ function createNextGameButton() {
 
 function createResetGameButton() {
     var props = {
-        type: 'Box',
+        type: 'Model',
+        modelURL: 'http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/buttons/button-reset.fbx',
         name: 'GameTable Reset Button',
         description: 'hifi:gameTable:resetGameButton',
         collisionless: true,
@@ -232,10 +240,15 @@ function createResetGameButton() {
             blue: 0
         },
         dimensions: {
-            x: 0.1,
-            y: 0.1,
-            z: 0.1
+            x: 0.0628,
+            y: 0.1248,
+            z: 0.1317
         },
+        rotation: Quat.angleAxis(180, {
+            x: 0,
+            y: 1,
+            z: 0
+        }),
         parentID: table,
         script: Script.resolvePath('resetGameButton.js'),
         position: getOffsetFromTable(resetGameButtonOffset.forward, resetGameButtonOffset.vertical, resetGameButtonOffset.right),
@@ -251,7 +264,8 @@ function createResetGameButton() {
 
 function createNewSeatButton() {
     var props = {
-        type: 'Box',
+        type: 'Model',
+        modelURL: 'http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/buttons/button-chair.fbx',
         name: 'GameTable New Seat Button',
         description: 'hifi:gameTable:newSeatButton',
         collisionless: true,
@@ -261,10 +275,15 @@ function createNewSeatButton() {
             blue: 255
         },
         dimensions: {
-            x: 0.1,
-            y: 0.1,
-            z: 0.1
+            x: 0.0637,
+            y: 0.1250,
+            z: 0.1250
         },
+        rotation: Quat.angleAxis(180, {
+            x: 0,
+            y: 1,
+            z: 0
+        }),
         parentID: table,
         script: Script.resolvePath('newSeatButton.js'),
         position: getOffsetFromTable(newSeatButtonOffset.forward, newSeatButtonOffset.vertical, newSeatButtonOffset.right),

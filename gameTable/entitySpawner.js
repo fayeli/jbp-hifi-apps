@@ -11,7 +11,7 @@
             var success = Clipboard.importEntities(url);
             var dimensions = Clipboard.getContentsDimensions();
             //we want the bottom of any piece to actually be on the board, so we add half of the height of the piece to the location when we paste it,
-            spawnLocation.y += (0.5*dimensions.y);
+            spawnLocation.y += (0.5 * dimensions.y);
             if (success === true) {
                 created = Clipboard.pasteEntities(spawnLocation);
                 this.created = created;
@@ -178,7 +178,9 @@
                     // print('jbp there is a tile at:: ' + i + "::" + j)
                     var tile = new Tile(i, j);
                     _this.createSingleEntity(tile.url, tile.middle)
-                        // _this.toCleanup.push(_this.createDebugEntity(tile.middle))
+                    if (_this.game.hasOwnProperty('snapToGrid') && _this.game.snapToGride === true) {
+                        createAnchorEntityAtPoint(tile.middle);
+                    }
 
                     _this.tiles.push(tile);
                 }
@@ -195,6 +197,8 @@
             var properties = {
                 type: 'Zone',
                 description: 'hifi:gameTable:anchor',
+                visible: false,
+                collisionless: true,
                 dimensions: {
                     x: 0.075,
                     y: 0.075,
@@ -204,7 +208,7 @@
                 position: position,
                 userData: 'available'
             }
-            var anchor = Entities.addEntity(properties);
+            return Entities.addEntity(properties);
         },
 
         setCurrentUserData: function(data) {

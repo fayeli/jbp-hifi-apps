@@ -1,5 +1,5 @@
 (function() {
-    var GAMES_LIST_ENDPOINT = "https://api.myjson.com/bins/2606y";
+    var GAMES_LIST_ENDPOINT = "https://api.myjson.com/bins/437s6";
 
     var _this;
     var INITIAL_DELAY = 1000;

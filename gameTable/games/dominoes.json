@@ -1,6 +1,6 @@
 {
     "gameName": "dominoes",
-    "matURL": "http://www.thehobbywarehouse.co.uk/media/catalog/product/cache/4/image/9df78eab33525d08d6e5fb8d27136e95/5/0/506007.jpg",
+    "matURL": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/mats/Felt.jpg",
     "spawnStyle": "pile",
     "howMany": 28,
     "identicalPieces": true,
