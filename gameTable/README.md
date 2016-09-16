@@ -41,6 +41,7 @@ TESTING
 =============
 Change the GAMES_LIST_ENDPOINT variable in table.js to point at your array of game .json files on a local or remote server.
 
+The list should look more or less like this: https://api.myjson.com/bins/437s6
 
 PUBLISHING
 =============

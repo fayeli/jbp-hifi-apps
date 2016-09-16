@@ -11,7 +11,7 @@
     GameTable.prototype = {
         matCorner: null,
         currentGameIndex: 0,
-        count:0,
+        count: 0,
         preload: function(entityID) {
             _this.entityID = entityID;
             Script.setTimeout(function() {
@@ -32,7 +32,7 @@
             //we zero out the velocity and angular velocity so the table doesn't change position or spin
             Entities.editEntity(_this.entityID, {
                 rotation: newRotation,
-                dynamic:false,
+                dynamic: false,
                 velocity: {
                     x: 0,
                     y: 0,
@@ -69,18 +69,22 @@
                 _this.currentGameIndex = 0;
             }
             _this.cleanupGameEntities();
- 
+
 
         },
         cleanupGameEntities: function() {
-            var matchedPiece ="hifi:gameTable:piece:" + _this.currentGame;
+            var matchedPiece = "hifi:gameTable:piece:" + _this.currentGame;
             print('jbp should cleanup game entities for:: ' + _this.currentGame)
             var props = Entities.getEntityProperties(_this.entityID);
             var results = Entities.findEntities(props.position, 10);
             var found = [];
             results.forEach(function(item) {
                 var itemProps = Entities.getEntityProperties(item)
-                if (itemProps.description === matchedPiece ) {
+                if (itemProps.description === matchedPiece) {
+                    found.push(item);
+                    print('found a matching piece, pushing')
+                }
+                if (itemProps.description.indexOf('hifi:gameTable:anchor') > -1) {
                     found.push(item);
                     print('found a matching piece, pushing')
                 }
@@ -146,7 +150,7 @@
             return result
         },
         spawnEntitiesForGame: function() {
-            print('jbp should spawn entities for game.  count: '+this.count)
+            print('jbp should spawn entities for game.  count: ' + this.count)
             var entitySpawner = _this.getEntityFromGroup('gameTable', 'entitySpawner');
 
             var props = Entities.getEntityProperties(_this.entityID);
@@ -155,7 +159,7 @@
 
             Entities.callEntityMethod(entitySpawner, 'spawnEntities', [JSON.stringify(_this.currentGameFull), mat, _this.entityID]);
             this.count++;
-             return
+            return
         },
 
     }

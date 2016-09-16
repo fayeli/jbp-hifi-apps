@@ -87,6 +87,7 @@
             // print('creating a single entity at : ' + JSON.stringify(spawnLocation))
             var item = new PastedItem(url, spawnLocation);
             _this.items.push(item);
+            return item;
         },
         changeMatPicture: function(mat) {
             print('changing mat: ' + _this.game.matURL)
@@ -177,9 +178,16 @@
                 for (j = 0; j < _this.game.startingArrangement[i].length; j++) {
                     // print('jbp there is a tile at:: ' + i + "::" + j)
                     var tile = new Tile(i, j);
-                    _this.createSingleEntity(tile.url, tile.middle)
-                    if (_this.game.hasOwnProperty('snapToGrid') && _this.game.snapToGride === true) {
-                        createAnchorEntityAtPoint(tile.middle);
+                    var item = _this.createSingleEntity(tile.url, tile.middle)
+                    if (_this.game.hasOwnProperty('snapToGrid') && _this.game.snapToGrid === true) {
+                        var anchor = _this.createAnchorEntityAtPoint(tile.middle);
+                        Entities.editEntity(item, {
+                            userData: JSON.stringify({
+                                gameTable: {
+                                    attachedTo: anchor
+                                }
+                            })
+                        })
                     }
 
                     _this.tiles.push(tile);
@@ -196,6 +204,7 @@
         createAnchorEntityAtPoint: function(position) {
             var properties = {
                 type: 'Zone',
+                name:'Game Table Snap To Grid Anchor',
                 description: 'hifi:gameTable:anchor',
                 visible: false,
                 collisionless: true,

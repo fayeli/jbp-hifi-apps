@@ -114,7 +114,7 @@
                 return;
             }
             var otherProps = Entities.getEntityProperties(other);
-            var userData={};
+            var userData = {};
             try {
                 JSON.parse(otherProps.userData)
             } catch (e) {
@@ -136,11 +136,6 @@
         },
         startEquip: function(id, params) {
             this.startNearGrab(id, params);
-        },
-
-        continueNearGrab: function() {
-            // print('jbp continue near grab')
-            // scaleHandDistanceToCardIndex();
         },
 
         releaseGrab: function() {
@@ -471,10 +466,6 @@
             Entities.addEntity(properties);
         }
 
-    }
-
-    function scaleHandDistanceToCardIndex(value, min1, max1, min2, max2) {
-        return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
     }
 
     function Card(rank, suit) {

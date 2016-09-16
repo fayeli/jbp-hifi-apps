@@ -1,6 +1,6 @@
 (function() {
     var _this;
-    var DONT_SNAP_WHEN_FARTHER_THAN_THIS = 0.5;
+    var DONT_SNAP_WHEN_FARTHER_THAN_THIS = 0.25;
 
     function SnapToGrid() {
         _this = this;
@@ -94,7 +94,7 @@
         },
         setCurrentUserData: function(data) {
             var userData = getCurrentUserData();
-            userData.gameTableData = data;
+            userData.gameTable = data;
             Entities.editEntity(_this.entityID, {
                 userData: userData
             })
