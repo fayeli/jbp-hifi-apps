@@ -1,4 +1,4 @@
-var TABLE_MODEL_URL = Script.resolvePath('assets/table/table.fbx');
+var TABLE_MODEL_URL = "https://s3-us-west-1.amazonaws.com/hifi-content/james/gametable-dev/assets/table/table.fbx";
 var MODEL_URL = "http://hifi-production.s3.amazonaws.com/tutorials/pictureFrame/finalFrame.fbx";
 
 var TABLE_START_POSITION;
