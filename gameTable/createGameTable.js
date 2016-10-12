@@ -21,14 +21,14 @@ var matOffset = {
     right: 0
 };
 
-var seatSpawnerOffset = {
-    forward: -1,
-    vertical: 1,
-    right: 1
-};
+// var seatSpawnerOffset = {
+//     forward: -1,
+//     vertical: 1,
+//     right: 1
+// };
 
 var nextGameButtonOffset = {
-    forward: 0,
+    forward: -0.2,
     vertical: 0.45,
     right: -0.7
 };
@@ -39,11 +39,11 @@ var resetGameButtonOffset = {
     right: -0.7
 };
 
-var newSeatButtonOffset = {
-    forward: -0.2,
-    vertical: 0.45,
-    right: -0.7
-};
+// var newSeatButtonOffset = {
+//     forward: -0.2,
+//     vertical: 0.45,
+//     right: -0.7
+// };
 
 function getOffsetFromTable(forward, vertical, right) {
     var props = Entities.getEntityProperties(table);
@@ -303,8 +303,8 @@ function makeTable() {
     createEntitySpawner();
     createResetGameButton();
     createNextGameButton();
-    createNewSeatButton();
-    createSeatSpawner();
+    //createNewSeatButton();
+    //createSeatSpawner();
 
 }
 
@@ -312,10 +312,10 @@ function cleanup() {
     Entities.deleteEntity(table);
     Entities.deleteEntity(mat);
     Entities.deleteEntity(entitySpawner);
-    Entities.deleteEntity(seatSpawner);
+    //Entities.deleteEntity(seatSpawner);
     Entities.deleteEntity(nextGameButton);
     Entities.deleteEntity(resetGameButton);
-    Entities.deleteEntity(newSeatButton);
+    //Entities.deleteEntity(newSeatButton);
 };
 
 Script.scriptEnding.connect(cleanup);
