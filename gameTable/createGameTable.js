@@ -1,5 +1,12 @@
 var TABLE_MODEL_URL = "https://s3-us-west-1.amazonaws.com/hifi-content/james/gametable-dev/assets/table/table.fbx";
 var MODEL_URL = "http://hifi-production.s3.amazonaws.com/tutorials/pictureFrame/finalFrame.fbx";
+var RESETGAMEBUTTON_SCRIPT_URL = "https://s3-us-west-1.amazonaws.com/hifi-content/james/gametable-dev/resetGameButton.js";
+var NEXTGAMEBUTTON_SCRIPT_URL = "https://s3-us-west-1.amazonaws.com/hifi-content/james/gametable-dev/nextGameButton.js";
+var TABLE_SCRIPT_URL = "https://s3-us-west-1.amazonaws.com/hifi-content/james/gametable-dev/table.js";
+var ENTITYSPAWNER_SCRIPT_URL = "https://s3-us-west-1.amazonaws.com/hifi-content/james/gametable-dev/entitySpawner.js";
+var MAT_SCRIPT_URL = "https://s3-us-west-1.amazonaws.com/hifi-content/james/gametable-dev/mat.js";
+
+
 
 var TABLE_START_POSITION;
 
@@ -92,7 +99,7 @@ function createTable() {
             y: 1.1121,
             z: 1.355
         },
-        script: Script.resolvePath('table.js'),
+        script: TABLE_SCRIPT_URL,
         position: TABLE_START_POSITION,
         userData: JSON.stringify({
             grabbableKey: {
@@ -122,7 +129,7 @@ function createEntitySpawner() {
             z: 0.25
         },
         parentID: table,
-        script: Script.resolvePath('entitySpawner.js'),
+        script: ENTITYSPAWNER_SCRIPT_URL,
         position: getOffsetFromTable(entitySpawnerOffset.forward, entitySpawnerOffset.vertical, entitySpawnerOffset.right)
     };
 
@@ -155,7 +162,7 @@ function createMat() {
             Picture: "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/mats/Table-default.jpg"
         }),
         parentID: table,
-        script: Script.resolvePath('mat.js'),
+        script: MAT_SCRIPT_URL,
         position: getOffsetFromTable(matOffset.forward, matOffset.vertical, matOffset.right),
         userData: JSON.stringify({
             grabbableKey: {
@@ -215,7 +222,7 @@ function createNextGameButton() {
             z: 0
         }),
         parentID: table,
-        script: Script.resolvePath('nextGameButton.js'),
+        script: NEXTGAMEBUTTON_SCRIPT_URL,
         position: getOffsetFromTable(nextGameButtonOffset.forward, nextGameButtonOffset.vertical, nextGameButtonOffset.right),
         userData: JSON.stringify({
             grabbableKey: {
@@ -250,7 +257,7 @@ function createResetGameButton() {
             z: 0
         }),
         parentID: table,
-        script: Script.resolvePath('resetGameButton.js'),
+        script: RESETGAMEBUTTON_SCRIPT_URL,
         position: getOffsetFromTable(resetGameButtonOffset.forward, resetGameButtonOffset.vertical, resetGameButtonOffset.right),
         userData: JSON.stringify({
             grabbableKey: {
@@ -312,7 +319,7 @@ function cleanup() {
     Entities.deleteEntity(table);
     Entities.deleteEntity(mat);
     Entities.deleteEntity(entitySpawner);
-    //Entities.deleteEntity(seatSpawner);
+    Entities.deleteEntity(seatSpawner);
     Entities.deleteEntity(nextGameButton);
     Entities.deleteEntity(resetGameButton);
     //Entities.deleteEntity(newSeatButton);
