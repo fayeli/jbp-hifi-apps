@@ -11,7 +11,7 @@
             var success = Clipboard.importEntities(url);
             var dimensions = Clipboard.getContentsDimensions();
             //we want the bottom of any piece to actually be on the board, so we add half of the height of the piece to the location when we paste it,
-            spawnLocation.y += (2 * dimensions.y);
+            spawnLocation.y += (0.5 * dimensions.y);
             if (success === true) {
                 created = Clipboard.pasteEntities(spawnLocation);
                 this.created = created;
