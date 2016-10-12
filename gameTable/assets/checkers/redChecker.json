@@ -1,10 +1,5 @@
 {
     "Entities": [{
-        "acceleration": {
-            "x": 0,
-            "y": -0.10,
-            "z": 0
-        },
         "clientOnly": 0,
         "collisionsWillMove": 1,
         "created": "2016-09-13T22:01:47Z",
@@ -14,7 +9,7 @@
             "y": 0.014,
             "z": 0.08
         },
-        "damping": 1,
+        "damping": 0.39,
         "angularDamping": 0.9,
         "restitution": 0,
         "friction": 2,
@@ -45,9 +40,9 @@
         "type": "Model",
         "velocity": {
             "x": -1.6112440158130847e-12,
-            "y": -20.055213928222656,
+            "y": 0,
             "z": 8.2404768772526005e-12
         }
     }],
-    "Version": 64
+    "Version": 65
 }

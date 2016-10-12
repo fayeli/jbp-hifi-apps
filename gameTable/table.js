@@ -1,5 +1,5 @@
 (function() {
-    var GAMES_LIST_ENDPOINT = "http://hifi-content.s3.amazonaws.com/james/gametable-dev/assets/checkers/blackChecker.json";
+    var GAMES_LIST_ENDPOINT = "https://hifi-content.s3.amazonaws.com/james/gametable-dev/game_list.json";
 
     var _this;
     var INITIAL_DELAY = 1000;

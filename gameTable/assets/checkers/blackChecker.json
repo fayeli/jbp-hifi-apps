@@ -1,10 +1,5 @@
 {
     "Entities": [{
-        "acceleration": {
-            "x": 0,
-            "y": -0.10,
-            "z": 0
-        },
         "clientOnly": 0,
         "collisionsWillMove": 1,
         "created": "2016-09-13T22:01:47Z",
@@ -14,7 +9,7 @@
             "y": 0.014,
             "z": 0.08
         },
-        "damping": 1,
+        "damping": 0.39,
         "angularDamping": 0.9,
         "restitution": 0,
         "friction": 2,
@@ -34,6 +29,11 @@
             "y": -0.034452568739652634,
             "z": -0.034452568739652634
         },
+        "registrationPoint": {
+            "x": 0.5,
+            "y": 0,
+            "z": 0.5
+        },
         "rotation": {
             "w": 0.61089491844177246,
             "x": -1.52587890625e-05,
@@ -45,9 +45,9 @@
         "type": "Model",
         "velocity": {
             "x": -2.8203634951620818e-18,
-            "y": -20.055213928222656,
+            "y": 0,
             "z": 1.4424309347250692e-17
         }
     }],
-    "Version": 64
+    "Version": 65
 }
