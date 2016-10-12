@@ -22,7 +22,7 @@
         function cleanup() {
             created.forEach(function(obj) {
                 Entities.deleteEntity(obj);
-            })
+            });
         }
 
         create();
