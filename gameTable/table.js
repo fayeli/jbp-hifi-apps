@@ -1,5 +1,5 @@
 (function() {
-    var GAMES_LIST_ENDPOINT = "https://api.myjson.com/bins/437s6";
+    var GAMES_LIST_ENDPOINT = "https://s3-us-west-1.amazonaws.com/hifi-content/james/gametable-dev/game_list.json";
 
     var _this;
     var INITIAL_DELAY = 1000;
