@@ -12,7 +12,6 @@
         },
         getEntityFromGroup: function(groupName, entityName) {
             var props = Entities.getEntityProperties(_this.entityID);
-            print("play reset game sound");
             var results = Entities.findEntities(props.position, 7.5);
             var found;
             results.forEach(function(item) {

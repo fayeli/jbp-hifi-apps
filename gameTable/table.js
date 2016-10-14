@@ -83,6 +83,9 @@
                 _this.currentGame = userData.gameTable.currentGame;
             }
             _this.currentGameIndex++;
+            if (typeof _this.gamesList === "undefined") {
+                _this.setCurrentGamesList();
+            }
             if (_this.currentGameIndex >= _this.gamesList.length) {
                 _this.currentGameIndex = 0;
             }
@@ -119,6 +122,9 @@
             _this.setInitialGameIfNone();
         },
         setCurrentGame: function() {
+            if (typeof _this.gamesList === 'undefined') {
+                _this.setCurrentGamesList();
+            }
             _this.currentGame = _this.gamesList[_this.currentGameIndex].gameName;
             _this.currentGameFull = _this.gamesList[_this.currentGameIndex];
             print('setCurrentGame: ' + _this.currentGameIndex + " " + _this.currentGame);
