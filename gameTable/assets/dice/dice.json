@@ -38,7 +38,8 @@
                 "z": 0.69532883167266846
             },
             "shapeType": "simple-compound",
-            "type": "Model"
+            "type": "Model",
+            "lifetime": 3600
         }
     ],
     "Version": 64

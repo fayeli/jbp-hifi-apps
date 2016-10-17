@@ -44,7 +44,8 @@
         "script": "http://hifi-content.s3.amazonaws.com/james/gametable-dev/snapToGrid.js",
         "textures": "{ \"Map #12\": \"https://s3-us-west-1.amazonaws.com/hifi-content/clement/production/chess/board_cherry.jpg\"}",
         "type": "Model",
-        "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
+        "userData": "{\"grabbableKey\":{\"grabbable\":true}}",
+        "lifetime": 3600
     }],
     "Version": 62
 }

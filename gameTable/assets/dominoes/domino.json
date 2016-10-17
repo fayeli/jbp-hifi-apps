@@ -37,7 +37,8 @@
         },
         "shapeType": "box",
         "type": "Model",
-        "userData": "{\"grabbableKey\":{\"grabbable\":true}}"
+        "userData": "{\"grabbableKey\":{\"grabbable\":true}}",
+        "lifetime": 3600
     }],
     "Version": 64
 }
