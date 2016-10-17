@@ -27,7 +27,7 @@
             _this.resetGame();
         },
         startNearTrigger: function() {
-            //_this.spawnNewSeat();
+            _this.resetGame();
         },
         startFarTrigger: function() {},
         resetGame: function() {

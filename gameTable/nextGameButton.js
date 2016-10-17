@@ -28,7 +28,7 @@
             _this.nextGame();
         },
         startNearTrigger: function() {
-            //_this.spawnNewSeat();
+            _this.nextGame();
         },
         startFarTrigger: function() {},
         nextGame: function() {
